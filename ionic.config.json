@@ -1,0 +1,7 @@
+{
+  "name": "harassment",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
