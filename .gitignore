@@ -2,8 +2,8 @@
 # http://git-scm.com/docs/gitignore
 
 # https://github.com/angular/angular/blob/master/aio/content/examples/.gitignore
-**/src/environments/environment.prod.ts 
-**/src/environments/environment.ts
+/src/environments/environment.prod.ts 
+/src/environments/environment.ts
 
 *~
 *.sw[mnpcod]
