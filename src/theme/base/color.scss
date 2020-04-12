@@ -1,0 +1,11 @@
+@import "~@angular/material/theming";
+
+// https://material.io/archive/guidelines/style/color.html#color-color-palette
+$ls-grey: mat-palette($mat-grey);
+$ls-yellow: mat-palette($mat-yellow);
+$ls-pink: mat-palette($mat-pink);
+$ls-brown: mat-palette($mat-brown);
+$ls-blue: mat-palette($mat-blue);
+$ls-teal: mat-palette($mat-teal);
+$ls-orange: mat-palette($mat-orange);
+$ls-deep-orange: mat-palette($mat-deep-orange);
