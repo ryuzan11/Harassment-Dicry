@@ -1,4 +1,6 @@
-export const firebaseError = {
+import { List } from '../shared/models/List';
+
+export const firebaseError: List<List<string>> = {
   'auth/invalid-email': {
     code: 'メールアドレスの間違い',
     message: 'メールアドレスのフォーマットが間違っています。'

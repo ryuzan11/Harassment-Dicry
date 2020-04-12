@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { NavController, AlertController } from '@ionic/angular';
 import { firebaseError } from './firebase.error';
+import { List } from '../shared/models/List';
 
 
 @Injectable({
@@ -15,7 +16,7 @@ export class AuthService {
     public alertController: AlertController
   ) { }
 
-  authSignUp(login: {email: string, password: string}) {
+  authSignUp(login: {email: string, password: string}): Promise<boolean> {
     return this.afAuth
       .createUserWithEmailAndPassword(login.email, login.password)
       .then(() => this.navController.navigateForward('/'))
@@ -25,7 +26,7 @@ export class AuthService {
       });
   }
 
-  authSignIn(login: {email: string, password: string}) {
+  authSignIn(login: {email: string, password: string}): Promise<boolean> {
     return this.afAuth
       .signInWithEmailAndPassword(login.email, login.password)
       .then(() => this.navController.navigateForward('/'))
@@ -35,7 +36,7 @@ export class AuthService {
       });
   }
 
-  authSignOut() {
+  authSignOut(): Promise<boolean> {
     return this.afAuth
       .signOut()
       .then(() => this.navController.navigateForward('/auth/signin'))
@@ -44,7 +45,7 @@ export class AuthService {
       });
   }
 
-  async alertError(e): Promise<void> {
+  async alertError(e: List<string>): Promise<void> {
     if (firebaseError.hasOwnProperty(e.code)) {
       e = firebaseError[e.code];
     }
