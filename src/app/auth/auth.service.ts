@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase';
 import { NavController, AlertController } from '@ionic/angular';
 import { firebaseError } from './firebase.error';
 import { List } from '../shared/models/List';
@@ -11,13 +11,16 @@ import { List } from '../shared/models/List';
 export class AuthService {
 
   constructor(
-    public afAuth: AngularFireAuth,
     public navController: NavController,
     public alertController: AlertController
   ) { }
 
+  getUserId(): string {
+    return firebase.auth().currentUser.uid;
+  }
+
   authSignUp(login: {email: string, password: string}): Promise<boolean> {
-    return this.afAuth
+    return firebase.auth()
       .createUserWithEmailAndPassword(login.email, login.password)
       .then(() => this.navController.navigateForward('/'))
       .catch(async error => {
@@ -27,7 +30,7 @@ export class AuthService {
   }
 
   authSignIn(login: {email: string, password: string}): Promise<boolean> {
-    return this.afAuth
+    return firebase.auth()
       .signInWithEmailAndPassword(login.email, login.password)
       .then(() => this.navController.navigateForward('/'))
       .catch(async error => {
@@ -37,7 +40,7 @@ export class AuthService {
   }
 
   authSignOut(): Promise<boolean> {
-    return this.afAuth
+    return firebase.auth()
       .signOut()
       .then(() => this.navController.navigateForward('/auth/signin'))
       .catch(error => {
