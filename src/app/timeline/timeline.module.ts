@@ -3,15 +3,17 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab3Page } from './tab3.page';
+import { SharedModule } from '../shared/shared.module';
+import { TimelinePage } from './timeline.page';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{ path: '', component: Tab3Page }])
+    SharedModule,
+    RouterModule.forChild([{ path: '', component: TimelinePage }])
   ],
-  declarations: [Tab3Page]
+  declarations: [TimelinePage]
 })
-export class Tab3PageModule {}
+export class TimelineModule {}

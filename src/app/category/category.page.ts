@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  selector: 'app-category',
+  templateUrl: 'category.page.html',
+  styleUrls: ['category.page.scss']
 })
-export class Tab2Page {
+export class CategoryPage {
 
   constructor(public auth: AuthService) {}
 

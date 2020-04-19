@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      タイムライン
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,13 +9,10 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">タイムライン</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-list>
-    <ion-item (click)="signOut()" button="true">
-      <ion-label>ログアウト</ion-label>
-    </ion-item>
-  </ion-list>
 
+  <ion-button (click)="localNotification()"></ion-button>
+  
 </ion-content>

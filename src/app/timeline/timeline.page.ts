@@ -4,11 +4,11 @@ import { ModalController } from '@ionic/angular';
 import { ProfilePage } from '../shared/profile/profile.page';
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  selector: 'app-timeline',
+  templateUrl: 'timeline.page.html',
+  styleUrls: ['timeline.page.scss']
 })
-export class Tab1Page implements OnInit {
+export class TimelinePage implements OnInit {
 
   constructor(public modalController: ModalController) {}
 
