@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ProfilePage } from './profile/profile.page';
+import { TabsComponent } from './tabs/tabs.component';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ProfilePage } from './profile/profile.page';
     FormsModule,
     IonicModule
   ],
-  declarations: [ProfilePage],
+  declarations: [ProfilePage, TabsComponent],
+  exports: [TabsComponent],
   entryComponents: [ProfilePage]
 })
 export class SharedModule { }

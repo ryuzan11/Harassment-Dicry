@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { ModalController } from '@ionic/angular';
-import { ProfilePage } from '../shared/profile/profile.page';
+import { ProfilePage } from '../../shared/profile/profile.page';
 
 @Component({
   selector: 'app-timeline',
@@ -13,10 +13,10 @@ export class TimelinePage implements OnInit {
   constructor(public modalController: ModalController) {}
 
   async ngOnInit() {
-    const modal = await this.modalController.create({
-      component: ProfilePage
-    });
-    await modal.present();
+    // const modal = await this.modalController.create({
+    //   component: ProfilePage
+    // });
+    // await modal.present();
   }
 
   localNotification(): void {

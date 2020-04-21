@@ -8,17 +8,17 @@ const redirectLoggedIn = () => redirectLoggedInTo(['/']);
 
 const routes: Routes = [
   {
-    path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
-    canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnauthorized }
-  },
-  {
     path: 'auth',
     loadChildren: () =>
       import('./auth/auth.module').then(m => m.AuthModule),
       canActivate: [AngularFireAuthGuard],
       data: { authGuardPipe: redirectLoggedIn }
+  },
+  {
+    path: '',
+    loadChildren: () => import('./pages/menu/menu.module').then( m => m.MenuPageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorized }
   },
 ];
 @NgModule({
