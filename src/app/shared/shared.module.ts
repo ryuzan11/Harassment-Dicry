@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { ProfilePage } from './profile/profile.page';
-import { TabsComponent } from './tabs/tabs.component';
+import { ProfilePage } from './ui/profile/profile.page';
+import { TabsComponent } from './ui/tabs/tabs.component';
+import { PrefecturesService } from './service/prefectures.service';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { TabsComponent } from './tabs/tabs.component';
     IonicModule
   ],
   declarations: [ProfilePage, TabsComponent],
+  providers: [PrefecturesService],
   exports: [TabsComponent],
   entryComponents: [ProfilePage]
 })

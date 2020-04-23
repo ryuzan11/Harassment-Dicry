@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Prefecture } from '../../shared/models/prefecture';
+import { PrefecturesService } from 'src/app/shared/service/prefectures.service';
 
 @Component({
   selector: 'app-other',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./other.page.scss'],
 })
 export class OtherPage implements OnInit {
+  prefectures: Prefecture[];
+  console = console;
 
-  constructor() { }
+  constructor(private prefecturesService: PrefecturesService) { }
 
   ngOnInit() {
+    this.getPrefectures();
+    console.log(this.prefectures);
   }
+
+  getPrefectures(): void {
+    this.prefectures = this.prefecturesService.getPrefectures();
+  }
+
 
 }
