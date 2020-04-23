@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { ModalController } from '@ionic/angular';
-import { ProfilePage } from '../../shared/profile/profile.page';
+import { ProfilePage } from '../../shared/ui/profile/profile.page';
 
 @Component({
   selector: 'app-timeline',

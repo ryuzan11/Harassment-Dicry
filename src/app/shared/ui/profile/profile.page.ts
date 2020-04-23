@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Plugins, CameraResultType } from '@capacitor/core';
 import { ModalController } from '@ionic/angular';
-import { AuthService } from '../../auth/auth.service';
-import { FirestoreService, IUser } from '../firestore.service';
+import { AuthService } from '../../../auth/auth.service';
+import { FirestoreService, IUser } from '../../api/firestore.service';
 
 @Component({
   selector: 'app-profile',
