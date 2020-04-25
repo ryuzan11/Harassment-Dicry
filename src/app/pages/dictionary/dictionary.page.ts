@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: 'category.page.html',
-  styleUrls: ['category.page.scss']
+  selector: 'app-dictionary',
+  templateUrl: 'dictionary.page.html',
+  styleUrls: ['dictionary.page.scss']
 })
-export class CategoryPage {
+export class DictionaryPage {
 
   constructor(public auth: AuthService) {}
 

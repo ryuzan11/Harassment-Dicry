@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoryPage } from '../category/category.page';
+import { DictionaryPage } from './dictionary.page';
 
 const routes: Routes = [
   { path: '',
-    component: CategoryPage,
+    component: DictionaryPage,
   },
   // {
   //   path: 'timeline',
@@ -32,4 +32,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CategoryPageRoutingModule {}
+export class DictionaryPageRoutingModule {}

@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CategoryPage } from './category.page';
+import { DictionaryPage } from './dictionary.page';
 import { SharedModule } from '../../shared/shared.module';
 // import { CategoryPageRoutingModule } from './category-routing';
 
@@ -14,8 +14,8 @@ import { SharedModule } from '../../shared/shared.module';
     FormsModule,
     SharedModule,
     // CategoryPageRoutingModule,
-    RouterModule.forChild([{ path: '', component: CategoryPage }])
+    RouterModule.forChild([{ path: '', component: DictionaryPage }])
   ],
-  declarations: [CategoryPage]
+  declarations: [DictionaryPage]
 })
-export class CategoryPageModule {}
+export class DictionaryPageModule {}

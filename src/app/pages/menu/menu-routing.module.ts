@@ -29,7 +29,7 @@ const routes: Routes = [
             {
               path: '',
               loadChildren: () =>
-              import('../category/category.module').then(m => m.CategoryPageModule),
+              import('../dictionary/dictionary.module').then(m => m.DictionaryPageModule),
             },
             {
               path: 'category',

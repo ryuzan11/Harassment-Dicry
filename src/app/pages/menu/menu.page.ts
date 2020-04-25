@@ -15,7 +15,7 @@ export class MenuPage implements OnInit {
       url: '/menu/timeline'
     },
     {
-      title: '種類',
+      title: '辞書',
       url: '/menu/category'
     },
     {
