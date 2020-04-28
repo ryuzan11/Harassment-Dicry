@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-dictionary',
@@ -8,10 +7,6 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class DictionaryPage {
 
-  constructor(public auth: AuthService) {}
-
-  signOut(): void {
-    this.auth.authSignOut();
-  }
+  constructor() {}
 
 }
