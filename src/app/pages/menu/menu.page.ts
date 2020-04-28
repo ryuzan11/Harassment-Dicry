@@ -23,6 +23,10 @@ export class MenuPage implements OnInit {
       url: '/menu/quiz'
     },
     {
+      title: 'リスト',
+      url: '/menu/list'
+    },
+    {
       title: 'その他',
       url: '/menu/other'
     },

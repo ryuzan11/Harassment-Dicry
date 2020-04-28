@@ -54,6 +54,21 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'list',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../list/list.module').then(m => m.ListPageModule)
+          },
+          {
+            path: 'list',
+            redirectTo: '',
+            pathMatch: 'full'
+          }
+        ]
+      },
+      {
         path: 'other',
         children: [
           {
@@ -79,6 +94,11 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'list/timeline',
+        redirectTo: 'timeline',
+        pathMatch: 'full'
+      },
+      {
         path: 'other/timeline',
         redirectTo: 'timeline',
         pathMatch: 'full'
@@ -94,8 +114,33 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'list/category',
+        redirectTo: 'category',
+        pathMatch: 'full'
+      },
+      {
         path: 'other/category',
         redirectTo: 'category',
+        pathMatch: 'full'
+      },
+      {
+        path: 'timeline/list',
+        redirectTo: 'list',
+        pathMatch: 'full'
+      },
+      {
+        path: 'category/list',
+        redirectTo: 'list',
+        pathMatch: 'full'
+      },
+      {
+        path: 'quiz/list',
+        redirectTo: 'list',
+        pathMatch: 'full'
+      },
+      {
+        path: 'other/list',
+        redirectTo: 'list',
         pathMatch: 'full'
       },
       {
@@ -105,6 +150,11 @@ const routes: Routes = [
       },
       {
         path: 'category/quiz',
+        redirectTo: 'quiz',
+        pathMatch: 'full'
+      },
+      {
+        path: 'lsit/quiz',
         redirectTo: 'quiz',
         pathMatch: 'full'
       },
@@ -125,6 +175,11 @@ const routes: Routes = [
       },
       {
         path: 'quiz/other',
+        redirectTo: 'other',
+        pathMatch: 'full'
+      },
+      {
+        path: 'list/other',
         redirectTo: 'other',
         pathMatch: 'full'
       },
