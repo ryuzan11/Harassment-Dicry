@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ProfilePage } from '../../shared/ui/profile/profile.page';
 import { Prefecture } from '../../shared/models/prefecture';
 import { PrefecturesService } from 'src/app/shared/service/prefectures.service';
 
@@ -9,18 +11,30 @@ import { PrefecturesService } from 'src/app/shared/service/prefectures.service';
 })
 export class OtherPage implements OnInit {
   prefectures: Prefecture[];
-  console = console;
 
-  constructor(private prefecturesService: PrefecturesService) { }
+  constructor(
+    private prefecturesService: PrefecturesService,
+    public modalController: ModalController
+  ) { }
 
   ngOnInit() {
     this.getPrefectures();
-    console.log(this.prefectures);
   }
 
   getPrefectures(): void {
     this.prefectures = this.prefecturesService.getPrefectures();
   }
 
+  async presentModal() {
+    console.log('aaa');
+    const modal =  await this.modalController.create({
+      component: ProfilePage
+    });
+    return await modal.present();
+  }
+
+  aaa() {
+    console.log('aaa');
+  }
 
 }
