@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ProfilePage } from './ui/profile/profile.page';
-import { TabsComponent } from './ui/tabs/tabs.component';
 import { PrefecturesService } from './service/prefectures.service';
 
 
@@ -13,9 +12,9 @@ import { PrefecturesService } from './service/prefectures.service';
     FormsModule,
     IonicModule
   ],
-  declarations: [ProfilePage, TabsComponent],
+  declarations: [ProfilePage],
   providers: [PrefecturesService],
-  exports: [TabsComponent],
+  exports: [],
   entryComponents: [ProfilePage]
 })
 export class SharedModule { }

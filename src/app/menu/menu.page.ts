@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { Router, RouterEvent } from '@angular/router';
 
 @Component({
@@ -12,23 +12,23 @@ export class MenuPage implements OnInit {
   pages = [
     {
       title: 'タイムライン',
-      url: '/menu/timeline'
+      url: '/main-tabs/timeline'
     },
     {
       title: '辞書',
-      url: '/menu/category'
+      url: '/main-tabs/dictionary'
     },
     {
       title: 'クイズ',
-      url: '/menu/quiz'
+      url: '/main-tabs/quiz'
     },
     {
       title: 'リスト',
-      url: '/menu/list'
+      url: '/main-tabs/list'
     },
     {
       title: 'その他',
-      url: '/menu/other'
+      url: '/main-tabs/other'
     },
   ];
 
