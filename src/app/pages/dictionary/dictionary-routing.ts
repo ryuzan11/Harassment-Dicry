@@ -6,26 +6,11 @@ const routes: Routes = [
   { path: '',
     component: DictionaryPage,
   },
-  // {
-  //   path: 'timeline',
-  //   redirectTo: '',
-  //   pathMatch: 'full'
-  // },
-  // {
-  //   path: 'category',
-  //   redirectTo: '',
-  //   pathMatch: 'full'
-  // },
-  // {
-  //   path: 'quiz',
-  //   redirectTo: '',
-  //   pathMatch: 'full'
-  // },
-  // {
-  //   path: 'other',
-  //   redirectTo: '',
-  //   pathMatch: 'full'
-  // },
+  {
+    path: 'dictionary',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({

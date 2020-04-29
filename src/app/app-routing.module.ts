@@ -15,15 +15,16 @@ const routes: Routes = [
       data: { authGuardPipe: redirectLoggedIn }
   },
   {
-    path: '',
+    path: 'menu',
     loadChildren: () => import('./pages/menu/menu.module').then( m => m.MenuPageModule),
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorized }
   },
   {
-    path: 'list',
-    loadChildren: () => import('./pages/list/list.module').then( m => m.ListPageModule)
-  },
+    path: '',
+    redirectTo: 'menu',
+    pathMatch: 'full'
+  }
 ];
 @NgModule({
   imports: [

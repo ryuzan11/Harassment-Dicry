@@ -5,7 +5,7 @@ import { MenuPage } from './menu.page';
 
 const routes: Routes = [
   {
-    path: 'menu',
+    path: '',
     component: MenuPage,
     children: [
       {
@@ -24,7 +24,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'category',
+        path: 'dictionary',
           children: [
             {
               path: '',
@@ -32,10 +32,10 @@ const routes: Routes = [
               import('../dictionary/dictionary.module').then(m => m.DictionaryPageModule),
             },
             {
-              path: 'category',
+              path: 'dictionary',
               redirectTo: '',
               pathMatch: 'full'
-            }
+            },
           ]
       },
       {
@@ -84,7 +84,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'category/timeline',
+        path: 'dictionary/timeline',
         redirectTo: 'timeline',
         pathMatch: 'full'
       },
@@ -104,23 +104,23 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'timeline/category',
-        redirectTo: 'category',
+        path: 'timeline/dictionary',
+        redirectTo: 'dictionary',
         pathMatch: 'full'
       },
       {
-        path: 'quiz/category',
-        redirectTo: 'category',
+        path: 'quiz/dictionary',
+        redirectTo: 'dictionary',
         pathMatch: 'full'
       },
       {
-        path: 'list/category',
-        redirectTo: 'category',
+        path: 'list/dictionary',
+        redirectTo: 'dictionary',
         pathMatch: 'full'
       },
       {
-        path: 'other/category',
-        redirectTo: 'category',
+        path: 'other/dictionary',
+        redirectTo: 'dictionary',
         pathMatch: 'full'
       },
       {
@@ -129,7 +129,7 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'category/list',
+        path: 'dictionary/list',
         redirectTo: 'list',
         pathMatch: 'full'
       },
@@ -149,12 +149,12 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'category/quiz',
+        path: 'dictionary/quiz',
         redirectTo: 'quiz',
         pathMatch: 'full'
       },
       {
-        path: 'lsit/quiz',
+        path: 'list/quiz',
         redirectTo: 'quiz',
         pathMatch: 'full'
       },
@@ -169,7 +169,7 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'category/other',
+        path: 'dictionary/other',
         redirectTo: 'other',
         pathMatch: 'full'
       },

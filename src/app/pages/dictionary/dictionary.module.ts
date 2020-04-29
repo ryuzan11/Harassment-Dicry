@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DictionaryPage } from './dictionary.page';
 import { SharedModule } from '../../shared/shared.module';
-// import { CategoryPageRoutingModule } from './category-routing';
+// import { DictionaryPageRoutingModule } from './dictionary-routing';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { SharedModule } from '../../shared/shared.module';
     CommonModule,
     FormsModule,
     SharedModule,
-    // CategoryPageRoutingModule,
+    // DictionaryPageRoutingModule,
     RouterModule.forChild([{ path: '', component: DictionaryPage }])
   ],
   declarations: [DictionaryPage]
