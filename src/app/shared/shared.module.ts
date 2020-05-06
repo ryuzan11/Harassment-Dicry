@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ProfilePage } from './ui/profile/profile.page';
 import { PrefecturesService } from './service/prefectures.service';
+import { DictionaryParentComponent } from './ui/dictionary-top/dictionary-parent.component';
+import { DictionaryChildrenComponent } from './ui/dictionary-children/dictionary-children.component';
+import { DictionaryDetailComponent } from './ui/dictionary-detail/dictionary-detail.component';
 
 
 @NgModule({
@@ -12,9 +15,19 @@ import { PrefecturesService } from './service/prefectures.service';
     FormsModule,
     IonicModule
   ],
-  declarations: [ProfilePage],
+  declarations: [
+    ProfilePage,
+    DictionaryParentComponent,
+    DictionaryChildrenComponent,
+    DictionaryDetailComponent
+  ],
   providers: [PrefecturesService],
   exports: [],
-  entryComponents: [ProfilePage]
+  entryComponents: [
+    ProfilePage,
+    DictionaryParentComponent,
+    DictionaryChildrenComponent,
+    DictionaryDetailComponent
+  ]
 })
 export class SharedModule { }
