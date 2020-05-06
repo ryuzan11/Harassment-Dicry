@@ -2,3 +2,9 @@ ion-split-pane {
   --side-max-width: 300px;
   --side-min-width: 300px;	
 }
+
+@media screen and (max-width: 991px) {
+  ion-menu {
+    display: none;
+  }
+}
