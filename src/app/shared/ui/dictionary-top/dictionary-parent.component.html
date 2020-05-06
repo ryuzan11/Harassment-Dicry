@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      カテゴリー
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  fullscreen>
+  <ion-list>
+    <ng-container *ngFor="let category of categories"> 
+      <ion-nav-link [component]="nextPage" [componentProps]="{'children': category.children}">
+        <ion-item button>
+          <ion-icon name="arrow-forward" slot="end"></ion-icon>
+          <ion-label>
+            {{category.name}}
+          </ion-label>
+        </ion-item>
+      </ion-nav-link>
+    </ng-container>
+  </ion-list>
+</ion-content>
