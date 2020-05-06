@@ -1,4 +1,4 @@
-import { List } from '../shared/models/List';
+import { List } from '../shared/models/list';
 
 export const firebaseError: List<List<string>> = {
   'auth/invalid-email': {

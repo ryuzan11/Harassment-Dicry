@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { NavController, AlertController } from '@ionic/angular';
 import { firebaseError } from './firebase.error';
-import { List } from '../shared/models/List';
+import { List } from '../shared/models/list';
 
 
 @Injectable({
