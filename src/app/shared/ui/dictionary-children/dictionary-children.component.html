@@ -11,7 +11,7 @@
 
 <ion-content  fullscreen>
   <ion-list>
-    <ng-container *ngFor="let variation of variations"> 
+    <ng-container *ngFor="let variation of variations">
       <ion-nav-link [component]="nextPage" [componentProps]="{'name': variation.name}">
         <ion-item button>
           <ion-icon name="arrow-forward" slot="end"></ion-icon>

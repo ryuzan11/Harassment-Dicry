@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Dictionaries } from 'src/app/shared/models/dictionaries';
 import { DictionariesService } from 'src/app/shared/service/dictionaries.service';
-import { DictionaryParentComponent } from '../../shared/ui/dictionary-top/dictionary-parent.component';
+import { DictionaryParentComponent } from '../../shared/ui/dictionary-parent/dictionary-parent.component';
 
 @Component({
   selector: 'app-dictionary',

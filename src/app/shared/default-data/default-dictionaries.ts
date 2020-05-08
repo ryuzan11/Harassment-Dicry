@@ -5,6 +5,18 @@ export const DICTIONARIES: Dictionaries[] = [
     name: 'ハラスメントとは?',
   },
   {
+    name: '関連団体',
+    children: [
+      {name: '厚生労働省'},
+      {name: '内閣府男女共同参画局'},
+      {name: '法務省'},
+      {name: '一般社団法人日本ハラスメント協会'},
+      {name: '一般財団法人日本ハラスメントカウンセラー協会'},
+      {name: '一般社団法人日本産業カウンセラー協会JAICO'},
+      {name: 'NPO NAAH'},
+    ]
+  },
+  {
     name: '上下関係',
     children: [
       {name: 'アルコールハラスメント'},
@@ -68,18 +80,6 @@ export const DICTIONARIES: Dictionaries[] = [
       {name: 'ペットハラスメント'},
       {name: '新型パワーハラスメント'},
       {name: 'ソジハラスメント'},
-    ]
-  },
-  {
-    name: '関連団体',
-    children: [
-      {name: '厚生労働省'},
-      {name: '内閣府男女共同参画局'},
-      {name: '法務省'},
-      {name: '一般社団法人日本ハラスメント協会'},
-      {name: '一般財団法人日本ハラスメントカウンセラー協会'},
-      {name: '一般社団法人日本産業カウンセラー協会JAICO'},
-      {name: 'NPO NAAH'},
     ]
   }
 ];

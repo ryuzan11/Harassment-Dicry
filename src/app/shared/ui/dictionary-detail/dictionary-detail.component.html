@@ -9,8 +9,23 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
-  <p>
-    {{name}}
-  </p>
-</ion-content>
+<ng-container *ngIf="hShow">
+  <ion-content fullscreen>
+    <p>{{harassment.name}}</p>
+    <p>{{harassment.abbreviation}}</p>
+    <p>{{harassment.description}}</p>
+  </ion-content>
+</ng-container>
+
+<ng-container *ngIf="oShow">
+  <ion-content fullscreen>
+    <ng-container *ngFor="let service of organization">
+      <p>{{service.service}}</p>
+      <p>{{service.code}}</p>
+      <p>{{service.address}}</p>
+      <p>{{service.url}}</p>
+      <p>{{service.description}}</p>
+    </ng-container>
+  </ion-content>
+</ng-container>
+

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Organizations } from '../models/organizations';
+import { Organization } from '../models/organization';
 import { ORGANIZATIONS } from '../default-data/default-organization';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrganizationsService {
-  getOrganizations(): Organizations[] {
+  getOrganizations(): Organization[] {
     return ORGANIZATIONS;
   }
 }

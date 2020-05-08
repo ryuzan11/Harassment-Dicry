@@ -1,4 +1,6 @@
+
 export interface Organization {
+  'name': string;
   'service': string | null;
   'code': string | null;
   'address': string | null;
