@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Plugins } from '@capacitor/core';
+import { AuthService } from '../../auth/auth.service';
+import { FirestoreService } from '../../shared/api/firestore.service';
 import { ProfilePage } from '../../shared/ui/profile/profile.page';
-import { Prefecture } from '../../shared/models/prefecture';
-import { PrefecturesService } from 'src/app/shared/service/prefectures.service';
 
 @Component({
   selector: 'app-other',
@@ -10,31 +11,38 @@ import { PrefecturesService } from 'src/app/shared/service/prefectures.service';
   styleUrls: ['./other.page.scss'],
 })
 export class OtherPage implements OnInit {
-  prefectures: Prefecture[];
 
   constructor(
-    private prefecturesService: PrefecturesService,
-    public modalController: ModalController
+    public modalController: ModalController,
+    public auth: AuthService,
+    public firestore: FirestoreService
   ) { }
 
-  ngOnInit() {
-    this.getPrefectures();
-  }
-
-  getPrefectures(): void {
-    this.prefectures = this.prefecturesService.getPrefectures();
+  async ngOnInit() {
+    const user = await this.firestore.userInit(this.auth.getUserId());
+    if (!user) {
+      this.presentModal();
+    }
   }
 
   async presentModal() {
-    console.log('aaa');
     const modal =  await this.modalController.create({
       component: ProfilePage
     });
     return await modal.present();
   }
 
-  aaa() {
-    console.log('aaa');
+  localNotification(): void {
+    Plugins.LocalNotifications.schedule({
+      notifications: [
+        {
+          id: 1,
+          title: 'ようこそ',
+          body: 'Ionic Frameworkへ',
+          schedule: {at: new Date(Date.now() + 1000 * 5)}
+        }
+      ]
+    });
   }
 
 }

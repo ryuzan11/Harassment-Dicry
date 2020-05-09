@@ -35,7 +35,34 @@
       </ion-item>
       <ion-item>
         <ion-label position="floating">表示名</ion-label>
-        <ion-input type="text" [(ngModel)]="user.displayName" name="displayName" required></ion-input>
+        <ion-input type="text" [(ngModel)]="user.displayName" name="displayName" disabled="user.displayName !== null" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-radio-group name="gender" [(ngModel)]="user.gender">
+          <ion-list-header>
+            <ion-label>性別</ion-label>
+          </ion-list-header>
+          <ion-item>
+            <ion-label>男性</ion-label>
+            <ion-radio slot="start" value="男性"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>女性</ion-label>
+            <ion-radio slot="start" value="女性"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>その他</ion-label>
+            <ion-radio slot="start" value="その他"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>無回答</ion-label>
+            <ion-radio slot="start" value="無回答"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">プロフィール</ion-label>
+        <ion-textarea [(ngModel)]="user.profile" name="profile" required></ion-textarea>
       </ion-item>
     </ion-list>
   </form>

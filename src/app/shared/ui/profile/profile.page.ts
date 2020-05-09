@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Plugins, CameraResultType } from '@capacitor/core';
 import { ModalController } from '@ionic/angular';
 import { AuthService } from '../../../auth/auth.service';
-import { FirestoreService, IUser } from '../../api/firestore.service';
+import { FirestoreService} from '../../api/firestore.service';
+import { IUser } from '../../models/i-user';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +15,8 @@ export class ProfilePage implements OnInit {
   user: IUser = {
     displayName: null,
     photoDataUrl: null,
+    gender: null,
+    profile: null
   };
   photo: string;
 
