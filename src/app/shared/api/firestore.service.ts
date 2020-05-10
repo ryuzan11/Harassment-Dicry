@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { first } from 'rxjs/operators';
+import { IUser } from '../models/i-user';
 
 
-export interface IUser {
-  displayName: string;
-  photoDataUrl: string;
-}
 
 @Injectable({
   providedIn: 'root'

@@ -21,11 +21,11 @@ export class OtherPage implements OnInit {
   async ngOnInit() {
     const user = await this.firestore.userInit(this.auth.getUserId());
     if (!user) {
-      this.presentModal();
+      this.openProfile();
     }
   }
 
-  async presentModal() {
+  async openProfile() {
     const modal =  await this.modalController.create({
       component: ProfilePage
     });

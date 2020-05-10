@@ -1,5 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Plugins } from '@capacitor/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalController, IonContent } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../auth/auth.service';
+import { FirestoreService } from '../../shared/api/firestore.service';
+import { StoryService } from '../../shared/api/story.service';
+import { ProfilePage } from 'src/app/shared/ui/profile/profile.page';
+import { IUser } from '../../shared/models/i-user';
+import { Story } from '../../shared/models/story';
+import { StoryPostPage } from 'src/app/shared/ui/story-post/story-post.page';
 
 
 @Component({
@@ -8,23 +16,53 @@ import { Plugins } from '@capacitor/core';
   styleUrls: ['timeline.page.scss']
 })
 export class TimelinePage implements OnInit {
+  uid: string;
+  user: IUser;
+  stories: Observable<Story[]>;
+  console = console;
 
-  constructor() {}
+  @ViewChild(IonContent, { static: true})
+  content: IonContent;
 
-  ngOnInit() {
+  constructor(
+    public modalController: ModalController,
+    public auth: AuthService,
+    public storyService: StoryService,
+    public firestore: FirestoreService
+  ) {}
+
+  async ngOnInit() {
+    const user = await this.firestore.userInit(this.auth.getUserId());
+    if (!user) {
+      const modal = await this.modalController.create({
+        component: ProfilePage
+      });
+      await modal.present();
+      modal.onDidDismiss().then(()  => this.ionViewWillEnter());
+    }
+    this.stories = this.storyService.storyInit();
   }
 
-  localNotification(): void {
-    Plugins.LocalNotifications.schedule({
-      notifications: [
-        {
-          id: 1,
-          title: 'ようこそ',
-          body: 'Ionic Frameworkへ',
-          schedule: {at: new Date(Date.now() + 1000 * 5)}
-        }
-      ]
+  async ionViewWillEnter() {
+    this.uid = this.auth.getUserId();
+    this.user = await this.firestore.userInit(this.uid);
+  }
+
+  trackByFn(index, item) {
+    return item.storyId;
+  }
+
+  async openStoryPost() {
+    const modal = await this.modalController.create({
+      component: StoryPostPage,
+      componentProps: {
+        content: this.content,
+        uid: this.uid,
+        user: this.user,
+      }
     });
+    await modal.present();
+    modal.onWillDismiss().then(() => this.content.scrollToTop(100));
   }
 
 }

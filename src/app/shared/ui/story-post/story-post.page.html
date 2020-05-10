@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="modalDismiss()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>ハラスメント事案</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="postStory()" [disabled]="!f.form.valid">
+        投稿
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm">
+    <ion-list class="ion-padding">
+      <ion-item>
+        <ion-label position="floating">投稿内容</ion-label>
+        <ion-textarea name="story" [(ngModel)]="story"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>性別</ion-label>
+        <ion-input type="text" [value]="navParams.data.user.gender" disabled></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
