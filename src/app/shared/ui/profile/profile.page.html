@@ -35,7 +35,7 @@
       </ion-item>
       <ion-item>
         <ion-label position="floating">表示名</ion-label>
-        <ion-input type="text" [(ngModel)]="user.displayName" name="displayName" disabled="user.displayName !== null" required></ion-input>
+        <ion-input type="text" [(ngModel)]="user.displayName" name="displayName" disabled="{{user.displayName !== null}}" required></ion-input>
       </ion-item>
       <ion-item>
         <ion-radio-group name="gender" [(ngModel)]="user.gender">
