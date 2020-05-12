@@ -19,14 +19,14 @@ import { StoryPostPage } from '../ui/story-post/story-post.page';
     DictionaryParentComponent,
     DictionaryChildrenComponent,
     DictionaryDetailComponent,
-    StoryPostPage
+    StoryPostPage,
   ],
   declarations: [
     ProfilePage,
     DictionaryParentComponent,
     DictionaryChildrenComponent,
     DictionaryDetailComponent,
-    StoryPostPage
+    StoryPostPage,
   ]
 })
 export class UiModule { }

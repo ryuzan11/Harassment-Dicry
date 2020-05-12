@@ -11,7 +11,7 @@ export class StoryService {
   storyCollection: AngularFirestoreCollection<Story>;
 
   constructor(public af: AngularFirestore) {
-    this.storyCollection = this.af.collection<Story>('story', ref => ref.orderBy('timestamp', 'desc'));
+    this.storyCollection = this.af.collection<Story>('story', ref => ref.orderBy('created_at', 'desc'));
   }
 
   storyAdd(story: Story) {
@@ -20,5 +20,9 @@ export class StoryService {
 
   storyInit(): Observable<Story[]> {
     return this.storyCollection.valueChanges({idField: 'storyId'});
+  }
+
+  storyUpdate(story: Story, id: string): Promise<void> {
+    return this.storyCollection.doc(id).update(story);
   }
 }

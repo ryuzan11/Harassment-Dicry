@@ -9,5 +9,6 @@ export interface Story {
   prefecture: string | null;
   harassment: string | null;
   listCount: number | null;
-  timestamp: number;
+  created_at: number;
+  updated_at?: number;
 }

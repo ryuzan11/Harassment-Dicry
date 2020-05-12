@@ -8,23 +8,29 @@
     <ion-title>ハラスメント事案</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="postStory()" [disabled]="!f.form.valid">
-        投稿
+        {{editMode ? '編集' : '投稿'}}
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content>
   <form #f="ngForm">
     <ion-list class="ion-padding">
       <ion-item>
         <ion-label position="floating">投稿内容</ion-label>
-        <ion-textarea name="story" [(ngModel)]="story"></ion-textarea>
+        <ion-textarea name="story" [(ngModel)]="data.preStory.story" *ngIf="editMode; else elseTextarea"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label>性別</ion-label>
-        <ion-input type="text" [value]="navParams.data.user.gender" disabled></ion-input>
+        <ion-input type="text" [value]="editMode ? data.preStory.user.gender : data.user.gender" disabled></ion-input>
       </ion-item>
     </ion-list>
   </form>
 </ion-content>
+
+<ng-template #elseTextarea>
+  <ion-textarea #textarea name="story" [(ngModel)]="story"></ion-textarea>
+</ng-template>
+  

@@ -19,7 +19,6 @@ export class TimelinePage implements OnInit {
   uid: string;
   user: IUser;
   stories: Observable<Story[]>;
-  console = console;
 
   @ViewChild(IonContent, { static: true})
   content: IonContent;
@@ -59,6 +58,21 @@ export class TimelinePage implements OnInit {
         content: this.content,
         uid: this.uid,
         user: this.user,
+      }
+    });
+    await modal.present();
+    modal.onWillDismiss().then(() => this.content.scrollToTop(100));
+  }
+
+  async openStoryEdit(story: Story, id: string) {
+    const modal = await this.modalController.create({
+      component: StoryPostPage,
+      componentProps: {
+        content: this.content,
+        storyId: id,
+        // uid: this.uid,
+        // user: this.user,
+        preStory: story
       }
     });
     await modal.present();

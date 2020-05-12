@@ -8,17 +8,22 @@
 
 <ion-content [fullscreen]="true">
   <ion-list class="ion-padding-top">
-    <ion-item lines="none" *ngFor="let s of (stories | async); trackBy: trackByFn">
+    <ion-item button lines="none" *ngFor="let s of (stories | async); trackBy: trackByFn">
       <ion-avatar slot="start">
         <ion-img [src]="s.user.photoDataUrl"></ion-img>
       </ion-avatar>
-      <ion-label class="ion-padding ion-text-wrap" 
-        style=
-        "background-color: var(--ion-color-light-tint); border-radius: 12px;"
-        [class.ion-margin-end]="true">
-        <div class="ion-text-nowrap"><strong>{{s.user.displayName}}</strong></div>
-        {{s.story}}
-      </ion-label>
+        <ion-label class="ion-padding ion-text-wrap" 
+          style=
+          "background-color: var(--ion-color-light-tint); border-radius: 12px;"
+          [class.ion-margin-end]="true">
+          <div class="ion-text-nowrap"><strong>{{s.user.displayName}}</strong></div>
+          {{s.story}}
+          <div *ngIf="uid === s.user.uid">
+            <ion-button color="medium" fill="clear" (click)="openStoryEdit(s, s.storyId)">
+              <ion-icon name="pencil-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-label>
     </ion-item>
   </ion-list>
 

@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StoryService } from '../../api/story.service';
-import { IUser } from '../../models/i-user';
 import { Story } from '../../models/story';
-import { IonContent, NavParams, ModalController } from '@ionic/angular';
+import { NavParams, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-story-post',
@@ -10,12 +9,15 @@ import { IonContent, NavParams, ModalController } from '@ionic/angular';
   styleUrls: ['./story-post.page.scss'],
 })
 export class StoryPostPage implements OnInit {
-  @Input() content: IonContent;
-  @Input() uid: string;
-  @Input() user: IUser;
+  // @Input() content: IonContent;
+  // @Input() uid: string;
+  // @Input() user: IUser;
+  // @Input() preStory: Story | undefined;
 
   story = '';
+  data: {[key: string]: any};
   params: Story;
+  editMode: boolean;
 
   constructor(
     public storyService: StoryService,
@@ -24,6 +26,8 @@ export class StoryPostPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.data = this.navParams.data;
+    this.editMode = this.navParams.data.preStory ? true : false;
   }
 
   modalDismiss(): void {
@@ -31,12 +35,13 @@ export class StoryPostPage implements OnInit {
   }
 
   postStory() {
-    if (!this.user) {
+    if (!this.data.user && !this.data.preStory) {
       alert('プロフィール登録が必要です');
       return;
     }
-    this.setParams();
-    this.storyService.storyAdd(this.params);
+    const id = this.data.storyId;
+    this.editMode ? this.setEditParams() : this.setParams();
+    this.editMode ? this.storyService.storyUpdate(this.params, id) : this.storyService.storyAdd(this.params);
     this.story = '';
     this.modalController.dismiss();
   }
@@ -44,16 +49,33 @@ export class StoryPostPage implements OnInit {
   setParams(): void {
     this.params = {
       user: {
-        uid: this.navParams.data.uid,
-        displayName: this.navParams.data.user.displayName,
-        photoDataUrl: this.navParams.data.user.photoDataUrl,
-        gender: this.navParams.data.user.gender
+        uid: this.data.uid,
+        displayName: this.data.user.displayName,
+        photoDataUrl: this.data.user.photoDataUrl,
+        gender: this.data.user.gender
       },
       story: this.story,
       prefecture: null,
       harassment: null,
       listCount: null,
-      timestamp: Date.now()
+      created_at: Date.now()
+    };
+  }
+
+  setEditParams(): void {
+    this.params = {
+      user: {
+        uid: this.data.preStory.user.uid,
+        displayName: this.data.preStory.user.displayName,
+        photoDataUrl: this.data.preStory.user.photoDataUrl,
+        gender: this.data.preStory.user.gender
+      },
+      story: this.data.preStory.story,
+      prefecture: null,
+      harassment: null,
+      listCount: null,
+      created_at: this.data.preStory.created_at,
+      updated_at: Date.now(),
     };
   }
 
