@@ -25,4 +25,12 @@ export class StoryService {
   storyUpdate(story: Story, id: string): Promise<void> {
     return this.storyCollection.doc(id).update(story);
   }
+
+  storyDelete(id: string): Promise<any> {
+    return this.storyCollection.doc(id).delete().then(() => {
+      return '削除しました';
+    }).catch((error) => {
+      return error;
+    });
+  }
 }

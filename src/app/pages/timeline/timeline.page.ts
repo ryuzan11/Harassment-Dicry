@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalController, IonContent } from '@ionic/angular';
+import { ModalController, IonContent, AlertController, ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { FirestoreService } from '../../shared/api/firestore.service';
@@ -25,6 +25,8 @@ export class TimelinePage implements OnInit {
 
   constructor(
     public modalController: ModalController,
+    public alertController: AlertController,
+    public toastController: ToastController,
     public auth: AuthService,
     public storyService: StoryService,
     public firestore: FirestoreService
@@ -70,13 +72,42 @@ export class TimelinePage implements OnInit {
       componentProps: {
         content: this.content,
         storyId: id,
-        // uid: this.uid,
-        // user: this.user,
         preStory: story
       }
     });
     await modal.present();
     modal.onWillDismiss().then(() => this.content.scrollToTop(100));
+  }
+
+  async openStoryDelete(id: string) {
+    const alert = await this.alertController.create({
+      header: '削除してよろしいですか？',
+      message: '削除すると復元できなくなります。',
+      buttons: [
+        {
+          text: 'キャンセル',
+          role: 'cansel',
+          cssClass: 'secondary'
+        }, {
+          text: '削除',
+          cssClass: 'danger',
+          handler: () => {
+            this.storyService.storyDelete(id).then(result => {
+              this.presentToast(result);
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async presentToast(text) {
+    const toast = await this.toastController.create({
+      message: text,
+      duration: 2000
+    });
+    toast.present();
   }
 
 }
