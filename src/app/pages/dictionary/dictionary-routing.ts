@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DictionaryPage } from './dictionary.page';
+import { ShowPage } from './show/show.page';
 
 const routes: Routes = [
   { path: '',
-    component: DictionaryPage,
-  },
-  {
-    path: 'dictionary',
-    redirectTo: '',
-    pathMatch: 'full'
+    component:  DictionaryPage,
+    children: [
+      {
+        path: ':quizId',
+        component: ShowPage,
+      }
+    ]
   },
 ];
 
