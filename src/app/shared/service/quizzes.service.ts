@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 
 import { Quiz } from '../models/quiz';
-import { QUIZ } from '../default-data/default-quiz';
+import { QUIZEES } from '../default-data/default-quizzes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuizService {
   getQuizzes(): Quiz[] {
-    return QUIZ;
+    return QUIZEES;
   }
 
 }
