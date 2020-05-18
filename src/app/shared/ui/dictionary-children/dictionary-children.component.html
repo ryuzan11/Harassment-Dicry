@@ -12,14 +12,12 @@
 <ion-content  fullscreen>
   <ion-list>
     <ng-container *ngFor="let variation of variations">
-      <ion-nav-link [component]="nextPage" [componentProps]="{'name': variation.name}">
-        <ion-item button>
-          <ion-icon name="arrow-forward" slot="end"></ion-icon>
-          <ion-label>
-            {{variation.name}}
-          </ion-label>
-        </ion-item>
-      </ion-nav-link>
+      <ion-item button (click)="navigateShow(variation.harassmentId)">
+        <ion-icon name="arrow-forward" slot="end"></ion-icon>
+        <ion-label>
+          {{variation.name}}
+        </ion-label>
+      </ion-item>
     </ng-container>
   </ion-list>
 </ion-content>

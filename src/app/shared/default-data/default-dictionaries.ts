@@ -26,6 +26,7 @@ export const DICTIONARIES: Dictionaries[] = [
       {name: 'テクノロジーハラスメント'},
       {name: 'パワーハラスメント'},
       {name: 'リストラハラスメント'},
+      {name: 'パタニティハラスメント'},
       {name: 'アカデミックハラスメント'},
       {name: 'ドクターハラスメント'},
       {name: 'ハラスメントハラスメント'},
@@ -39,16 +40,12 @@ export const DICTIONARIES: Dictionaries[] = [
       {name: 'ジェンダーハラスメント'},
       {name: 'セクシャルハラスメント'},
       {name: 'テクスチュアルハラスメント'},
-      {name: 'パタニティハラスメント'},
-      {name: 'マタニティハラスメント'},
       {name: 'マリッジハラスメント'},
       {name: 'ラブハラスメント'},
       {name: 'スクールセクシャルハラスメント'},
       {name: 'ゼクシャルハラスメント'},
       {name: '告白ハラスメント'},
       {name: '家事ハラスメント'},
-      {name: '妊活ハラスメント'},
-      {name: '2人目ハラスメント'},
     ]
   },
   {
@@ -67,6 +64,7 @@ export const DICTIONARIES: Dictionaries[] = [
     children: [
       {name: 'ヌードルハラスメント'},
       {name: 'エンジョイハラスメント'},
+      {name: 'マタニティハラスメント'},
       {name: 'レイシャルハラスメント'},
       {name: 'レリジャスハラスメント'},
       {name: 'エアーハラスメント'},
@@ -79,6 +77,8 @@ export const DICTIONARIES: Dictionaries[] = [
       {name: 'モラルハラスメント'},
       {name: 'ペットハラスメント'},
       {name: '新型パワーハラスメント'},
+      {name: '妊活ハラスメント'},
+      {name: '2人目ハラスメント'},
       {name: 'ソジハラスメント'},
     ]
   }

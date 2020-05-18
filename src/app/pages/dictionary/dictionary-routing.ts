@@ -5,14 +5,12 @@ import { ShowPage } from './show/show.page';
 
 const routes: Routes = [
   { path: '',
-    component:  DictionaryPage,
-    children: [
-      {
-        path: ':quizId',
-        component: ShowPage,
-      }
-    ]
+    component:  DictionaryPage
   },
+  {
+    path: ':harassmentId',
+    component: ShowPage,
+  }
 ];
 
 @NgModule({
