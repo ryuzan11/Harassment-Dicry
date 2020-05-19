@@ -1,10 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>show</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{harassment.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item button> aaa </ion-item>
-  aa
+  <ion-item p>{{harassment.abbreviation}}</ion-item>
+  <ion-item p>{{harassment.category}}</ion-item>
+  <ion-item p>{{harassment.description}}</ion-item>
 </ion-content>

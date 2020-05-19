@@ -9,4 +9,12 @@ export class HarassmentsService {
   getHarassments(): Harassment[] {
     return HARASSMENTS;
   }
+
+  getHarassment(id: string): Harassment {
+    for (const h of HARASSMENTS) {
+      if (h.id === id && h.state === 'public' ) {
+        return  h;
+      }
+    }
+  }
 }
