@@ -25,7 +25,7 @@ export class ShowPage implements OnInit {
   }
 
   getHarassment(id: string) {
-    this.harassment = this.harassmentService.getHarassment(id);
+    this.harassment = this.harassmentService.getHarassmentFromId(id);
   }
 
 }

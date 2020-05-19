@@ -1,31 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { QuizPage } from '../quiz/quiz.page';
+import { ShowPage } from './show/show.page';
 
 const routes: Routes = [
-  { path: '',
+  {
+    path: '',
     component: QuizPage,
   },
   {
-    path: 'timeline',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
-  {
-    path: 'category',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
-  {
-    path: 'quiz',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
-  {
-    path: 'other',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
+    path: ':categoryId/:quizId',
+    component: ShowPage
+  }
 ];
 
 @NgModule({

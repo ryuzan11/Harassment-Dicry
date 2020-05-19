@@ -10,9 +10,17 @@ export class HarassmentsService {
     return HARASSMENTS;
   }
 
-  getHarassment(id: string): Harassment {
+  getHarassmentFromId(id: string): Harassment {
     for (const h of HARASSMENTS) {
       if (h.id === id && h.state === 'public' ) {
+        return  h;
+      }
+    }
+  }
+
+  getHarassmentFromName(name: string): Harassment {
+    for (const h of HARASSMENTS) {
+      if (h.name === name && h.state === 'public' ) {
         return  h;
       }
     }

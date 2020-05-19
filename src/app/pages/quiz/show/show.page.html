@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>クイズ</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  {{quiz.quiz}}
+  <ion-item class="quiz-buttons">
+    <ion-button class="quiz-button">
+      {{quiz.choices[0]}}
+    </ion-button>
+    <ion-button class="quiz-button">
+      {{quiz.choices[1]}}
+    </ion-button>
+  </ion-item>
+  <ion-item><ion-button class="exit-quiz" color="light">終了</ion-button></ion-item>
+
+</ion-content>

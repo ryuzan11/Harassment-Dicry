@@ -6,6 +6,7 @@ export interface Quiz {
   'choices': List<string>;
   'correct': string;
   'description': string;
+  'state': 'public' | 'private';
   'category': string;
   'harassments': List<string>;
 }
