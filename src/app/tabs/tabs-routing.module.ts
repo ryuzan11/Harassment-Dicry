@@ -11,16 +11,11 @@ const routes: Routes = [
         path: '',
         loadChildren: () => import('../menu/menu.module').then(m => m.MenuPageModule)
       },
-      {
-        path: '',
-        redirectTo: '/main-tabs/timeline',
-        pathMatch: 'full'
-      }
     ]
   },
   {
     path: '',
-    redirectTo: '/main-tabs/timeline',
+    redirectTo: '/main-tabs',
     pathMatch: 'full'
   }
 ];

@@ -19,10 +19,6 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorized }
-  },
-  {
-    path: 'show',
-    loadChildren: () => import('./pages/dictionary/show/show.module').then( m => m.ShowPageModule)
   }
 ];
 @NgModule({
