@@ -9,7 +9,8 @@ import { DictionaryChildrenComponent } from '../dictionary-children/dictionary-c
 })
 export class DictionaryParentComponent implements OnInit {
   categories: {[key: string]: any} = {};
-  nextPage = DictionaryChildrenComponent;
+  nextPage = DictionaryChildrenComponent
+  ;
 
   constructor(private navParams: NavParams) { }
 

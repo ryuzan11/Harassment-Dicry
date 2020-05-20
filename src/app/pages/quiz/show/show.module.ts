@@ -15,6 +15,8 @@ import { ShowPage } from './show.page';
     IonicModule,
     ShowPageRoutingModule
   ],
-  declarations: [ShowPage]
+  declarations: [
+    ShowPage,
+  ]
 })
 export class ShowPageModule {}

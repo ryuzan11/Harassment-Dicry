@@ -11,4 +11,12 @@ export class CategoriesService {
   getCategories(): Category[] {
     return CATEGORIES;
   }
+
+  getCategoryFromId(id: string): Category {
+    for (const c of CATEGORIES) {
+      if (c.id === id) {
+        return c;
+      }
+    }
+  }
 }

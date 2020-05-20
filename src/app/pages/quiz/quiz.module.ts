@@ -7,6 +7,7 @@ import { QuizPage } from './quiz.page';
 import { ShowPage } from './show/show.page';
 import { SharedModule } from '../../shared/shared.module';
 import { QuizPageRoutingModule } from './quiz-routing';
+import { QuestionComponent } from './show/question/question.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,11 @@ import { QuizPageRoutingModule } from './quiz-routing';
   ],
   declarations: [
     QuizPage,
-    ShowPage
+    ShowPage,
+    QuestionComponent
+  ],
+  entryComponents: [
+    QuestionComponent
   ]
 })
 export class QuizPageModule {}

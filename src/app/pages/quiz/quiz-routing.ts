@@ -9,7 +9,7 @@ const routes: Routes = [
     component: QuizPage,
   },
   {
-    path: ':categoryId/:quizId',
+    path: ':categoryId',
     component: ShowPage
   }
 ];

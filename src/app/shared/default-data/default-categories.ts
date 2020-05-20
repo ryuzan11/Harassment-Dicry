@@ -7,5 +7,5 @@ export const CATEGORIES: Category[] = [
   {id: '03', name: '上下関係'},
   {id: '04', name: '性・恋愛'},
   {id: '05', name: '身体'},
-  {id: '00', name: '心'},
+  {id: '06', name: '心'},
 ];
