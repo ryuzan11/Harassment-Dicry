@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      子要素
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  fullscreen>
+  <ion-list>
+    <ng-container *ngFor="let quiz of quizzes; index as i">
+      <ion-button>{{quiz.category}}</ion-button>
+    <ion-nav-link [component]="nextPage" [componentProps]="{'ids': listIds[i]}">
+      <ion-item button>
+        <ion-icon name="arrow-forward" slot="end"></ion-icon>
+        <ion-label>
+          {{i+1}}  {{quiz.quiz}}
+        </ion-label>
+      </ion-item>
+    </ion-nav-link>
+    </ng-container>
+  </ion-list>
+</ion-content>

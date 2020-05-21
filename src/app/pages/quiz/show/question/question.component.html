@@ -1,19 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>クイズ</ion-title>
+    <ion-title>{{index+1}}/{{idsCount}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   {{quiz.quiz}}
   <ion-item class="quiz-buttons">
-    <ion-button class="quiz-button">
+    <ion-button class="quiz-button" (click)="presentAnswer('0')">
       {{quiz.choices[0]}}
     </ion-button>
-    <ion-button class="quiz-button">
+    <ion-button class="quiz-button" (click)="presentAnswer('1')">
       {{quiz.choices[1]}}
     </ion-button>
   </ion-item>
-  <ion-item><ion-button class="exit-quiz" color="light" (click)="presentAnswer('aaa')">終了</ion-button></ion-item>
+  <ion-item><ion-button class="exit-quiz" color="light" (click)="exitQuiz()">終了</ion-button></ion-item>
 
 </ion-content>

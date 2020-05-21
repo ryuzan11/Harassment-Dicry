@@ -29,16 +29,15 @@ export class QuizPage implements OnInit {
     this.categories = this.categoriesService.getCategories();
   }
 
-  navigateQuize(category: string) {
-    const categoryId: string[] = [];
+  navigateQuiz(category: string) {
+    let categoryId = null;
     this.categories.forEach(c => {
       if (c.name === category) {
-        categoryId.push(c.id);
+        categoryId = c.id;
       }
     });
 
-    this.router.navigateByUrl('/main-tabs/quiz/' +
-      (categoryId[0] ? categoryId[0] : '01'));
+    this.router.navigateByUrl('/main-tabs/quiz/' + categoryId);
   }
 
 }

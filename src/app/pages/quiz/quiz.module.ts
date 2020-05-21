@@ -8,6 +8,7 @@ import { ShowPage } from './show/show.page';
 import { SharedModule } from '../../shared/shared.module';
 import { QuizPageRoutingModule } from './quiz-routing';
 import { QuestionComponent } from './show/question/question.component';
+import { ListComponent } from './show/list/list.component';
 
 @NgModule({
   imports: [
@@ -21,10 +22,12 @@ import { QuestionComponent } from './show/question/question.component';
   declarations: [
     QuizPage,
     ShowPage,
-    QuestionComponent
+    QuestionComponent,
+    ListComponent
   ],
   entryComponents: [
-    QuestionComponent
+    QuestionComponent,
+    ListComponent
   ]
 })
 export class QuizPageModule {}
