@@ -18,11 +18,8 @@ export class OtherPage implements OnInit {
     public firestore: FirestoreService
   ) { }
 
-  async ngOnInit() {
-    const user = await this.firestore.userInit(this.auth.getUserId());
-    if (!user) {
-      this.openProfile();
-    }
+  ngOnInit() {
+    const user = this.firestore.userInit(this.auth.getUserId());
   }
 
   async openProfile() {

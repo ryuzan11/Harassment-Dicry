@@ -39,7 +39,6 @@ export class QuestionComponent implements OnInit {
   async presentAnswer(answer: string) {
     const headerMessage = (answer === this.quiz.correct) ? '正解' : '残念';
     let alertCtl: HTMLIonAlertElement;
-    // if (last-1 === this.index) 次が最後の問題です lase===-1 お疲れ様でした。Topに戻る
     if (this.index !== (this.idsCount - 1)) {
       alertCtl = await this.alertController.create({
         header: headerMessage,

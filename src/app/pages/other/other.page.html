@@ -5,6 +5,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <div class="ion-text-center ion-padding">
+    <ion-avatar style="display: inline-block;">
+      <img [src]="photo || user.photoDataUrl || '/assets/shapes.svg'">
+    </ion-avatar>
+  </div>
   <ion-button (click)="openProfile()">eeeeeeeee</ion-button>
   <ion-button (click)="localNotification()"></ion-button>
 </ion-content>
