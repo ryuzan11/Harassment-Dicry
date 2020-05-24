@@ -1,28 +1,58 @@
-<ion-tabs #myTabs (click)="getTab()">
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="timeline">
-      <ion-icon name="home"></ion-icon>
-      <ion-label>タイムライン</ion-label>
-    </ion-tab-button>
+<ion-split-pane contentId="main-content">
+  <ion-menu>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>MENU</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-    <ion-tab-button tab="dictionary">
-      <ion-icon name="book"></ion-icon>
-      <ion-label>辞書</ion-label>
-    </ion-tab-button>
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
+          <ion-item [routerLink]="p.url" routerDirection="root" [class.active-item]="selectedPath.startsWith(p.url)">
+            <ion-label>
+              {{p.title}}
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
 
-    <ion-tab-button tab="quiz">
-      <ion-icon name="checkmark-circle"></ion-icon>
-      <ion-label>クイズ</ion-label>
-    </ion-tab-button>
+        <ion-item (click)="logOut()" button="true">
+          <ion-icon name="log-out" slot="start"></ion-icon>
+          <ion-label>ログアウト</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
 
-    <ion-tab-button tab="list">
-      <ion-icon name="bookmark"></ion-icon>
-      <ion-label>リスト</ion-label>
-    </ion-tab-button>
+  <section id="main-content">
+    <ion-tabs #myTabs (click)="getTab()">
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="timeline">
+          <ion-icon name="home"></ion-icon>
+          <ion-label>タイムライン</ion-label>
+        </ion-tab-button>
 
-    <ion-tab-button tab="other">
-      <ion-icon name="settings"></ion-icon>
-      <ion-label>その他</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
+        <ion-tab-button tab="dictionary">
+          <ion-icon name="book"></ion-icon>
+          <ion-label>辞書</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="quiz">
+          <ion-icon name="checkmark-circle"></ion-icon>
+          <ion-label>クイズ</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="list">
+          <ion-icon name="bookmark"></ion-icon>
+          <ion-label>リスト</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="other">
+          <ion-icon name="settings"></ion-icon>
+          <ion-label>その他</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </section>
+
+</ion-split-pane>

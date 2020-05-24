@@ -2,6 +2,21 @@ ion-tab-button {
   --color-selected: #00a6a8;
 }
 
+ion-menu {
+  --side-max-width: 300px;
+  // --side-min-width: 300px;
+}
+
+#main-content {
+  width: 100%;
+}
+
+@media screen and (max-width: 991px) {
+  ion-menu {
+    display: none;
+  }
+}
+
 @media screen and (min-width: 992px) {
   ion-tab-bar {
     display: none;

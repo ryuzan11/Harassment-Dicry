@@ -37,7 +37,7 @@ export class QuizPage implements OnInit {
       }
     });
 
-    this.router.navigateByUrl('/main-tabs/quiz/' + categoryId);
+    this.router.navigateByUrl('/main/quiz/' + categoryId);
   }
 
 }

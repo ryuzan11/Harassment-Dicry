@@ -45,7 +45,7 @@ export class DictionaryChildrenComponent implements OnInit {
   }
 
   navigateShow(id: string) {
-    this.router.navigateByUrl('/main-tabs/dictionary/' + id);
+    this.router.navigateByUrl('/main/dictionary/' + id);
   }
 
 }

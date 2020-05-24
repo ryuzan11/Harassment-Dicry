@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { QuizPage } from '../quiz/quiz.page';
+import { QuizPage } from './quiz.page';
 import { ShowPage } from './show/show.page';
 
 const routes: Routes = [

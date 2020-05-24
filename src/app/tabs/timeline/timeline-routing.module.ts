@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TimelinePage } from '../timeline/timeline.page';
+import { TimelinePage } from './timeline.page';
 
 const routes: Routes = [
   { path: '',

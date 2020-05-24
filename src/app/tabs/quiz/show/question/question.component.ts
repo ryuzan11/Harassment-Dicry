@@ -86,11 +86,11 @@ export class QuestionComponent implements OnInit {
 
   navigateHarassment() {
     const relateId = this.harassmentsService.getHarassmentFromName(this.quiz.harassments[0]).id;
-    this.router.navigateByUrl('/main-tabs/dictionary/' + relateId);
+    this.router.navigateByUrl('/main/dictionary/' + relateId);
   }
 
   exitQuiz() {
-    this.router.navigateByUrl('/main-tabs/quiz');
+    this.router.navigateByUrl('/main/quiz');
   }
 
 }
