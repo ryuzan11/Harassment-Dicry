@@ -44,7 +44,6 @@ export class ShowPage implements OnInit {
         this.ids.push(q.id);
       }
     });
-    // quizzesがない時、クイズ一覧を代入する
   }
 
   getCategory(id: string) {

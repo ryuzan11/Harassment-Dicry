@@ -1,0 +1,18 @@
+.label {
+  background-color: var(--ion-color-dark-tint);
+  color: #fff;
+  font-size: .7rem;
+  padding: 2px 5px;
+  margin-right: .5rem;
+  border-radius: 3px;
+  position: relative;
+  top: -1px;
+}
+
+.required {
+  background-color: var(--ion-color-danger);
+}
+
+.color-initial {
+  --color: initial;
+}

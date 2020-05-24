@@ -24,7 +24,8 @@ export class OtherPage implements OnInit {
 
   async openProfile() {
     const modal =  await this.modalController.create({
-      component: ProfilePage
+      component: ProfilePage,
+      backdropDismiss: false
     });
     return await modal.present();
   }

@@ -51,8 +51,4 @@ export class TabsPage implements OnInit {
     this.auth.authSignOut();
   }
 
-  getTab() {
-    console.log(this.tabs.getSelected());
-  }
-
 }

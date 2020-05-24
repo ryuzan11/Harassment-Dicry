@@ -34,8 +34,14 @@
         <ion-input type="text" [value]="uid" disabled></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">表示名</ion-label>
-        <ion-input type="text" [(ngModel)]="user.displayName" name="displayName" disabled="{{user.displayName !== null}}" required></ion-input>
+        <ion-label position="floating"><span class="label required">必須</span>表示名</ion-label>
+        <ion-input type="text" [(ngModel)]="user.displayName" name="displayName" disabled="{{nowDisplayName}}" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>所在地(都道府県)<ion-button class="color-initial" size="small" fill="clear" (click)="openPrefectureHelp()"><ion-icon name="help-circle-outline"></ion-icon></ion-button></ion-label>
+        <ion-select interface="popover" placeholder="未設定" [(ngModel)]="user.prefecture" name="prefecture">
+          <ion-select-option *ngFor="let p of prefectures" [value]="p.name">{{p.name}}</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item>
         <ion-radio-group name="gender" [(ngModel)]="user.gender">
@@ -61,7 +67,7 @@
         </ion-radio-group>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">プロフィール</ion-label>
+        <ion-label position="floating">一言プロフィール</ion-label>
         <ion-textarea [(ngModel)]="user.profile" name="profile" required></ion-textarea>
       </ion-item>
     </ion-list>

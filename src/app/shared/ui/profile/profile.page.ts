@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Plugins, CameraResultType } from '@capacitor/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { AuthService } from '../../../auth/auth.service';
 import { FirestoreService} from '../../api/firestore.service';
 import { IUser } from '../../models/i-user';
+import { PrefecturesService } from '../../service/prefectures.service';
+import { Prefecture } from '../../models/prefecture';
 
 @Component({
   selector: 'app-profile',
@@ -15,15 +17,23 @@ export class ProfilePage implements OnInit {
   user: IUser = {
     displayName: null,
     photoDataUrl: null,
+    prefecture: null,
     gender: null,
     profile: null
   };
+  nowDisplayName = false;
   photo: string;
+
+  get prefectures() {
+    return this.prefecturesService.prefectures;
+  }
 
   constructor(
     public modalController: ModalController,
+    public alertController: AlertController,
     public auth: AuthService,
-    public firestore: FirestoreService
+    public firestore: FirestoreService,
+    public prefecturesService: PrefecturesService
   ) { }
 
   ngOnInit() {
@@ -38,6 +48,7 @@ export class ProfilePage implements OnInit {
     const user = await this.firestore.userInit(this.uid);
     if (user) {
       this.user = user;
+      this.nowDisplayName = user.displayName ? true : false;
     }
   }
 
@@ -55,6 +66,14 @@ export class ProfilePage implements OnInit {
       resultType: CameraResultType.DataUrl
     });
     this.photo = image && image.dataUrl;
+  }
+
+  async openPrefectureHelp() {
+    const alert = await this.alertController.create({
+      header: '所在地について',
+      message: '投稿する際に必要な「発生場所」項目にこれが初期設定として自動で入力されます',
+    });
+    await alert.present();
   }
 
 }

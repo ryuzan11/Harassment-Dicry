@@ -4,7 +4,8 @@ import { DictionaryPage } from './dictionary.page';
 import { ShowPage } from './show/show.page';
 
 const routes: Routes = [
-  { path: '',
+  {
+    path: '',
     component:  DictionaryPage
   },
   {

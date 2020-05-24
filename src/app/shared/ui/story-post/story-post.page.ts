@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StoryService } from '../../api/story.service';
 import { Story } from '../../models/story';
 import { NavParams, ModalController } from '@ionic/angular';
+import { PrefecturesService } from '../../service/prefectures.service';
 
 @Component({
   selector: 'app-story-post',
@@ -9,10 +10,6 @@ import { NavParams, ModalController } from '@ionic/angular';
   styleUrls: ['./story-post.page.scss'],
 })
 export class StoryPostPage implements OnInit {
-  // @Input() content: IonContent;
-  // @Input() uid: string;
-  // @Input() user: IUser;
-  // @Input() preStory: Story | undefined;
 
   story = '';
   data: {[key: string]: any};
@@ -22,7 +19,8 @@ export class StoryPostPage implements OnInit {
   constructor(
     public storyService: StoryService,
     public modalController: ModalController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    public prefecturesService: PrefecturesService
   ) { }
 
   ngOnInit() {

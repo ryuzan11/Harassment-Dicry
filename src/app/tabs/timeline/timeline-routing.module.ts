@@ -1,31 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TimelinePage } from './timeline.page';
+import { ShowPage } from './show/show.page';
 
 const routes: Routes = [
-  { path: '',
+  {
+    path: '',
     component: TimelinePage,
   },
-  // {
-  //   path: 'timeline',
-  //   redirectTo: '',
-  //   pathMatch: 'full'
-  // },
-  // {
-  //   path: 'category',
-  //   redirectTo: 'menu/category',
-  //   pathMatch: 'full'
-  // },
-  // {
-  //   path: 'quiz',
-  //   redirectTo: '',
-  //   pathMatch: 'full'
-  // },
-  // {
-  //   path: 'other',
-  //   redirectTo: '',
-  //   pathMatch: 'full'
-  // },
+  {
+    path: ':storyId',
+    component: ShowPage
+  }
 ];
 
 @NgModule({
