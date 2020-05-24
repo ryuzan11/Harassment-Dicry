@@ -1,14 +1,15 @@
 export interface Story {
-  user: {
+  user?: {
     uid: string;
     displayName: string | null;
     photoDataUrl: string | null;
     gender: '男性' | '女性' | 'その他' | '無回答';
   };
   story: string;
-  prefecture: string | null;
+  prefecture: string;
+  category: string | null;
   harassment: string | null;
-  listCount: number | null;
-  created_at: number;
+  listCount?: number;
+  created_at?: number;
   updated_at?: number;
 }

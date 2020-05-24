@@ -1,4 +1,4 @@
-export interface c {
+export interface IUser {
   displayName: string;
   photoDataUrl: string;
   prefecture?: string;

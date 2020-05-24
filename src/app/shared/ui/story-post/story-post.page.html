@@ -19,18 +19,31 @@
   <form #f="ngForm">
     <ion-list class="ion-padding">
       <ion-item>
-        <ion-label position="floating">投稿内容</ion-label>
-        <ion-textarea name="story" [(ngModel)]="data.preStory.story" *ngIf="editMode; else elseTextarea"></ion-textarea>
-      </ion-item>
-      <ion-item>
         <ion-label>性別</ion-label>
         <ion-input type="text" [value]="editMode ? data.preStory.user.gender : data.user.gender" disabled></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label position="stacked">投稿内容</ion-label>
+        <ion-textarea name="story" [(ngModel)]="story"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>都道府県</ion-label>
+        <ion-select interface="popover" placeholder="未設定" [(ngModel)]="prefecture" name="prefecture">
+          <ion-select-option *ngFor="let p of prefectures" [value]="p.name">{{p.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>カテゴリー</ion-label>
+        <ion-select interface="popover" placeholder="未設定" (ionChange)="setHarassmentsFromName(category); resetHarassment()" [(ngModel)]="category" name="category">
+          <ion-select-option *ngFor="let c of categories" [value]="c.name">{{c.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="harassments">
+        <ion-label>ハラスメント</ion-label>
+        <ion-select interface="popover" placeholder="未設定" [(ngModel)]="harassment" name="harassment">
+          <ion-select-option *ngFor="let h of harassments" [value]="h.name">{{h}}</ion-select-option>
+        </ion-select>
+      </ion-item>
     </ion-list>
   </form>
-</ion-content>
-
-<ng-template #elseTextarea>
-  <ion-textarea #textarea name="story" [(ngModel)]="story"></ion-textarea>
-</ng-template>
-  
+</ion-content>  

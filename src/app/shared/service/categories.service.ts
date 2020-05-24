@@ -7,8 +7,7 @@ import { Category } from '../models/category';
 })
 export class CategoriesService {
 
-  constructor() { }
-  getCategories(): Category[] {
+  get categories() {
     return CATEGORIES;
   }
 
@@ -19,4 +18,17 @@ export class CategoriesService {
       }
     }
   }
+
+  getStandardCategories(): Category[] {
+    const categories: Category[] = [];
+    const standard: string[] = ['03', '04', '05', '06'];
+    for (const c of CATEGORIES) {
+      if (standard.includes(c.id)) {
+        categories.push(c);
+      }
+    }
+    return categories;
+  }
+
+
 }

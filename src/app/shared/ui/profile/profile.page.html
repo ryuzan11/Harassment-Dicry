@@ -30,11 +30,11 @@
   <form #f="ngForm">
     <ion-list class="ion-padding">
       <ion-item>
-        <ion-label position="floating">ユーザID</ion-label>
+        <ion-label position="stacked">ユーザID</ion-label>
         <ion-input type="text" [value]="uid" disabled></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating"><span class="label required">必須</span>表示名</ion-label>
+        <ion-label position="stacked"><span class="label required">必須</span>表示名</ion-label>
         <ion-input type="text" [(ngModel)]="user.displayName" name="displayName" disabled="{{nowDisplayName}}" required></ion-input>
       </ion-item>
       <ion-item>
@@ -67,7 +67,7 @@
         </ion-radio-group>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">一言プロフィール</ion-label>
+        <ion-label position="stacked">一言プロフィール</ion-label>
         <ion-textarea [(ngModel)]="user.profile" name="profile" required></ion-textarea>
       </ion-item>
     </ion-list>

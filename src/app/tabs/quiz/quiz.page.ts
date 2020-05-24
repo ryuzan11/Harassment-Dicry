@@ -14,20 +14,17 @@ export class QuizPage implements OnInit {
   titles = [
     'クイズ一覧', '上下関係', '性・恋愛', '身体', '心'
   ];
-  categories: Category[];
+
+  get categories() {
+    return this.categoriesService.categories;
+  }
 
   constructor(
     private router: Router,
     public categoriesService: CategoriesService,
   ) {}
 
-  ngOnInit() {
-    this.getCategory();
-  }
-
-  getCategory() {
-    this.categories = this.categoriesService.getCategories();
-  }
+  ngOnInit() {}
 
   navigateQuiz(category: string) {
     let categoryId = null;
