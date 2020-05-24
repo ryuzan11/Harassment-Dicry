@@ -20,27 +20,42 @@
     <ion-list class="ion-padding">
       <ion-item>
         <ion-label>性別</ion-label>
-        <ion-input type="text" [value]="editMode ? data.preStory.user.gender : data.user.gender" disabled></ion-input>
+        <ion-input type="text" [value]="postData.user.gender" disabled></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-radio-group name="type" [(ngModel)]="postData.user.type">
+          <ion-list-header>
+            <ion-label>投稿タイプ</ion-label>
+          </ion-list-header>
+          <ion-item>
+            <ion-label>閲覧のみ</ion-label>
+            <ion-radio slot="start" value="閲覧のみ"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>相談</ion-label>
+            <ion-radio slot="start" value="相談"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">投稿内容</ion-label>
-        <ion-textarea name="story" [(ngModel)]="story"></ion-textarea>
+        <ion-textarea name="story" [(ngModel)]="postData.story"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label>都道府県</ion-label>
-        <ion-select interface="popover" placeholder="未設定" [(ngModel)]="prefecture" name="prefecture">
+        <ion-select interface="popover" placeholder="未設定" [(ngModel)]="postData.prefecture" name="prefecture">
           <ion-select-option *ngFor="let p of prefectures" [value]="p.name">{{p.name}}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label>カテゴリー</ion-label>
-        <ion-select interface="popover" placeholder="未設定" (ionChange)="setHarassmentsFromName(category); resetHarassment()" [(ngModel)]="category" name="category">
+        <ion-select interface="popover" placeholder="未設定" (ionChange)="setHarassmentsFromName(postData.category); resetHarassment()" [(ngModel)]="postData.category" name="category">
           <ion-select-option *ngFor="let c of categories" [value]="c.name">{{c.name}}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item *ngIf="harassments">
         <ion-label>ハラスメント</ion-label>
-        <ion-select interface="popover" placeholder="未設定" [(ngModel)]="harassment" name="harassment">
+        <ion-select interface="popover" placeholder="未設定" [(ngModel)]="postData.harassment" name="harassment">
           <ion-select-option *ngFor="let h of harassments" [value]="h.name">{{h}}</ion-select-option>
         </ion-select>
       </ion-item>

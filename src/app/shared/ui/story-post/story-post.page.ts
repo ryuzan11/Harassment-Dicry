@@ -5,7 +5,6 @@ import { PrefecturesService } from '../../service/prefectures.service';
 import { CategoriesService } from '../../service/categories.service';
 import { Story } from '../../models/story';
 import { Category } from '../../models/category';
-import { Harassment } from '../../models/harassment';
 import { HarassmentsService } from '../../service/harassments.service';
 
 @Component({
@@ -14,42 +13,49 @@ import { HarassmentsService } from '../../service/harassments.service';
   styleUrls: ['./story-post.page.scss'],
 })
 export class StoryPostPage implements OnInit {
-  story: string;
-  prefecture: string | null;
-  category: string | null;
-  categories: Category[];
-  harassment: string | null;
   harassments: string[];
   data: {[key: string]: any};
-  params: Story;
   editMode: boolean;
+  postData: Story = {
+    user: {
+      uid: null,
+      displayName: null,
+      photoDataUrl: null,
+      gender: null,
+    },
+    type: null,
+    story: null,
+    prefecture: null,
+    category: null,
+    harassment: null,
+  };
 
   get prefectures() {
     return this.prefecturesService.prefectures;
   }
 
+  get categories() {
+    return this.categoriesService.standardCategories;
+  }
+
   constructor(
+    private modalController: ModalController,
+    private navParams: NavParams,
     public storyService: StoryService,
     public categoriesService: CategoriesService,
     public harassmentsService: HarassmentsService,
-    public modalController: ModalController,
-    public navParams: NavParams,
     public prefecturesService: PrefecturesService
   ) { }
 
   ngOnInit() {
-    this.getStandardCategories();
-    this.data = this.navParams.data;
-    this.editMode = this.data.preStory ? true : false;
-    this.story = this.editMode ? this.data.preStory.story : '';
-    this.prefecture = this.editMode ? this.data.preStory.prefecture : this.data.user.prefecture;
-    this.category = this.editMode ? this.data.preStory.category : '';
-    this.harassment = this.editMode ? this.data.preStory.harassment : '';
-    if (this.category !== '') { this.setHarassmentsFromName(this.category); }
-  }
-
-  getStandardCategories() {
-    this.categories = this.categoriesService.getStandardCategories();
+    this.editMode = this.navParams.data.preStory ? true : false;
+    this.editMode ? this.postData = this.navParams.data.preStory : (
+      this.postData.user.uid = this.navParams.data.uid,
+      this.postData.user.displayName = this.navParams.data.user.displayName,
+      this.postData.user.photoDataUrl = this.navParams.data.user.photoDataUrl,
+      this.postData.user.gender = this.navParams.data.user.gender
+    );
+    if (this.postData.category !== null) { this.setHarassmentsFromName(this.postData.category); }
   }
 
   setHarassmentsFromName(name: string) {
@@ -57,7 +63,7 @@ export class StoryPostPage implements OnInit {
   }
 
   resetHarassment() {
-    this.harassment = '';
+    this.postData.harassment = null;
   }
 
   modalDismiss(): void {
@@ -65,40 +71,19 @@ export class StoryPostPage implements OnInit {
   }
 
   postStory() {
-    if (!this.data.user && !this.data.preStory) {
+    if (!this.navParams.data.user && !this.navParams.data.preStory) {
       alert('プロフィール登録が必要です');
       return;
     }
-    const id = this.data.storyId;
-    this.editMode ? this.setEditParams() : this.setParams();
-    this.editMode ? this.storyService.storyUpdate(this.params, id) : this.storyService.storyAdd(this.params);
+    const id = this.navParams.data.storyId;
+    this.editMode ? (
+      this.postData.updated_at = Date.now(),
+      this.storyService.updateStory(this.postData, id)
+    ) : (
+      this.postData.created_at = Date.now(),
+      this.storyService.addStory(this.postData)
+    );
     this.modalController.dismiss();
-  }
-
-  setParams(): void {
-    this.params = {
-      user: {
-        uid: this.data.uid,
-        displayName: this.data.user.displayName,
-        photoDataUrl: this.data.user.photoDataUrl,
-        gender: this.data.user.gender
-      },
-      story: this.story,
-      prefecture: this.prefecture,
-      category: this.category,
-      harassment: this.harassment,
-      created_at: Date.now()
-    };
-  }
-
-  setEditParams(): void {
-    this.params = {
-      story: this.story,
-      prefecture: this.prefecture,
-      category: this.category,
-      harassment: this.harassment,
-      updated_at: Date.now(),
-    };
   }
 
 }

@@ -41,7 +41,7 @@ export class TimelinePage implements OnInit {
       await modal.present();
       modal.onDidDismiss().then(()  => this.ionViewWillEnter());
     }
-    this.stories = this.storyService.storyInit();
+    this.stories = this.storyService.initStory();
   }
 
   async ionViewWillEnter() {
@@ -56,6 +56,7 @@ export class TimelinePage implements OnInit {
   async openStoryPost() {
     const modal = await this.modalController.create({
       component: StoryPostPage,
+      backdropDismiss: false,
       componentProps: {
         content: this.content,
         uid: this.uid,
@@ -69,6 +70,7 @@ export class TimelinePage implements OnInit {
   async openStoryEdit(story: Story, id: string) {
     const modal = await this.modalController.create({
       component: StoryPostPage,
+      backdropDismiss: false,
       componentProps: {
         content: this.content,
         storyId: id,
@@ -92,7 +94,7 @@ export class TimelinePage implements OnInit {
           text: '削除',
           cssClass: 'danger',
           handler: () => {
-            this.storyService.storyDelete(id).then(result => {
+            this.storyService.deleteStory(id).then(result => {
               this.presentToast(result);
             });
           }

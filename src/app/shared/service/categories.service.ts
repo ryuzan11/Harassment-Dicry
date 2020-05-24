@@ -11,15 +11,7 @@ export class CategoriesService {
     return CATEGORIES;
   }
 
-  getCategoryFromId(id: string): Category {
-    for (const c of CATEGORIES) {
-      if (c.id === id) {
-        return c;
-      }
-    }
-  }
-
-  getStandardCategories(): Category[] {
+  get standardCategories(): Category[] {
     const categories: Category[] = [];
     const standard: string[] = ['03', '04', '05', '06'];
     for (const c of CATEGORIES) {
@@ -30,5 +22,12 @@ export class CategoriesService {
     return categories;
   }
 
+  getCategoryFromId(id: string): Category {
+    for (const c of CATEGORIES) {
+      if (c.id === id) {
+        return c;
+      }
+    }
+  }
 
 }

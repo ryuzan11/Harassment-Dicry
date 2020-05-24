@@ -14,19 +14,19 @@ export class StoryService {
     this.storyCollection = this.af.collection<Story>('story', ref => ref.orderBy('created_at', 'desc'));
   }
 
-  storyAdd(story: Story) {
+  addStory(story: Story) {
     return this.storyCollection.add(story);
   }
 
-  storyInit(): Observable<Story[]> {
+  initStory(): Observable<Story[]> {
     return this.storyCollection.valueChanges({idField: 'storyId'});
   }
 
-  storyUpdate(story: Story, id: string): Promise<void> {
+  updateStory(story: Story, id: string): Promise<void> {
     return this.storyCollection.doc(id).update(story);
   }
 
-  storyDelete(id: string): Promise<any> {
+  deleteStory(id: string): Promise<any> {
     return this.storyCollection.doc(id).delete().then(() => {
       return '削除しました';
     }).catch((error) => {
