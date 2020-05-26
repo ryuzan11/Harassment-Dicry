@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StoryService } from 'src/app/shared/api/story.service';
 
 @Component({
   selector: 'app-show',
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./show.page.scss'],
 })
 export class ShowPage implements OnInit {
+  get passStory() {
+    return this.storyService.passStory;
+  }
 
-  constructor() { }
+  constructor(
+    public storyService: StoryService
+  ) { }
 
   ngOnInit() {
   }

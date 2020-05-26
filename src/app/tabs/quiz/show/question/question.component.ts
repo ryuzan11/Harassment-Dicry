@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, AlertController } from '@ionic/angular';
+import { NavParams, AlertController, NavController } from '@ionic/angular';
 import { QuizService } from '../../../../shared/service/quizzes.service';
 import { Quiz } from '../../../../shared/models/quiz';
 import { Router } from '@angular/router';
@@ -23,7 +23,8 @@ export class QuestionComponent implements OnInit {
     private navParams: NavParams,
     public quizService: QuizService,
     public harassmentsService: HarassmentsService,
-    public alertController: AlertController
+    public alertCtrl: AlertController,
+    public navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -40,7 +41,7 @@ export class QuestionComponent implements OnInit {
     const headerMessage = (answer === this.quiz.correct) ? '正解' : '残念';
     let alertCtl: HTMLIonAlertElement;
     if (this.index !== (this.idsCount - 1)) {
-      alertCtl = await this.alertController.create({
+      alertCtl = await this.alertCtrl.create({
         header: headerMessage,
         message: this.quiz.description,
         buttons: [
@@ -58,7 +59,7 @@ export class QuestionComponent implements OnInit {
         ]
       });
     } else if (this.index === (this.idsCount - 1)) {
-      alertCtl = await this.alertController.create({
+      alertCtl = await this.alertCtrl.create({
         header: headerMessage,
         message: this.quiz.description,
         buttons: [
@@ -86,7 +87,7 @@ export class QuestionComponent implements OnInit {
 
   navigateHarassment() {
     const relateId = this.harassmentsService.getHarassmentFromName(this.quiz.harassments[0]).id;
-    this.router.navigateByUrl('/main/dictionary/' + relateId);
+    this.navCtrl.navigateForward('/main/dictionary/' + relateId);
   }
 
   exitQuiz() {

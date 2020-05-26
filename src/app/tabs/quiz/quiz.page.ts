@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Category } from 'src/app/shared/models/category';
 import { CategoriesService } from 'src/app/shared/service/categories.service';
+import { NavController } from '@ionic/angular';
 
 
 @Component({
@@ -20,8 +19,8 @@ export class QuizPage implements OnInit {
   }
 
   constructor(
-    private router: Router,
     public categoriesService: CategoriesService,
+    public navCtrl: NavController
   ) {}
 
   ngOnInit() {}
@@ -34,7 +33,7 @@ export class QuizPage implements OnInit {
       }
     });
 
-    this.router.navigateByUrl('/main/quiz/' + categoryId);
+    this.navCtrl.navigateForward('/main/quiz/' + categoryId);
   }
 
 }

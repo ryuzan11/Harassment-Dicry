@@ -25,29 +25,29 @@
   </ion-menu>
 
   <section id="main-content">
-    <ion-tabs>
+    <ion-tabs #myTabs>
       <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="timeline">
+        <ion-tab-button tab="timeline" (click)="initTabStack($event)">
           <ion-icon name="home"></ion-icon>
           <ion-label>タイムライン</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="dictionary">
+        <ion-tab-button tab="dictionary" (click)="initTabStack($event)">
           <ion-icon name="book"></ion-icon>
           <ion-label>辞書</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="quiz">
+        <ion-tab-button tab="quiz" (click)="initTabStack($event)">
           <ion-icon name="checkmark-circle"></ion-icon>
           <ion-label>クイズ</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="list">
+        <ion-tab-button tab="list" (click)="initTabStack($event)">
           <ion-icon name="bookmark"></ion-icon>
           <ion-label>リスト</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="other">
+        <ion-tab-button tab="other" (click)="initTabStack($event)">
           <ion-icon name="settings"></ion-icon>
           <ion-label>その他</ion-label>
         </ion-tab-button>

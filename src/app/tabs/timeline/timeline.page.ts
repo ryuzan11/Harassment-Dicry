@@ -8,6 +8,7 @@ import { ProfilePage } from 'src/app/shared/ui/profile/profile.page';
 import { IUser } from '../../shared/models/i-user';
 import { Story } from '../../shared/models/story';
 import { StoryPostPage } from 'src/app/shared/ui/story-post/story-post.page';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,18 +25,19 @@ export class TimelinePage implements OnInit {
   content: IonContent;
 
   constructor(
-    public modalController: ModalController,
-    public alertController: AlertController,
-    public toastController: ToastController,
+    public modalCtrl: ModalController,
+    public alertCtrl: AlertController,
+    public toastCtrl: ToastController,
     public auth: AuthService,
     public storyService: StoryService,
-    public firestore: FirestoreService
+    public firestore: FirestoreService,
+    public router: Router
   ) {}
 
   async ngOnInit() {
     const user = await this.firestore.userInit(this.auth.getUserId());
     if (!user) {
-      const modal = await this.modalController.create({
+      const modal = await this.modalCtrl.create({
         component: ProfilePage
       });
       await modal.present();
@@ -49,12 +51,16 @@ export class TimelinePage implements OnInit {
     this.user = await this.firestore.userInit(this.uid);
   }
 
+  setPassStory(story: Story) {
+    this.storyService.passStory = story;
+  }
+
   trackByFn(index, item) {
     return item.storyId;
   }
 
   async openStoryPost() {
-    const modal = await this.modalController.create({
+    const modal = await this.modalCtrl.create({
       component: StoryPostPage,
       backdropDismiss: false,
       componentProps: {
@@ -68,7 +74,7 @@ export class TimelinePage implements OnInit {
   }
 
   async openStoryEdit(story: Story, id: string) {
-    const modal = await this.modalController.create({
+    const modal = await this.modalCtrl.create({
       component: StoryPostPage,
       backdropDismiss: false,
       componentProps: {
@@ -82,7 +88,7 @@ export class TimelinePage implements OnInit {
   }
 
   async openStoryDelete(id: string) {
-    const alert = await this.alertController.create({
+    const alert = await this.alertCtrl.create({
       header: '削除してよろしいですか？',
       message: '削除すると復元できなくなります。',
       buttons: [
@@ -105,7 +111,7 @@ export class TimelinePage implements OnInit {
   }
 
   async presentToast(text) {
-    const toast = await this.toastController.create({
+    const toast = await this.toastCtrl.create({
       message: text,
       duration: 2000
     });

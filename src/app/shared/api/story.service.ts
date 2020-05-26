@@ -8,7 +8,16 @@ import { Story } from '../models/story';
   providedIn: 'root'
 })
 export class StoryService {
+  _passStory: Story;
   storyCollection: AngularFirestoreCollection<Story>;
+
+  get passStory(): Story {
+    return this._passStory;
+  }
+
+  set passStory(story: Story) {
+    this._passStory = story;
+  }
 
   constructor(public af: AngularFirestore) {
     this.storyCollection = this.af.collection<Story>('story', ref => ref.orderBy('created_at', 'desc'));

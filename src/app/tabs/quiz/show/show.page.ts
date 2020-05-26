@@ -29,7 +29,7 @@ export class ShowPage implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.categoryId = params.get('categoryId');
     });
-    this.navHome = this.categoryId !== '01' ? QuestionComponent : ListComponent;
+    this.navHome = this.categoryId === '01' ? ListComponent : QuestionComponent;
 
     this.getQuizzes();
     this.getCategory(this.categoryId);

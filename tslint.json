@@ -83,6 +83,11 @@
       "app",
       "page",
       "kebab-case"
-    ]
+    ],
+    "variable-name": {
+      "options": [
+        "allow-leading-underscore"
+      ]
+    }
   }
 }

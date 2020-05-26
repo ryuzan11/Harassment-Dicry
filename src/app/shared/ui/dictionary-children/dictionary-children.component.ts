@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams } from '@ionic/angular';
+import { NavParams, NavController } from '@ionic/angular';
 import { DictionaryDetailComponent } from '../dictionary-detail/dictionary-detail.component';
 import { HarassmentsService } from '../../service/harassments.service';
 import { Harassment } from '../../models/harassment';
@@ -23,7 +23,8 @@ export class DictionaryChildrenComponent implements OnInit {
   constructor(
     private navParams: NavParams,
     private router: Router,
-    public harassmentsService: HarassmentsService
+    public harassmentsService: HarassmentsService,
+    public navCtrl: NavController
   ) {
     this.router.events.subscribe((event: RouterEvent) => {
       if (event && event.url) {
@@ -45,7 +46,7 @@ export class DictionaryChildrenComponent implements OnInit {
   }
 
   navigateShow(id: string) {
-    this.router.navigateByUrl('/main/dictionary/' + id);
+    this.navCtrl.navigateForward('/main/dictionary/' + id);
   }
 
 }

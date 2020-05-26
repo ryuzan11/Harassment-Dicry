@@ -9,28 +9,48 @@ const routes: Routes = [
     children: [
       {
         path: 'timeline',
-        loadChildren: () =>
-        import('./timeline/timeline.module').then(m => m.TimelinePageModule),
+        children: [
+          {
+            path: '',
+            loadChildren: './timeline/timeline.module#TimelinePageModule'
+          }
+        ]
       },
       {
         path: 'dictionary',
-        loadChildren: () =>
-        import('./dictionary/dictionary.module').then(m => m.DictionaryPageModule),
+        children: [
+          {
+            path: '',
+        loadChildren: './dictionary/dictionary.module#DictionaryPageModule'
+      }
+    ]
       },
       {
         path: 'quiz',
-        loadChildren: () =>
-        import('./quiz/quiz.module').then(m => m.QuizPageModule)
+        children: [
+          {
+            path: '',
+        loadChildren: './quiz/quiz.module#QuizPageModule'
+      }
+    ]
       },
       {
         path: 'list',
-        loadChildren: () =>
-        import('./list/list.module').then(m => m.ListPageModule)
+        children: [
+          {
+            path: '',
+        loadChildren: './list/list.module#ListPageModule'
+      }
+    ]
       },
       {
         path: 'other',
-        loadChildren: () =>
-        import('./other/other.module').then(m => m.OtherPageModule)
+        children: [
+          {
+            path: '',
+        loadChildren: './other/other.module#OtherPageModule'
+      }
+    ]
       },
       {
         path: '',

@@ -9,7 +9,7 @@
 <ion-content  fullscreen>
   <ion-list>
     <ng-container *ngFor="let category of categories"> 
-      <ion-nav-link [component]="nextPage" [componentProps]="{'children': category.children}">
+      <ion-nav-link [component]="nextPage" [componentProps]="{'children': category.children}" routerDirection="forward">
         <ion-item button>
           <ion-icon name="arrow-forward" slot="end"></ion-icon>
           <ion-label>

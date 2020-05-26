@@ -9,7 +9,8 @@ import { IonTabs } from '@ionic/angular';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage implements OnInit {
-  @ViewChild('myTabs', {static: false})
+  @ViewChild('myTabs', {static: false}) myTabs: IonTabs;
+
   tabs: IonTabs;
 
   pages = [
@@ -36,16 +37,30 @@ export class TabsPage implements OnInit {
   ];
 
   selectedPath = '';
+  resetStackTabs = ['timeline', 'timeline', 'dictionary', 'quiz'];
 
-  constructor(public auth: AuthService, private router: Router) {
+  constructor(
+    public auth: AuthService,
+    private router: Router,
+  ) {
     this.router.events.subscribe((event: RouterEvent) => {
       if (event && event.url) {
         this.selectedPath = event.url;
       }
     });
-   }
+  }
 
   ngOnInit() {}
+
+  initTabStack = (event: MouseEvent) => {
+    const { tab } = event.composedPath().find((ele: any) =>
+    ele.tagName === 'ION-TAB-BUTTON') as EventTarget & { tab: string };
+    if (this.resetStackTabs.includes(tab) && this.myTabs.outlet.canGoBack(1, tab)) {
+      event.stopImmediatePropagation();
+
+      return this.myTabs.outlet.pop(1, tab);
+    }
+  }
 
   logOut(): void {
     this.auth.authSignOut();

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuizService } from 'src/app/shared/service/quizzes.service';
 import { Quiz } from 'src/app/shared/models/quiz';
 import { QuestionComponent } from '../question/question.component';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'ls-list',
@@ -14,7 +15,8 @@ export class ListComponent implements OnInit {
   nextPage = QuestionComponent;
 
   constructor(
-    public quizService: QuizService
+    public quizService: QuizService,
+    public navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -34,6 +36,10 @@ export class ListComponent implements OnInit {
 
   getQuizzes() {
     this.quizzes = this.quizService.getQuizzes();
+  }
+
+  backwardQuiz() {
+    this.navCtrl.navigateBack('main/quiz');
   }
 
 }
