@@ -17,17 +17,18 @@ export class StoryPostPage implements OnInit {
   data: {[key: string]: any};
   editMode: boolean;
   postData: Story = {
+    type: null,
+    state: 'public',
+    story: null,
+    prefecture: null,
+    category: null,
+    harassment: null,
     user: {
       uid: null,
       displayName: null,
       photoDataUrl: null,
       gender: null,
-    },
-    type: null,
-    story: null,
-    prefecture: null,
-    category: null,
-    harassment: null,
+    }
   };
 
   get prefectures() {

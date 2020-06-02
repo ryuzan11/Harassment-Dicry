@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { NavParams, AlertController, NavController } from '@ionic/angular';
 import { QuizService } from '../../../../shared/service/quizzes.service';
 import { Quiz } from '../../../../shared/models/quiz';
@@ -24,7 +24,8 @@ export class QuestionComponent implements OnInit {
     public quizService: QuizService,
     public harassmentsService: HarassmentsService,
     public alertCtrl: AlertController,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    private eleRef: ElementRef
   ) { }
 
   ngOnInit() {
@@ -91,7 +92,8 @@ export class QuestionComponent implements OnInit {
   }
 
   exitQuiz() {
-    this.router.navigateByUrl('/main/quiz');
+    // this.eleRef.nativeElement.
+    this.router.navigateByUrl('/main/quiz'); // ここでtabsのquizを発火させる
   }
 
 }

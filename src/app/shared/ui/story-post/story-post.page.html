@@ -19,11 +19,15 @@
   <form #f="ngForm">
     <ion-list class="ion-padding">
       <ion-item>
+        <ion-label position="stacked">投稿内容</ion-label>
+        <ion-textarea name="story" [(ngModel)]="postData.story"></ion-textarea>
+      </ion-item>
+      <ion-item>
         <ion-label>性別</ion-label>
         <ion-input type="text" [value]="postData.user.gender" disabled></ion-input>
       </ion-item>
       <ion-item>
-        <ion-radio-group name="type" [(ngModel)]="postData.user.type" required>
+        <ion-radio-group name="type" [(ngModel)]="postData.type" required>
           <ion-list-header>
             <ion-label>投稿モード</ion-label>
           </ion-list-header>
@@ -36,10 +40,6 @@
             <ion-radio slot="start" value="相談"></ion-radio>
           </ion-item>
         </ion-radio-group>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">投稿内容</ion-label>
-        <ion-textarea name="story" [(ngModel)]="postData.story"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label>都道府県</ion-label>

@@ -11,8 +11,6 @@ import { IonTabs } from '@ionic/angular';
 export class TabsPage implements OnInit {
   @ViewChild('myTabs', {static: false}) myTabs: IonTabs;
 
-  tabs: IonTabs;
-
   pages = [
     {
       title: 'タイムライン',
