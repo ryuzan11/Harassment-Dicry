@@ -8,10 +8,8 @@ import { Story } from '../models/story';
   providedIn: 'root'
 })
 export class StoryService {
-  _passStory: Story;
-  storyCollection: AngularFirestoreCollection<Story>;
 
-  get passStory(): Story {
+  get passStory() {
     return this._passStory;
   }
 
@@ -19,8 +17,17 @@ export class StoryService {
     this._passStory = story;
   }
 
-  constructor(public af: AngularFirestore) {
-    this.storyCollection = this.af.collection<Story>('story', ref => ref.orderBy('created_at', 'desc'));
+  _passStory: Story;
+  storyCollection: AngularFirestoreCollection<Story>;
+
+  constructor(
+    public af: AngularFirestore,
+  ) {
+    this.storyCollection = this.af.collection<Story>('story', ref => ref.where('state', '==', 'public').orderBy('created_at', 'desc'));
+  }
+
+  getStory(id: string): Observable<any> {
+    return this.af.collection<Story>('story', ref => ref.where('state', '==', 'public')).doc(id).get();
   }
 
   addStory(story: Story) {

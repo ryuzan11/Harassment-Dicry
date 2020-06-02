@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: ':storyId',
-    component: ShowPage
+    component: ShowPage,
   }
 ];
 
