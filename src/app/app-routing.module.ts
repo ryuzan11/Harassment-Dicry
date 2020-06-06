@@ -23,7 +23,11 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: '',
+  },  {
+    path: 'create-list',
+    loadChildren: () => import('./shared/ui/create-list/create-list.module').then( m => m.CreateListPageModule)
   }
+
 
 ];
 @NgModule({

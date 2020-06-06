@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="modalDismiss()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>リスト作成</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm">
+    <ion-item>
+      <ion-label position="stacked">リスト名</ion-label>
+      <ion-textarea name="name" [(ngModel)]="name" required></ion-textarea>
+    </ion-item>
+
+    <div class="position-flex-center">
+      <ion-button type="submit" (click)="createList(name)" [disabled]="!f.form.valid">作成</ion-button>
+    </div>
+  </form>
+</ion-content>

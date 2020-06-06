@@ -14,13 +14,12 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
   <form #f="ngForm">
     <ion-list class="ion-padding">
       <ion-item>
         <ion-label position="stacked">投稿内容</ion-label>
-        <ion-textarea name="story" [(ngModel)]="postData.story"></ion-textarea>
+        <ion-textarea name="story" [(ngModel)]="postData.story" required></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label>性別</ion-label>

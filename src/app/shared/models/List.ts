@@ -1,8 +1,9 @@
-import { StoryList } from './story-list';
+import { ListStory } from './list-story';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 
 export interface List {
-  stories?: [StoryList];
-  created_at: firebase.firestore.FieldValue;
+  name: string | undefined;
+  stories?: [ListStory];
+  created_at?: firebase.firestore.FieldValue;
 }

@@ -110,7 +110,7 @@ export class TimelinePage implements OnInit {
     await alert.present();
   }
 
-  async presentToast(text) {
+  async presentToast(text: string) {
     const toast = await this.toastCtrl.create({
       message: text,
       duration: 2000

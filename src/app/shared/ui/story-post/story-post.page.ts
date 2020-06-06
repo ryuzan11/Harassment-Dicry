@@ -39,7 +39,7 @@ export class StoryPostPage implements OnInit {
   }
 
   constructor(
-    private modalController: ModalController,
+    private modalCtrl: ModalController,
     private navParams: NavParams,
     public storyService: StoryService,
     public categoriesService: CategoriesService,
@@ -67,7 +67,7 @@ export class StoryPostPage implements OnInit {
   }
 
   modalDismiss(): void {
-    this.modalController.dismiss();
+    this.modalCtrl.dismiss();
   }
 
   postStory() {
@@ -77,7 +77,7 @@ export class StoryPostPage implements OnInit {
     }
     const id = this.navParams.data.storyId;
     this.editMode ? this.storyService.updateStory(this.postData, id) : this.storyService.addStory(this.postData);
-    this.modalController.dismiss();
+    this.modalCtrl.dismiss();
   }
 
 }

@@ -7,6 +7,7 @@ import { DictionaryParentComponent } from '../ui/dictionary-parent/dictionary-pa
 import { DictionaryChildrenComponent } from './dictionary-children/dictionary-children.component';
 import { DictionaryDetailComponent } from '../ui/dictionary-detail/dictionary-detail.component';
 import { StoryPostPage } from '../ui/story-post/story-post.page';
+import { CreateListPage } from './create-list/create-list.page';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { StoryPostPage } from '../ui/story-post/story-post.page';
     DictionaryChildrenComponent,
     DictionaryDetailComponent,
     StoryPostPage,
+    CreateListPage
   ],
   declarations: [
     ProfilePage,
@@ -27,6 +29,7 @@ import { StoryPostPage } from '../ui/story-post/story-post.page';
     DictionaryChildrenComponent,
     DictionaryDetailComponent,
     StoryPostPage,
+    CreateListPage
   ]
 })
 export class UiModule { }
