@@ -1,3 +1,6 @@
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
+
 export interface Story {
   type: '相談' | '解決済み' | '閲覧のみ';
   state: 'public' | 'private';
@@ -6,8 +9,8 @@ export interface Story {
   category: string;
   harassment: string;
   listCount?: number;
-  created_at?: number;
-  updated_at?: number;
+  created_at?: firebase.firestore.FieldValue;
+  updated_at?: firebase.firestore.FieldValue;
   user?: {
     uid: string;
     displayName: string;

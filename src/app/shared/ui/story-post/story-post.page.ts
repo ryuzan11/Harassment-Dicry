@@ -4,7 +4,6 @@ import { StoryService } from '../../api/story.service';
 import { PrefecturesService } from '../../service/prefectures.service';
 import { CategoriesService } from '../../service/categories.service';
 import { Story } from '../../models/story';
-import { Category } from '../../models/category';
 import { HarassmentsService } from '../../service/harassments.service';
 
 @Component({
@@ -77,13 +76,7 @@ export class StoryPostPage implements OnInit {
       return;
     }
     const id = this.navParams.data.storyId;
-    this.editMode ? (
-      this.postData.updated_at = Date.now(),
-      this.storyService.updateStory(this.postData, id)
-    ) : (
-      this.postData.created_at = Date.now(),
-      this.storyService.addStory(this.postData)
-    );
+    this.editMode ? this.storyService.updateStory(this.postData, id) : this.storyService.addStory(this.postData);
     this.modalController.dismiss();
   }
 

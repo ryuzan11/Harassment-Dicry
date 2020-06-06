@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { NavController, AlertController } from '@ionic/angular';
 import { firebaseError } from './firebase.error';
-import { List } from '../shared/models/list';
+import { Obj } from '../shared/models/obj';
 
 
 @Injectable({
@@ -48,7 +48,7 @@ export class AuthService {
       });
   }
 
-  async alertError(e: List<string>): Promise<void> {
+  async alertError(e: Obj<string>): Promise<void> {
     if (firebaseError.hasOwnProperty(e.code)) {
       e = firebaseError[e.code];
     }

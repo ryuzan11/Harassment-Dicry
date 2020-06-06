@@ -1,6 +1,6 @@
-import { List } from '../shared/models/list';
+import { Obj } from '../shared/models/obj';
 
-export const firebaseError: List<List<string>> = {
+export const firebaseError: Obj<Obj<string>> = {
   'auth/invalid-email': {
     code: 'メールアドレスの間違い',
     message: 'メールアドレスのフォーマットが間違っています。'
