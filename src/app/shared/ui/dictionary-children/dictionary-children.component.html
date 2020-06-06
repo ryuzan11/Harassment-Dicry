@@ -11,13 +11,11 @@
 
 <ion-content  fullscreen>
   <ion-list>
-    <ng-container *ngFor="let variation of variations">
-      <ion-item button (click)="navigateShow(variation.harassmentId)">
-        <ion-icon name="arrow-forward" slot="end"></ion-icon>
-        <ion-label>
-          {{variation.name}}
-        </ion-label>
-      </ion-item>
-    </ng-container>
+    <ion-item button *ngFor="let variation of variations" (click)="navigateShow(variation.harassmentId)">
+      <ion-icon name="arrow-forward" slot="end"></ion-icon>
+      <ion-label>
+        {{variation.name}}
+      </ion-label>
+    </ion-item>
   </ion-list>
 </ion-content>

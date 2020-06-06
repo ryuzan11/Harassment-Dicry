@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams } from '@ionic/angular';
 import { DictionaryChildrenComponent } from '../dictionary-children/dictionary-children.component';
-import { Obj } from '../../models/obj';
 
 @Component({
   selector: 'ls-dictionary-parent',
@@ -9,13 +8,13 @@ import { Obj } from '../../models/obj';
   styleUrls: ['./dictionary-parent.component.scss'],
 })
 export class DictionaryParentComponent implements OnInit {
-  lists: Obj<string> = {};
+  params: {[key: string]: any};
   nextPage = DictionaryChildrenComponent;
 
   constructor(private navParams: NavParams) { }
 
   ngOnInit() {
-    this.lists = this.navParams.data.lists;
+    this.params = this.navParams.data;
   }
 
 }

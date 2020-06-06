@@ -7,16 +7,25 @@
 </ion-header>
 
 <ion-content  fullscreen>
-  <ion-list>
-    <ng-container *ngFor="let list of lists"> 
-      <ion-nav-link [component]="nextPage" [componentProps]="{'children': list.children}" routerDirection="forward">
-        <ion-item button>
-          <ion-icon name="arrow-forward" slot="end"></ion-icon>
-          <ion-label>
-            {{list.name}}
-          </ion-label>
-        </ion-item>
-      </ion-nav-link>
-    </ng-container>
+  <ion-list>    
+    <ion-nav-link *ngFor="let list of params.lists" [component]="nextPage" [componentProps]="{'children': list.children}" routerDirection="forward">
+      <ion-item button>
+        <ion-icon name="arrow-forward" slot="end"></ion-icon>
+        <ion-label>
+          {{list.name}}
+        </ion-label>
+      </ion-item>
+    </ion-nav-link>
   </ion-list>
 </ion-content>
+
+<!-- <ng-template #list>
+  <ion-nav-link *ngFor="let list of params.lists" (click)="navigate()" routerDirection="forward">
+    <ion-item button>
+      <ion-icon name="arrow-forward" slot="end"></ion-icon>
+      <ion-label>
+        {{list.name}}
+      </ion-label>
+    </ion-item>
+  </ion-nav-link>
+</ng-template> -->
