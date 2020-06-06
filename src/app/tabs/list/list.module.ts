@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
 
-// import { ListPageRoutingModule } from './list-routing.module';
+import { ListPageRoutingModule } from './list-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { ListPage } from './list.page';
 
@@ -15,8 +14,8 @@ import { ListPage } from './list.page';
     FormsModule,
     IonicModule,
     SharedModule,
-    // ListPageRoutingModule
-    RouterModule.forChild([{ path: '', component: ListPage }])
+    ListPageRoutingModule
+    // RouterModule.forChild([{ path: '', component: ListPage }])
   ],
   declarations: [ListPage]
 })

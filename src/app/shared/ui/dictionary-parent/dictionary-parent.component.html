@@ -8,12 +8,12 @@
 
 <ion-content  fullscreen>
   <ion-list>
-    <ng-container *ngFor="let category of categories"> 
-      <ion-nav-link [component]="nextPage" [componentProps]="{'children': category.children}" routerDirection="forward">
+    <ng-container *ngFor="let list of lists"> 
+      <ion-nav-link [component]="nextPage" [componentProps]="{'children': list.children}" routerDirection="forward">
         <ion-item button>
           <ion-icon name="arrow-forward" slot="end"></ion-icon>
           <ion-label>
-            {{category.name}}
+            {{list.name}}
           </ion-label>
         </ion-item>
       </ion-nav-link>

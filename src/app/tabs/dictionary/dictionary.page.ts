@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Dictionaries } from 'src/app/shared/models/dictionaries';
 import { DictionariesService } from 'src/app/shared/service/dictionaries.service';
 import { DictionaryParentComponent } from '../../shared/ui/dictionary-parent/dictionary-parent.component';
+import { NavList } from 'src/app/shared/models/nav-list';
 
 @Component({
   selector: 'app-dictionary',
@@ -9,7 +9,10 @@ import { DictionaryParentComponent } from '../../shared/ui/dictionary-parent/dic
   styleUrls: ['dictionary.page.scss']
 })
 export class DictionaryPage implements OnInit {
-  dictionaries: Dictionaries[];
+  params: NavList = {
+    type: 'dic',
+    lists: null
+  };
   navHome: any = DictionaryParentComponent;
 
   constructor(
@@ -17,11 +20,7 @@ export class DictionaryPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getDictionaries();
-  }
-
-  getDictionaries(): void {
-    this.dictionaries = this.dictionariesService.getDictionaries();
+    this.params.lists = this.dictionariesService.dictionaries;
   }
 
 }

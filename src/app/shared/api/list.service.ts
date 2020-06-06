@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -17,12 +18,17 @@ export class ListService {
     private af: AngularFirestore
   ) {}
 
+  getLists(uid: string): Observable<List[]> {
+    return this.af.doc<IUser>('users/' + uid).collection<List>('listStories', ref => ref.orderBy('created_at', 'desc'))
+      .valueChanges({idField: 'listId'});
+  }
+
   addList(uid: string, listName: string) {
     this.list = {
       name: listName,
       created_at: firebase.firestore.FieldValue.serverTimestamp()
     };
-    this.af.doc<IUser>('users/' + uid).collection('listStories').add(this.list);
+    this.af.doc<IUser>('users/' + uid).collection<List>('listStories').add(this.list);
   }
 
 }

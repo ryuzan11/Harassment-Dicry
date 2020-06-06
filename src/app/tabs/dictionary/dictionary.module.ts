@@ -1,5 +1,4 @@
 import { IonicModule } from '@ionic/angular';
-// import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,7 +14,6 @@ import { ShowPage } from './show/show.page';
     FormsModule,
     SharedModule,
     DictionaryPageRoutingModule,
-    // RouterModule.forChild([{ path: '', component: DictionaryPage }])
   ],
   declarations: [
     DictionaryPage,
