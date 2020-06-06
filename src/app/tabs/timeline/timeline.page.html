@@ -18,13 +18,14 @@
           [class.ion-margin-end]="true">
           <div class="ion-text-nowrap"><strong>{{s.user.displayName}}</strong></div>
           {{s.story}}
-          <div *ngIf="uid === s.user.uid">
-            <ion-button color="medium" fill="clear" (click)="openStoryEdit(s, s.storyId)">
+          <div class="action-list">
+            <ion-button stopPropagation color="medium" fill="clear" (click)="addList()">
+              <ion-icon name="bookmark"></ion-icon>
+            </ion-button>
+            <ion-button stopPropagation *ngIf="uid === s.user.uid" color="medium" fill="clear" (click)="openStoryEdit(s, s.storyId)">
               <ion-icon name="pencil-outline"></ion-icon>
             </ion-button>
-          </div>
-          <div *ngIf="uid === s.user.uid">
-            <ion-button color="medium" fill="clear" (click)="openStoryDelete(s.storyId)">
+            <ion-button stopPropagation *ngIf="uid === s.user.uid" color="medium" fill="clear" (click)="openStoryDelete(s.storyId)">
               <ion-icon name="trash-outline"></ion-icon>
             </ion-button>
           </div>

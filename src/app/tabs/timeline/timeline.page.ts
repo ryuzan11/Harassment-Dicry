@@ -118,4 +118,7 @@ export class TimelinePage implements OnInit {
     toast.present();
   }
 
+  addList() {
+  }
+
 }

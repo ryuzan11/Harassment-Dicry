@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { UiModule } from '../shared/ui/ui.module';
+import { DirectiveModule } from '../shared/directive/directive.module';
 
 
 @NgModule({
@@ -10,8 +11,12 @@ import { UiModule } from '../shared/ui/ui.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    UiModule
+    UiModule,
+    DirectiveModule
   ],
-  exports: [UiModule],
+  exports: [
+    UiModule,
+    DirectiveModule
+  ],
 })
 export class SharedModule { }

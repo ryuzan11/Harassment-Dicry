@@ -6,6 +6,11 @@ ion-fab-button {
   --background: #00a6a8;
 }
 
+.action-bar {
+  // z-index: 50;
+  // pointer-events: none;
+}
+
 // @media screen and (min-width: 992px) {
 //   ion-footer {
 //     display: none;
