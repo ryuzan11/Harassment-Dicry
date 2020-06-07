@@ -4,6 +4,6 @@ import 'firebase/firestore';
 
 export interface List {
   name: string | undefined;
-  children?: [ListStory];
-  created_at?: firebase.firestore.FieldValue;
+  children: [ListStory];
+  created_at: firebase.firestore.FieldValue;
 }

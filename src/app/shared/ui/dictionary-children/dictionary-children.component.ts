@@ -36,6 +36,10 @@ export class DictionaryChildrenComponent implements OnInit {
   ngOnInit() {
     this.harassments = this.harassmentsService.getHarassments();
     this.variations = this.navParams.data.children;
+    // console.log(this.navParams.data.children[0].storyRef.get())
+    // this.navParams.data.children[0].storyRef.get().then((data: any) => {
+    //   console.log(data.data());
+    // })
     this.variations.forEach(v => {
       this.harassments.forEach(h => {
         if (v.name === h.name) {

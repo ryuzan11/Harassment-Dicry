@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalController, IonContent, AlertController, ToastController } from '@ionic/angular';
+import { ModalController, IonContent, AlertController, ToastController, ActionSheetController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { FirestoreService } from '../../shared/api/firestore.service';
@@ -9,6 +9,9 @@ import { IUser } from '../../shared/models/i-user';
 import { Story } from '../../shared/models/story';
 import { StoryPostPage } from 'src/app/shared/ui/story-post/story-post.page';
 import { Router } from '@angular/router';
+import { ListService } from 'src/app/shared/api/list.service';
+import { ActionBtns } from 'src/app/shared/models/actionBtns';
+import { List } from 'src/app/shared/models/list';
 
 
 @Component({
@@ -19,35 +22,41 @@ import { Router } from '@angular/router';
 export class TimelinePage implements OnInit {
   uid: string;
   user: IUser;
+  lists: List[] = [];
   stories: Observable<Story[]>;
 
   @ViewChild(IonContent, { static: true})
   content: IonContent;
 
   constructor(
-    public modalCtrl: ModalController,
-    public alertCtrl: AlertController,
-    public toastCtrl: ToastController,
-    public auth: AuthService,
-    public storyService: StoryService,
-    public firestore: FirestoreService,
+    private modalCtrl: ModalController,
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
+    private actionCtrl: ActionSheetController,
+    private auth: AuthService,
+    private storyService: StoryService,
+    private firestore: FirestoreService,
+    private listService: ListService,
     public router: Router
   ) {}
 
   async ngOnInit() {
-    const user = await this.firestore.userInit(this.auth.getUserId());
-    if (!user) {
-      const modal = await this.modalCtrl.create({
-        component: ProfilePage
-      });
-      await modal.present();
-      modal.onDidDismiss().then(()  => this.ionViewWillEnter());
-    }
+    this.uid = this.auth.getUserId();
+    // const user = await this.firestore.userInit(this.auth.getUserId());
+    // if (!user) {
+    //   const modal = await this.modalCtrl.create({
+    //     component: ProfilePage
+    //   });
+    //   await modal.present();
+    //   modal.onDidDismiss().then(()  => this.ionViewWillEnter());
+    // }
     this.stories = this.storyService.initStory();
+    this.listService.getLists(this.uid).subscribe(data => {
+      this.lists = data;
+    });
   }
 
   async ionViewWillEnter() {
-    this.uid = this.auth.getUserId();
     this.user = await this.firestore.userInit(this.uid);
   }
 
@@ -57,6 +66,34 @@ export class TimelinePage implements OnInit {
 
   trackByFn(index, item) {
     return item.storyId;
+  }
+
+  async openListAction(storyId: string) {
+    const actionBtns: any[] = [];
+    this.lists.forEach((l: List & {listId: string}) => {
+      actionBtns.push({
+        text: l.name,
+        handler: () => {
+          this.listService.setList(this.uid, storyId, l.listId);
+          this.actionDismiss();
+        }
+      });
+    });
+    actionBtns.push({
+      text: 'キャンセル',
+      role: 'cancel',
+    });
+
+    const actionSheet = await this.actionCtrl.create({
+      header: 'リスト一覧',
+      // backdropDismiss: false,
+      buttons: actionBtns
+    });
+    await actionSheet.present();
+  }
+
+  actionDismiss(): void {
+    this.actionCtrl.dismiss();
   }
 
   async openStoryPost() {
@@ -116,9 +153,6 @@ export class TimelinePage implements OnInit {
       duration: 2000
     });
     toast.present();
-  }
-
-  addList() {
   }
 
 }

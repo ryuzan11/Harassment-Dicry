@@ -5,6 +5,8 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { List } from '../models/list';
 import { IUser } from '../models/i-user';
+import { ListStory } from '../models/list-story';
+import { Story } from '../models/story';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +28,21 @@ export class ListService {
   addList(uid: string, listName: string) {
     this.list = {
       name: listName,
+      children: null,
       created_at: firebase.firestore.FieldValue.serverTimestamp()
     };
     this.af.doc<IUser>('users/' + uid).collection<List>('listStories').add(this.list);
+  }
+
+  async setList(uid: string, storyId: string, listId: string) {
+    const story = this.af.firestore.doc('story/' + storyId);
+    this.af.firestore.doc('users/' + uid).collection('listStories').doc(listId).update({
+      children: firebase.firestore.FieldValue.arrayUnion({
+        stotyId: storyId,
+        storyRef: story,
+        created_at: firebase.firestore.Timestamp.now()
+      })
+    });
   }
 
 }
