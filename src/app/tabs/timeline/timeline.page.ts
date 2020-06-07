@@ -75,6 +75,7 @@ export class TimelinePage implements OnInit {
         text: l.name,
         handler: () => {
           this.listService.setList(this.uid, storyId, l.listId);
+          this.storyService.setCount(storyId);
           this.actionDismiss();
         }
       });

@@ -55,4 +55,11 @@ export class StoryService {
       return error;
     });
   }
+
+  setCount(storyId: string) {
+    this.af.firestore.doc('story/' + storyId).update({
+      listCount: firebase.firestore.FieldValue.increment(1),
+      updated_at: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  }
 }

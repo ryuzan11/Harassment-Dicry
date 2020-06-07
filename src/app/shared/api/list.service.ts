@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { List } from '../models/list';
 import { IUser } from '../models/i-user';
-import { ListStory } from '../models/list-story';
-import { Story } from '../models/story';
 
 @Injectable({
   providedIn: 'root'
