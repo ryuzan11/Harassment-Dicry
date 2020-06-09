@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ListService } from 'src/app/shared/api/list.service';
-import { DictionaryParentComponent } from '../../shared/ui/dictionary-parent/dictionary-parent.component';
+import { CategoryParentComponent } from '../../shared/ui/category-parent/category-parent.component';
 import { NavList } from 'src/app/shared/models/nav-list';
 
 @Component({
@@ -16,7 +16,7 @@ export class ListPage implements OnInit {
     lists: null
   };
   page = false;
-  navHome: any = DictionaryParentComponent;
+  navHome: any = CategoryParentComponent;
 
   constructor(
     private auth: AuthService,

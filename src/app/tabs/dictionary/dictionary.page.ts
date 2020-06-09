@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DictionariesService } from 'src/app/shared/service/dictionaries.service';
-import { DictionaryParentComponent } from '../../shared/ui/dictionary-parent/dictionary-parent.component';
+import { CategoryParentComponent } from '../../shared/ui/category-parent/category-parent.component';
 import { NavList } from 'src/app/shared/models/nav-list';
 
 @Component({
@@ -13,7 +13,7 @@ export class DictionaryPage implements OnInit {
     type: 'dic',
     lists: null
   };
-  navHome: any = DictionaryParentComponent;
+  navHome: any = CategoryParentComponent;
 
   constructor(
     private dictionariesService: DictionariesService,

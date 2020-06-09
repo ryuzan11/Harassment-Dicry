@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, ModalController, ToastController } from '@ionic/angular';
-import { DictionaryChildrenComponent } from '../dictionary-children/dictionary-children.component';
+import { CategoryChildComponent } from '../category-child/category-child.component';
 import { CreateListPage } from '../create-list/create-list.page';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ListStory } from '../../models/list-story';
-import { ListService } from '../../api/list.service';
 
 @Component({
-  selector: 'ls-dictionary-parent',
-  templateUrl: './dictionary-parent.component.html',
-  styleUrls: ['./dictionary-parent.component.scss'],
+  selector: 'ls-category-parent',
+  templateUrl: './category-parent.component.html',
+  styleUrls: ['./category-parent.component.scss'],
 })
-export class DictionaryParentComponent implements OnInit {
+export class CategoryParentComponent implements OnInit {
   uid: string;
   params: {[key: string]: any};
-  nextPage = DictionaryChildrenComponent;
+  nextPage = CategoryChildComponent;
   listNav: boolean;
 
   constructor(

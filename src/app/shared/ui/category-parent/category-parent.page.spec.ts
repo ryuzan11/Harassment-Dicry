@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { DictionaryChildrenComponent } from './dictionary-children.component';
+import { CategoryParentComponent } from './category-parent.component';
 
-describe('DictionaryChildrenComponent', () => {
-  let component: DictionaryChildrenComponent;
-  let fixture: ComponentFixture<DictionaryChildrenComponent>;
+describe('CategoryParentComponent', () => {
+  let component: CategoryParentComponent;
+  let fixture: ComponentFixture<CategoryParentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DictionaryChildrenComponent ],
+      declarations: [ CategoryParentComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DictionaryChildrenComponent);
+    fixture = TestBed.createComponent(CategoryParentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

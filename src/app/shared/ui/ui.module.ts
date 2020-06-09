@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ProfilePage } from '../ui/profile/profile.page';
-import { DictionaryParentComponent } from '../ui/dictionary-parent/dictionary-parent.component';
-import { DictionaryChildrenComponent } from './dictionary-children/dictionary-children.component';
+import { CategoryParentComponent } from './category-parent/category-parent.component';
+import { CategoryChildComponent } from './category-child/category-child.component';
 import { DictionaryDetailComponent } from '../ui/dictionary-detail/dictionary-detail.component';
 import { StoryPostPage } from '../ui/story-post/story-post.page';
 import { CreateListPage } from './create-list/create-list.page';
@@ -17,16 +17,16 @@ import { CreateListPage } from './create-list/create-list.page';
   ],
   entryComponents: [
     ProfilePage,
-    DictionaryParentComponent,
-    DictionaryChildrenComponent,
+    CategoryParentComponent,
+    CategoryChildComponent,
     DictionaryDetailComponent,
     StoryPostPage,
     CreateListPage
   ],
   declarations: [
     ProfilePage,
-    DictionaryParentComponent,
-    DictionaryChildrenComponent,
+    CategoryParentComponent,
+    CategoryChildComponent,
     DictionaryDetailComponent,
     StoryPostPage,
     CreateListPage

@@ -165,7 +165,7 @@ export class TimelinePage implements OnInit {
     toast.present();
   }
 
-  searchListStory(storyId: string): {[key: string]: string | ListStory} | undefined {
+  searchList(storyId: string): {[key: string]: string | ListStory} | undefined {
     let listStory: {
       [key: string]: string | ListStory
     };

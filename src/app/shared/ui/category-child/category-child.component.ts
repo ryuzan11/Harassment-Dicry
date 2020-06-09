@@ -1,20 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, NavController } from '@ionic/angular';
 import { HarassmentsService } from '../../service/harassments.service';
-import { Harassment } from '../../models/harassment';
-import { Router, RouterEvent} from '@angular/router';
 import { ListStory } from '../../models/list-story';
 import { Story } from '../../models/story';
-import { DocumentReference } from '@angular/fire/firestore/interfaces';
-import { ConsoleReporter } from 'jasmine';
 
 
 @Component({
-  selector: 'ls-dictionary-children',
-  templateUrl: './dictionary-children.component.html',
-  styleUrls: ['./dictionary-children.component.scss'],
+  selector: 'ls-category-child',
+  templateUrl: './category-child.component.html',
+  styleUrls: ['./category-child.component.scss'],
 })
-export class DictionaryChildrenComponent implements OnInit {
+export class CategoryChildComponent implements OnInit {
   categories: {
     'name': string;
     'harassmentId': string | undefined;
