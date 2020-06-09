@@ -11,10 +11,10 @@
 
 <ion-content  fullscreen>
   <ion-list>
-    <ion-item button *ngFor="let c of categories" (click)="navigateShow(c.harassmentId)">
+    <ion-item button *ngFor="let c of (listNav ? stories : categories)" (click)="navigateShow(listNav? c.storyId : c.harassmentId)">
       <ion-icon name="arrow-forward" slot="end"></ion-icon>
       <ion-label>
-        {{c.name}}
+        {{listNav ? c.story.story : c.name}}
       </ion-label>
     </ion-item>
   </ion-list>
