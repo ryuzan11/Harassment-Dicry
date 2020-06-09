@@ -4,6 +4,7 @@ import { DictionaryChildrenComponent } from '../dictionary-children/dictionary-c
 import { CreateListPage } from '../create-list/create-list.page';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ListStory } from '../../models/list-story';
+import { ListService } from '../../api/list.service';
 
 @Component({
   selector: 'ls-dictionary-parent',
@@ -43,9 +44,13 @@ export class DictionaryParentComponent implements OnInit {
   async presentToast() {
     const toast = await this.toastCtrl.create({
       message: '追加した話がありません',
-      duration: 2000
+      duration: 1000
     });
     toast.present();
+  }
+
+  storyNav(child: ListStory[]): boolean {
+    return (child !== undefined) && (child.length !== 0)  ? true : false;
   }
 
 }

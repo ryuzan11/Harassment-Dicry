@@ -13,8 +13,8 @@
     </div>
   </ion-item>
   <ion-list>
-    <ng-container *ngFor="let list of params.lists">    
-    <ion-nav-link *ngIf="(list.children && list.children.length) !== undefined; else notNav" [component]="nextPage" [componentProps]="{'children': list.children}" routerDirection="forward">
+    <ng-container *ngFor="let list of params.lists">
+    <ion-nav-link *ngIf="storyNav(list.children); else notNav" [component]="nextPage" [componentProps]="{'children': list.children}" routerDirection="forward">
       <ion-item button>
         <ion-icon name="arrow-forward" slot="end"></ion-icon>
         <ion-label>
