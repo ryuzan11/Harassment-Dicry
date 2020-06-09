@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, NavController } from '@ionic/angular';
-import { DictionaryDetailComponent } from '../dictionary-detail/dictionary-detail.component';
 import { HarassmentsService } from '../../service/harassments.service';
 import { Harassment } from '../../models/harassment';
 import { Router, RouterEvent} from '@angular/router';
+import { ListStory } from '../../models/list-story';
 
 
 @Component({
@@ -12,13 +12,16 @@ import { Router, RouterEvent} from '@angular/router';
   styleUrls: ['./dictionary-children.component.scss'],
 })
 export class DictionaryChildrenComponent implements OnInit {
-  variations: {
+  categories: {
     'name': string;
     'harassmentId': string | undefined;
-  }[];
-  harassments: Harassment[];
-  nextPage = DictionaryDetailComponent;
-  selectedPath = '';
+  }[] | ListStory[];
+  forwardButton = true;
+  listNav: boolean;
+
+  get harassments() {
+    return this.harassmentsService.harassments;
+  }
 
   constructor(
     private navParams: NavParams,
@@ -26,27 +29,21 @@ export class DictionaryChildrenComponent implements OnInit {
     public harassmentsService: HarassmentsService,
     public navCtrl: NavController
   ) {
-    this.router.events.subscribe((event: RouterEvent) => {
-      if (event && event.url) {
-        this.selectedPath = event.url;
-      }
-    });
   }
 
   ngOnInit() {
-    this.harassments = this.harassmentsService.getHarassments();
-    this.variations = this.navParams.data.children;
-    // console.log(this.navParams.data.children[0].storyRef.get())
-    // this.navParams.data.children[0].storyRef.get().then((data: any) => {
-    //   console.log(data.data());
-    // })
-    this.variations.forEach(v => {
-      this.harassments.forEach(h => {
-        if (v.name === h.name) {
-          v.harassmentId = h.id;
-        }
+    this.forwardButton = this.navParams.data.children[0] === null ? false : true;
+    this.listNav = this.navParams.data.children[0].storyId ? true : false;
+    this.categories = this.navParams.data.children;
+    if (!this.listNav) {
+      this.categories.forEach(v => {
+        this.harassments.forEach(h => {
+          if (v.name === h.name) {
+            v.harassmentId = h.id;
+          }
+        });
       });
-    });
+    }
   }
 
   navigateShow(id: string) {

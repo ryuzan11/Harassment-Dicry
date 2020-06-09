@@ -8,7 +8,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-list class="ion-padding-top">
-    <ion-item button lines="none" *ngFor="let s of (stories | async); trackBy: trackByFn" (click)="setPassStory(s)" [routerLink]="s.storyId" routerDirection="forward">
+    <ion-item button lines="none" *ngFor="let s of stories; trackBy: trackByFn" (click)="setPassStory(s)" [routerLink]="s.storyId" routerDirection="forward">
       <ion-avatar slot="start">
         <ion-img [src]="s.user.photoDataUrl"></ion-img>
       </ion-avatar>
@@ -19,8 +19,8 @@
           <div class="ion-text-nowrap"><strong>{{s.user.displayName}}</strong></div>
           {{s.story}}
           <div class="action-list">
-            <ion-button stopPropagation color="medium" fill="clear" (click)="openListAction(s.storyId)">
-              <ion-icon name="bookmark"></ion-icon>
+            <ion-button stopPropagation color="medium" fill="clear" (click)="searchListStory(s.storyId) ? deleteListStory(s.storyId) : openListAction(s.storyId)">
+              <ion-icon [class.add-list]="searchListStory(s.storyId)" name="bookmark"></ion-icon>
             </ion-button>
             <ion-button stopPropagation *ngIf="uid === s.user.uid" color="medium" fill="clear" (click)="openStoryEdit(s, s.storyId)">
               <ion-icon name="pencil-outline"></ion-icon>

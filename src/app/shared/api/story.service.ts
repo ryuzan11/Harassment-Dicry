@@ -56,9 +56,16 @@ export class StoryService {
     });
   }
 
-  setCount(storyId: string) {
+  upCount(storyId: string) {
     this.af.firestore.doc('story/' + storyId).update({
       listCount: firebase.firestore.FieldValue.increment(1),
+      updated_at: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  }
+
+  downCount(storyId: string) {
+    this.af.firestore.doc('story/' + storyId).update({
+      listCount: firebase.firestore.FieldValue.increment(-1),
       updated_at: firebase.firestore.FieldValue.serverTimestamp()
     });
   }

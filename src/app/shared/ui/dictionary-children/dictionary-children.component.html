@@ -4,17 +4,17 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>
-      子要素
+      {{listNav ? 'リスト' : 'ハラスメント'}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content  fullscreen>
   <ion-list>
-    <ion-item button *ngFor="let variation of variations" (click)="navigateShow(variation.harassmentId)">
+    <ion-item button *ngFor="let c of categories" (click)="navigateShow(c.harassmentId)">
       <ion-icon name="arrow-forward" slot="end"></ion-icon>
       <ion-label>
-        {{variation.name}}
+        {{c.name}}
       </ion-label>
     </ion-item>
   </ion-list>

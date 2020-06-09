@@ -10,8 +10,9 @@ import { Story } from '../../shared/models/story';
 import { StoryPostPage } from 'src/app/shared/ui/story-post/story-post.page';
 import { Router } from '@angular/router';
 import { ListService } from 'src/app/shared/api/list.service';
-import { ActionBtns } from 'src/app/shared/models/actionBtns';
 import { List } from 'src/app/shared/models/list';
+import { ListStory } from 'src/app/shared/models/list-story';
+import { Obj } from 'src/app/shared/models/obj';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class TimelinePage implements OnInit {
   uid: string;
   user: IUser;
   lists: List[] = [];
-  stories: Observable<Story[]>;
+  stories: Story[];
+  storyIds: string[] = [];
 
   @ViewChild(IonContent, { static: true})
   content: IonContent;
@@ -50,7 +52,9 @@ export class TimelinePage implements OnInit {
     //   await modal.present();
     //   modal.onDidDismiss().then(()  => this.ionViewWillEnter());
     // }
-    this.stories = this.storyService.initStory();
+    this.storyService.initStory().subscribe(data => {
+      this.stories = data;
+    });
     this.listService.getLists(this.uid).subscribe(data => {
       this.lists = data;
     });
@@ -68,6 +72,10 @@ export class TimelinePage implements OnInit {
     return item.storyId;
   }
 
+  actionDismiss(): void {
+    this.actionCtrl.dismiss();
+  }
+
   async openListAction(storyId: string) {
     const actionBtns: any[] = [];
     this.lists.forEach((l: List & {listId: string}) => {
@@ -75,7 +83,7 @@ export class TimelinePage implements OnInit {
         text: l.name,
         handler: () => {
           this.listService.setList(this.uid, storyId, l.listId);
-          this.storyService.setCount(storyId);
+          this.storyService.upCount(storyId);
           this.actionDismiss();
         }
       });
@@ -93,8 +101,9 @@ export class TimelinePage implements OnInit {
     await actionSheet.present();
   }
 
-  actionDismiss(): void {
-    this.actionCtrl.dismiss();
+  deleteListStory(storyId: string) {
+    this.listService.deleteListStory(this.uid, this.searchListStory(storyId));
+    this.storyService.downCount(storyId);
   }
 
   async openStoryPost() {
@@ -156,4 +165,21 @@ export class TimelinePage implements OnInit {
     toast.present();
   }
 
+  searchListStory(storyId: string): {[key: string]: string | ListStory} | undefined {
+    let listStory: {
+      [key: string]: string | ListStory
+    };
+    if (this.lists) {
+      this.lists.forEach((list: List & {listId: string}) => {
+        if (list.children) {
+          for (const child of list.children) {
+            if (child.storyId === storyId) {
+              listStory = {listId: list.listId, storyInfo: child};
+            }
+          }
+        }
+      });
+    }
+    return listStory;
+  }
 }

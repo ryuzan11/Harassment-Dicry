@@ -9,11 +9,11 @@ import { Category } from '../models/category';
 })
 export class HarassmentsService {
 
-  constructor(public categoriesService: CategoriesService) {}
-
-  getHarassments(): Harassment[] {
+  get harassments() {
     return HARASSMENTS;
   }
+
+  constructor(public categoriesService: CategoriesService) {}
 
   getHarassmentFromId(id: string): Harassment {
     for (const h of HARASSMENTS) {

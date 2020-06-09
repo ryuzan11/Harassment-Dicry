@@ -1,14 +1,20 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      カテゴリー
+      {{params.type === 'dic' ? '辞書一覧' : 'リスト一覧'}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content  fullscreen>
-  <ion-list>    
-    <ion-nav-link *ngFor="let list of params.lists" [component]="nextPage" [componentProps]="{'children': list.children}" routerDirection="forward">
+  <ion-item *ngIf="params.type === 'list'" button (click)="openCreateList()">
+    <div class="position-block-center">リスト追加
+      <ion-icon name="add-circle-outline"></ion-icon>
+    </div>
+  </ion-item>
+  <ion-list>
+    <ng-container *ngFor="let list of params.lists">    
+    <ion-nav-link *ngIf="(list.children && list.children.length) !== undefined; else notNav" [component]="nextPage" [componentProps]="{'children': list.children}" routerDirection="forward">
       <ion-item button>
         <ion-icon name="arrow-forward" slot="end"></ion-icon>
         <ion-label>
@@ -16,16 +22,15 @@
         </ion-label>
       </ion-item>
     </ion-nav-link>
+
+    <ng-template #notNav>
+        <ion-item (click)="presentToast()">
+          <ion-label>
+            {{list.name}}
+          </ion-label>
+        </ion-item>
+    </ng-template>
+    
+  </ng-container>
   </ion-list>
 </ion-content>
-
-<!-- <ng-template #list>
-  <ion-nav-link *ngFor="let list of params.lists" (click)="navigate()" routerDirection="forward">
-    <ion-item button>
-      <ion-icon name="arrow-forward" slot="end"></ion-icon>
-      <ion-label>
-        {{list.name}}
-      </ion-label>
-    </ion-item>
-  </ion-nav-link>
-</ng-template> -->
