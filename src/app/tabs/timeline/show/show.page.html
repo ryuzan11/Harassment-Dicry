@@ -17,10 +17,15 @@
     {{story.category}}
     {{story.harassment}}
   </ion-item>
-  <ion-item>
-    <ion-label>回答受付中</ion-label>
-    <ion-textarea></ion-textarea>
-  </ion-item>
+  <form #f="ngForm">
+    <ion-item>
+      <ion-label position="stacked">回答受付中</ion-label>
+      <ion-textarea name="answer" [(ngModel)]="message" rows="7" placeholder="回答を記入" maxlength="500" minlength="1" required></ion-textarea>
+    </ion-item>
+  </form>
+  <div class="position-flex-center">
+    <ion-button [disabled]="!f.form.valid">回答を送る</ion-button>
+  </div>
 </ion-content>
 
 <ng-template #loading>
