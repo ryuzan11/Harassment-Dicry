@@ -102,7 +102,7 @@ export class TimelinePage implements OnInit {
   }
 
   deleteListStory(storyId: string) {
-    this.listService.deleteListStory(this.uid, this.searchListStory(storyId));
+    this.listService.deleteListStory(this.uid, this.searchList(storyId));
     this.storyService.downCount(storyId);
   }
 
