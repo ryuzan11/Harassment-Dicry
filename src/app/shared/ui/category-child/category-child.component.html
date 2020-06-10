@@ -4,17 +4,22 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>
-      {{listNav ? 'リスト' : 'ハラスメント'}}
+      {{dictionaryNav ? 'ハラスメント' : 'リスト'}}
     </ion-title>
+    <ion-buttons *ngIf="!dictionaryNav" slot="end">
+      <ion-button (click)="presentActionSheet()">
+        <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content  fullscreen>
   <ion-list>
-    <ion-item button *ngFor="let c of (listNav ? stories : categories)" (click)="navigateShow(listNav? c.storyId : c.harassmentId)">
+    <ion-item button *ngFor="let c of (dictionaryNav ?  dictionaries : stories)" (click)="navigateShow(dictionaryNav? c.harassmentId : c.storyId)">
       <ion-icon name="arrow-forward" slot="end"></ion-icon>
       <ion-label>
-        {{listNav ? c.story.story : c.name}}
+        {{dictionaryNav ? c.name : c.story.story}}
       </ion-label>
     </ion-item>
   </ion-list>

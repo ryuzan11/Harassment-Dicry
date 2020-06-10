@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController, ToastController } from '@ionic/angular';
+import { NavParams, ModalController } from '@ionic/angular';
 import { CategoryChildComponent } from '../category-child/category-child.component';
-import { CreateListPage } from '../create-list/create-list.page';
+import { ActionListPage } from '../action-list/action-list.page';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ListStory } from '../../models/list-story';
 
@@ -20,7 +20,6 @@ export class CategoryParentComponent implements OnInit {
     private navParams: NavParams,
     private auth: AuthService,
     private modalCtrl: ModalController,
-    private toastCtrl: ToastController
     ) { }
 
   ngOnInit() {
@@ -28,28 +27,22 @@ export class CategoryParentComponent implements OnInit {
     this.params = this.navParams.data;
   }
 
-  async openCreateList() {
+  async openAddList() {
     const modal = await this.modalCtrl.create({
-      component: CreateListPage,
+      component: ActionListPage,
       backdropDismiss: false,
-      cssClass: 'create-list-modal',
+      cssClass: 'action-list-modal',
       componentProps: {
-        uid: this.uid
+        uid: this.uid,
+        type: 'add'
       }
     });
     await modal.present();
   }
 
-  async presentToast() {
-    const toast = await this.toastCtrl.create({
-      message: '追加した話がありません',
-      duration: 1000
-    });
-    toast.present();
+  storyCount(child: ListStory[]): number {
+    return (child) && (child.length !== 0)  ? child.length : 0 ;
   }
 
-  storyNav(child: ListStory[]): boolean {
-    return (child !== undefined) && (child.length !== 0)  ? true : false;
-  }
 
 }

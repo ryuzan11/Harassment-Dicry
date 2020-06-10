@@ -7,7 +7,7 @@ import { CategoryParentComponent } from './category-parent/category-parent.compo
 import { CategoryChildComponent } from './category-child/category-child.component';
 import { DictionaryDetailComponent } from '../ui/dictionary-detail/dictionary-detail.component';
 import { StoryPostPage } from '../ui/story-post/story-post.page';
-import { CreateListPage } from './create-list/create-list.page';
+import { ActionListPage } from './action-list/action-list.page';
 
 @NgModule({
   imports: [
@@ -21,7 +21,7 @@ import { CreateListPage } from './create-list/create-list.page';
     CategoryChildComponent,
     DictionaryDetailComponent,
     StoryPostPage,
-    CreateListPage
+    ActionListPage
   ],
   declarations: [
     ProfilePage,
@@ -29,7 +29,7 @@ import { CreateListPage } from './create-list/create-list.page';
     CategoryChildComponent,
     DictionaryDetailComponent,
     StoryPostPage,
-    CreateListPage
+    ActionListPage
   ]
 })
 export class UiModule { }

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { List } from '../models/list';
 import { IUser } from '../models/i-user';
 import { ListStory } from '../models/list-story';
-import { StoryService } from './story.service';
+import { NavController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,7 @@ export class ListService {
 
   constructor(
     private af: AngularFirestore,
+    private navCtrl: NavController
   ) {}
 
   getLists(uid: string): Observable<List[]> {
@@ -45,10 +46,14 @@ export class ListService {
     });
   }
 
-  deleteListStory(uid: string, lInfo: {[key: string]: string | ListStory} ) {
+  deleteListStory(uid: string, lInfo: {[key: string]: string | ListStory}) {
     firebase.firestore().doc('users/' + uid).collection('listStories').doc(lInfo.listId as string).update({
       children: firebase.firestore.FieldValue.arrayRemove(lInfo.storyInfo)
     });
+  }
+
+  deleteList(uid: string, lid: string): Promise<void> {
+    return this.af.doc('users/' + uid).collection('listStories').doc(lid).delete();
   }
 
 }

@@ -3,11 +3,11 @@ import { ModalController, NavParams } from '@ionic/angular';
 import { ListService } from '../../api/list.service';
 
 @Component({
-  selector: 'app-create-list',
-  templateUrl: './create-list.page.html',
-  styleUrls: ['./create-list.page.scss'],
+  selector: 'app-action-list',
+  templateUrl: './action-list.page.html',
+  styleUrls: ['./action-list.page.scss'],
 })
-export class CreateListPage implements OnInit {
+export class ActionListPage implements OnInit {
   uid: string;
 
   constructor(
@@ -24,7 +24,7 @@ export class CreateListPage implements OnInit {
     this.modalCtrl.dismiss();
   }
 
-  createList(name: string) {
+  actionList(name: string) {
     this.listService.addList(this.uid, name);
     this.modalDismiss();
   }
