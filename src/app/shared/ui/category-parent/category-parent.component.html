@@ -14,7 +14,7 @@
   </ion-item>
   <ion-list>
     <ng-container *ngFor="let list of params.lists">
-    <ion-nav-link [component]="nextPage" [componentProps]="{'children': list.children, 'listId': list.listId}" routerDirection="forward">
+    <ion-nav-link *ngIf="storyCount(list.children); else notNav" [component]="nextPage" [componentProps]="{'children': list.children, 'listId': list.listId}" routerDirection="forward">
       <ion-item button>
         <ion-label>
           {{list.name}}
@@ -22,7 +22,16 @@
         <ion-badge *ngIf="params.type === 'list'" color="drafts" slot="end">{{storyCount(list.children)}}</ion-badge>
         <ion-icon name="arrow-forward" slot="end"></ion-icon>
       </ion-item>
-    </ion-nav-link>    
+    </ion-nav-link>
+
+    <ng-template #notNav>
+        <ion-item (click)="presentToast(list.listId)">
+          <ion-label>
+            {{list.name}}
+          </ion-label>
+        </ion-item>
+    </ng-template>
+    
   </ng-container>
   </ion-list>
 </ion-content>

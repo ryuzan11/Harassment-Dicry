@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Router, RouterEvent } from '@angular/router';
-import { IonTabs } from '@ionic/angular';
+import { IonTabs, NavController, IonRouterOutlet } from '@ionic/angular';
 
 @Component({
   selector: 'app-tabs',
@@ -40,6 +40,8 @@ export class TabsPage implements OnInit {
   constructor(
     public auth: AuthService,
     private router: Router,
+    private navCtrl: NavController,
+    private routerOutlet: IonRouterOutlet
   ) {
     this.router.events.subscribe((event: RouterEvent) => {
       if (event && event.url) {
@@ -55,7 +57,6 @@ export class TabsPage implements OnInit {
     ele.tagName === 'ION-TAB-BUTTON') as EventTarget & { tab: string };
     if (this.resetStackTabs.includes(tab) && this.myTabs.outlet.canGoBack(1, tab)) {
       event.stopImmediatePropagation();
-
       return this.myTabs.outlet.pop(1, tab);
     }
   }

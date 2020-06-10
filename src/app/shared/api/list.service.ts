@@ -52,7 +52,7 @@ export class ListService {
     });
   }
 
-  deleteList(uid: string, lid: string): Promise<void> {
+  deleteList(uid: string, lid: string) {
     return this.af.doc('users/' + uid).collection('listStories').doc(lid).delete();
   }
 

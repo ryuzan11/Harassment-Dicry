@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 import { ListService } from 'src/app/shared/api/list.service';
 import { List } from 'src/app/shared/models/list';
 import { ListStory } from 'src/app/shared/models/list-story';
-import { Obj } from 'src/app/shared/models/obj';
 
 
 @Component({

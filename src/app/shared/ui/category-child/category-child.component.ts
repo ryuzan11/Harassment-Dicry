@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { NavParams, NavController, ModalController, ActionSheetController, ToastController } from '@ionic/angular';
+import { Component, OnInit, Optional  } from '@angular/core';
+import { NavParams, NavController, ModalController, ActionSheetController, ToastController, IonRouterOutlet } from '@ionic/angular';
 import { HarassmentsService } from '../../service/harassments.service';
 import { ListStory } from '../../models/list-story';
 import { Story } from '../../models/story';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActionListPage } from '../action-list/action-list.page';
 import { ListService } from '../../api/list.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,6 @@ export class CategoryChildComponent implements OnInit {
     'name': string;
     'harassmentId': string | undefined;
   }[];
-  forwardButton = true;
   listStories: ListStory[];
   stories: {storyId: string, story: Story}[] = [];
   dictionaryNav: boolean;
@@ -37,34 +37,30 @@ export class CategoryChildComponent implements OnInit {
     private actionCtrl: ActionSheetController,
     private modalCtrl: ModalController,
     private listService: ListService,
-    private toastCtrl: ToastController
+    private router: Router,
   ) {
   }
 
   ngOnInit() {
     this.uid = this.auth.getUserId();
-    this.dictionaryNav = ((this.navParams.data.children) && this.navParams.data.children[0].name) ? true : false;
-    if ((this.navParams.data.children) && (this.navParams.data.children.length !== 0)) {
-      this.forwardButton = this.navParams.data.children[0] === null ? false : true;
-      this.dictionaryNav ? this.dictionaries = this.navParams.data.children : this.listStories = this.navParams.data.children;
-      if (this.dictionaryNav) {
-        this.dictionaries.forEach(c => {
-          this.harassments.forEach(h => {
-            if (c.name === h.name) {
-              c.harassmentId = h.id;
-            }
-          });
+    this.dictionaryNav = (this.navParams.data.children && this.navParams.data.children[0].name) ? true : false;
+    if (this.dictionaryNav) {
+      this.dictionaries = this.navParams.data.children;
+      this.dictionaries.forEach(c => {
+        this.harassments.forEach(h => {
+          if (c.name === h.name) {
+            c.harassmentId = h.id;
+          }
         });
-      } else {
-        this.listId = this.navParams.data.listId;
-        this.listStories.forEach(l => {
-          l.storyRef.get().then(s => {
-            this.stories.push({storyId: l.storyId, story: s.data() as Story});
-          });
-        });
-      }
+      });
     } else {
-      this.presentToast();
+      this.listStories = this.navParams.data.children;
+      this.listId = this.navParams.data.listId;
+      this.listStories.forEach(l => {
+        l.storyRef.get().then(s => {
+          this.stories.push({storyId: l.storyId, story: s.data() as Story});
+        });
+      });
     }
   }
 
@@ -81,12 +77,14 @@ export class CategoryChildComponent implements OnInit {
         text: '削除する',
         role: 'destructive',
         handler: () => {
-          this.listService.deleteList(this.uid, this.listId);
+          this.listService.deleteList(this.uid, this.listId).then(() => {
+            this.router.navigateByUrl('/main/list');
+          });
+          this.navCtrl.back();
         }
       }, {
         text: 'リスト名を編集',
         handler: () => {
-          this.navCtrl.navigateBack('/main/list');
           this.openEditList();
         }
       }, {
@@ -111,14 +109,6 @@ export class CategoryChildComponent implements OnInit {
       }
     });
     await modal.present();
-  }
-
-  async presentToast() {
-    const toast = await this.toastCtrl.create({
-      message: '話を追加してください',
-      duration: 1000
-    });
-    toast.present();
   }
 
 }

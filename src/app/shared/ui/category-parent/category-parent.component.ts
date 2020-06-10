@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
+import { NavParams, ModalController, ToastController } from '@ionic/angular';
 import { CategoryChildComponent } from '../category-child/category-child.component';
 import { ActionListPage } from '../action-list/action-list.page';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ListStory } from '../../models/list-story';
+import { ListService } from '../../api/list.service';
 
 @Component({
   selector: 'ls-category-parent',
@@ -19,7 +20,9 @@ export class CategoryParentComponent implements OnInit {
   constructor(
     private navParams: NavParams,
     private auth: AuthService,
+    private listService: ListService,
     private modalCtrl: ModalController,
+    private toastCtrl: ToastController
     ) { }
 
   ngOnInit() {
@@ -40,9 +43,28 @@ export class CategoryParentComponent implements OnInit {
     await modal.present();
   }
 
-  storyCount(child: ListStory[]): number {
-    return (child) && (child.length !== 0)  ? child.length : 0 ;
+  storyCount(child: ListStory[]): number | undefined {
+    return (child) && (child.length !== 0)  ? child.length : undefined ;
   }
 
+  async presentToast(listId: string) {
+    const toast = await this.toastCtrl.create({
+      header: '話を追加していません',
+      message: 'リストを削除しますか？',
+      color: 'tertiary',
+      buttons: [
+        {
+          text: '削除する',
+          handler: () => {
+            this.listService.deleteList(this.uid, listId);
+          }
+        }, {
+          text: 'キャンセル',
+          role: 'cancel',
+        }
+      ]
+    });
+    toast.present();
+  }
 
 }
