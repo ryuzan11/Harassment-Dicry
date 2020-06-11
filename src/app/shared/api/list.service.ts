@@ -7,6 +7,7 @@ import { List } from '../models/list';
 import { IUser } from '../models/i-user';
 import { ListStory } from '../models/list-story';
 import { NavController } from '@ionic/angular';
+import { StoryService } from './story.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class ListService {
 
   constructor(
     private af: AngularFirestore,
-    private navCtrl: NavController
+    private storyService: StoryService
   ) {}
 
   getLists(uid: string): Observable<List[]> {
@@ -52,8 +53,13 @@ export class ListService {
     });
   }
 
-  deleteList(uid: string, lid: string) {
-    return this.af.doc('users/' + uid).collection('listStories').doc(lid).delete();
+  deleteList(uid: string, lid: string, children?: ListStory[]) {
+    if (children) {
+      children.forEach(child => {
+        this.storyService.downCount(child.storyId);
+      });
+    }
+    this.af.doc('users/' + uid).collection('listStories').doc(lid).delete();
   }
 
 }

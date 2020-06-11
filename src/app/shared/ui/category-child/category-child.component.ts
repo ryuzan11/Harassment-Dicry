@@ -77,10 +77,9 @@ export class CategoryChildComponent implements OnInit {
         text: '削除する',
         role: 'destructive',
         handler: () => {
-          this.listService.deleteList(this.uid, this.listId).then(() => {
-            this.router.navigateByUrl('/main/list');
-          });
+          this.listService.deleteList(this.uid, this.listId, this.listStories);
           this.navCtrl.back();
+          this.router.navigateByUrl('/main/list'); // 何故かこれでmain/listでpopみたいなことが行われている
         }
       }, {
         text: 'リスト名を編集',

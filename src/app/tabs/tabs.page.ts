@@ -56,7 +56,7 @@ export class TabsPage implements OnInit {
     const { tab } = event.composedPath().find((ele: any) =>
     ele.tagName === 'ION-TAB-BUTTON') as EventTarget & { tab: string };
     if (this.resetStackTabs.includes(tab) && this.myTabs.outlet.canGoBack(1, tab)) {
-      event.stopImmediatePropagation();
+      // event.stopImmediatePropagation();
       return this.myTabs.outlet.pop(1, tab);
     }
   }
