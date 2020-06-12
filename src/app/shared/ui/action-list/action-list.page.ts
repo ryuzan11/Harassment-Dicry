@@ -9,6 +9,7 @@ import { ListService } from '../../api/list.service';
 })
 export class ActionListPage implements OnInit {
   uid: string;
+  type: string;
 
   constructor(
     private modalCtrl: ModalController,
@@ -18,14 +19,15 @@ export class ActionListPage implements OnInit {
 
   ngOnInit() {
     this.uid = this.navParams.data.uid;
+    this.type = 'private';
   }
 
   modalDismiss(): void {
     this.modalCtrl.dismiss();
   }
 
-  actionList(name: string) {
-    this.listService.addList(this.uid, name);
+  actionList(name: string, type: 'public' | 'private') {
+    this.listService.addList(this.uid, name, type);
     this.modalDismiss();
   }
 

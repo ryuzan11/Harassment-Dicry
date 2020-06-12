@@ -27,9 +27,10 @@ export class ListService {
       .valueChanges({idField: 'listId'});
   }
 
-  addList(uid: string, listName: string) {
+  addList(uid: string, listName: string, listType: 'public' | 'private') {
     this.list = {
       name: listName,
+      type: listType,
       children: null,
       created_at: firebase.firestore.FieldValue.serverTimestamp()
     };

@@ -15,9 +15,24 @@
       <ion-label position="stacked">リスト名</ion-label>
       <ion-input name="name" [(ngModel)]="name" required></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-radio-group name="type" [(ngModel)]="type" required>
+        <ion-list-header>
+          <ion-label>閲覧可否</ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-label>プライベート</ion-label>
+          <ion-radio slot="start" value="private"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>公開</ion-label>
+          <ion-radio slot="start" value="public"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-item>
 
     <div class="position-flex-center">
-      <ion-button type="submit" (click)="actionList(name)" [disabled]="!f.form.valid">作成</ion-button>
+      <ion-button type="submit" (click)="actionList(name, type)" [disabled]="!f.form.valid">作成</ion-button>
     </div>
   </form>
 </ion-content>
