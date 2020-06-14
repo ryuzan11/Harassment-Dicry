@@ -8,7 +8,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-list class="ion-padding-top">
-    <ion-item button lines="none" *ngFor="let s of stories; trackBy: trackByFn" (click)="setPassStory(s)" [routerLink]="s.storyId" routerDirection="forward">
+    <ion-item button lines="none" *ngFor="let s of stories; trackBy: trackByFn" (click)="setPassInfo(s)" [routerLink]="s.storyId" routerDirection="forward">
       <ion-avatar slot="start">
         <ion-img [src]="s.user.photoDataUrl"></ion-img>
       </ion-avatar>

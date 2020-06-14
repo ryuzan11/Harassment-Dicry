@@ -13,7 +13,7 @@ import { HarassmentsService } from '../../service/harassments.service';
 })
 export class StoryPostPage implements OnInit {
   harassments: string[];
-  data: {[key: string]: any};
+  navData: {[key: string]: any};
   editMode: boolean;
   postData: Story = {
     type: null,
@@ -48,13 +48,16 @@ export class StoryPostPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.navData = this.navParams.data;
     this.editMode = this.navParams.data.preStory ? true : false;
-    this.editMode ? this.postData = this.navParams.data.preStory : (
-      this.postData.user.uid = this.navParams.data.uid,
-      this.postData.user.displayName = this.navParams.data.user.displayName,
-      this.postData.user.photoDataUrl = this.navParams.data.user.photoDataUrl,
-      this.postData.user.gender = this.navParams.data.user.gender
-    );
+    this.editMode ? this.postData = this.navParams.data.preStory :
+    this.postData.state = 'public';
+    this.postData.user = {
+      uid: this.navData.uid,
+      displayName: this.navData.user.displayName,
+      photoDataUrl: this.navData.user.photoDataUrl,
+      gender: this.navData.user.gender
+    };
     if (this.postData.category !== null) { this.setHarassmentsFromName(this.postData.category); }
   }
 
@@ -75,8 +78,8 @@ export class StoryPostPage implements OnInit {
       alert('プロフィール登録が必要です');
       return;
     }
-    const id = this.navParams.data.storyId;
-    this.editMode ? this.storyService.updateStory(this.postData, id) : this.storyService.addStory(this.postData);
+    const sid = this.navParams.data.storyId;
+    this.editMode ? this.storyService.updateStory(this.postData, sid) : this.storyService.addStory(this.postData);
     this.modalCtrl.dismiss();
   }
 

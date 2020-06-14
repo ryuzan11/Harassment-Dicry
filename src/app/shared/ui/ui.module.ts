@@ -5,7 +5,6 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePage } from '../ui/profile/profile.page';
 import { CategoryParentComponent } from './category-parent/category-parent.component';
 import { CategoryChildComponent } from './category-child/category-child.component';
-import { DictionaryDetailComponent } from '../ui/dictionary-detail/dictionary-detail.component';
 import { StoryPostPage } from '../ui/story-post/story-post.page';
 import { ActionListPage } from './action-list/action-list.page';
 
@@ -19,7 +18,6 @@ import { ActionListPage } from './action-list/action-list.page';
     ProfilePage,
     CategoryParentComponent,
     CategoryChildComponent,
-    DictionaryDetailComponent,
     StoryPostPage,
     ActionListPage
   ],
@@ -27,7 +25,6 @@ import { ActionListPage } from './action-list/action-list.page';
     ProfilePage,
     CategoryParentComponent,
     CategoryChildComponent,
-    DictionaryDetailComponent,
     StoryPostPage,
     ActionListPage
   ]

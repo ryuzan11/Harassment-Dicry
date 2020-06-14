@@ -6,7 +6,6 @@ import 'firebase/firestore';
 import { List } from '../models/list';
 import { IUser } from '../models/i-user';
 import { ListStory } from '../models/list-story';
-import { NavController } from '@ionic/angular';
 import { StoryService } from './story.service';
 
 @Injectable({

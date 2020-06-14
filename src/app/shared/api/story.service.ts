@@ -39,6 +39,7 @@ export class StoryService {
   }
 
   addStory(story: Story) {
+    story.deadline = new Date().setDate(new Date().getDate() + 7);
     story.created_at = firebase.firestore.FieldValue.serverTimestamp();
     return this.storyCollection.add(story);
   }
@@ -69,4 +70,5 @@ export class StoryService {
       updated_at: firebase.firestore.FieldValue.serverTimestamp()
     });
   }
+
 }

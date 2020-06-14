@@ -9,8 +9,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-item *ngIf="page; else loading">
+<ion-content *ngIf="page; else loading">
+  <ion-item>
     {{story.user.displayName}}
     {{story.story}}
     {{story.prefecture}}
@@ -21,39 +21,55 @@
     <form #f="ngForm">
       <ion-item>
         <ion-label position="stacked">回答受付中</ion-label>
-        <ion-textarea name="answer" [(ngModel)]="message" rows="7" placeholder="回答を記入" maxlength="500" minlength="1" required></ion-textarea>
+        <ion-textarea name="answer" [(ngModel)]="answer" rows="7" placeholder="回答を記入" maxlength="500" minlength="1" [disabled]="story.user.uid === uid" required></ion-textarea>
       </ion-item>
     </form>
     <div class="position-flex-center">
-      <ion-button [disabled]="!f.form.valid">回答を送る</ion-button>
+      <ion-button (click)="postAnswer()" [disabled]="!f.form.valid || story.user.uid === uid">回答を送る</ion-button>
     </div>
   </ng-container>
+  <ion-list *ngIf="(story.type === '相談' || '解決済み') && (answers)">
+    <ion-item *ngFor="let a of answers">
+      {{a.answer}}
+      {{a.user.displayName}}
+      <div class="action-list">
+        <ion-button stopPropagation *ngIf="a.user.uid === uid" color="medium" fill="clear" (click)="openStoryEdit(s, s.storyId)">
+          <ion-icon name="pencil-outline"></ion-icon>
+        </ion-button>
+        <ion-button stopPropagation *ngIf="a.user.uid === uid" color="medium" fill="clear" (click)="openStoryDelete(s.storyId)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>
 
 <ng-template #loading>
-  <div>  
-    <ion-list>
-      <ion-list-header>
-        <ion-label>
-          <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
-        </ion-label>
-      </ion-list-header>
-      <ion-item>
-        <ion-avatar slot="start">
-          <ion-skeleton-text animated></ion-skeleton-text>
-        </ion-avatar>
-        <ion-label>
-          <h3>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-          </h3>
-          <p>
-            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-          </p>
-          <p>
-            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-          </p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </div>
+  <ion-content>
+    <div>  
+      <ion-list>
+        <ion-list-header>
+          <ion-label>
+            <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+          </ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-avatar slot="start">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-avatar>
+          <ion-label>
+            <h3>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-content>
 </ng-template>

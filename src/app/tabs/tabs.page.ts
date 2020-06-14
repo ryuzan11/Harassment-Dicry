@@ -40,8 +40,6 @@ export class TabsPage implements OnInit {
   constructor(
     public auth: AuthService,
     private router: Router,
-    private navCtrl: NavController,
-    private routerOutlet: IonRouterOutlet
   ) {
     this.router.events.subscribe((event: RouterEvent) => {
       if (event && event.url) {

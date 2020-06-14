@@ -1,8 +1,12 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StoryService } from 'src/app/shared/api/story.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Story } from 'src/app/shared/models/story';
+import { Story, Answer } from 'src/app/shared/models/story';
 import { NavController } from '@ionic/angular';
+import { AnswerService } from 'src/app/shared/api/answer.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { User } from 'src/app/shared/models/i-user';
+import { FirestoreService } from 'src/app/shared/api/firestore.service';
 
 
 @Component({
@@ -10,34 +14,59 @@ import { NavController } from '@ionic/angular';
   templateUrl: './show.page.html',
   styleUrls: ['./show.page.scss'],
 })
-export class ShowPage implements OnInit {
+export class ShowPage implements OnInit, OnDestroy {
+  uid: string;
+  answer = '';
+  answers: Answer[];
+  user: User;
   storyId: string;
-  reloadPage: false;
-  page = false;
   story: Story;
+  page = false;
 
   constructor(
-    public storyService: StoryService,
+    private auth: AuthService,
+    private storyService: StoryService,
+    private answerService: AnswerService,
+    private firestoreService: FirestoreService,
     private route: ActivatedRoute,
     public navCtrl: NavController
   ) { }
 
   ngOnInit() {
+    this.story = this.storyService.passStory;
     this.route.paramMap.subscribe((params: Params) => {
       this.storyId = params.get('storyId');
     });
-    if (this.storyService.passStory) {
-      this.story = this.storyService.passStory;
+    this.answerService.getAnswers(this.storyId).subscribe(a => {
+      this.answers = a;
+    });
+    if (this.story) {
+      this.user = this.firestoreService.passUser;
+      this.uid = this.user.uid;
       this.page = true;
     } else {
-      this.storyService.getStory(this.storyId).subscribe(s => {
-        this.story = s.data();
-        this.page = true;
-      });
+    this.uid = this.auth.getUserId();
+    this.storyService.getStory(this.storyId).subscribe(s => {
+      this.story = s.data();
+      this.page = true;
+    });
     }
+  }
+
+  ngOnDestroy() {
+    this.answer = '';
   }
 
   backwardTimeline() {
     this.navCtrl.navigateBack('main/timeline');
+  }
+
+  postAnswer() {
+    this.firestoreService.userInit(this.uid).then(user => {
+      const {profile, ...other} = user;
+      this.user = {uid: this.uid, ...other};
+      this.answerService.addAnswer(this.storyId, this.user, this.answer, this.story.story);
+      this.answer = '';
+    });
   }
 }

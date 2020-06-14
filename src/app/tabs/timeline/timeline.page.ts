@@ -5,7 +5,7 @@ import { AuthService } from '../../auth/auth.service';
 import { FirestoreService } from '../../shared/api/firestore.service';
 import { StoryService } from '../../shared/api/story.service';
 import { ProfilePage } from 'src/app/shared/ui/profile/profile.page';
-import { IUser } from '../../shared/models/i-user';
+import { IUser, User } from '../../shared/models/i-user';
 import { Story } from '../../shared/models/story';
 import { StoryPostPage } from 'src/app/shared/ui/story-post/story-post.page';
 import { Router } from '@angular/router';
@@ -43,8 +43,8 @@ export class TimelinePage implements OnInit {
 
   async ngOnInit() {
     this.uid = this.auth.getUserId();
-    // const user = await this.firestore.userInit(this.auth.getUserId());
-    // if (!user) {
+    this.user = await this.firestore.userInit(this.uid);
+    // if (!this.iUser) {
     //   const modal = await this.modalCtrl.create({
     //     component: ProfilePage
     //   });
@@ -63,7 +63,10 @@ export class TimelinePage implements OnInit {
     this.user = await this.firestore.userInit(this.uid);
   }
 
-  setPassStory(story: Story) {
+  setPassInfo(story: Story) {
+    const {profile, ...other} = this.user;
+    this.firestore.passUser = {uid: this.uid, ...other};
+    // this.firestore.passUser = {uid: this.uid, ...this.user}; // 使えないのか
     this.storyService.passStory = story;
   }
 
@@ -165,9 +168,7 @@ export class TimelinePage implements OnInit {
   }
 
   searchList(storyId: string): {[key: string]: string | ListStory} | undefined {
-    let listStory: {
-      [key: string]: string | ListStory
-    };
+    let listStory: {[key: string]: string | ListStory};
     if (this.lists) {
       this.lists.forEach((list: List & {listId: string}) => {
         if (list.children) {
