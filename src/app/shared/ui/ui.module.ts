@@ -7,6 +7,7 @@ import { CategoryParentComponent } from './category-parent/category-parent.compo
 import { CategoryChildComponent } from './category-child/category-child.component';
 import { StoryPostPage } from '../ui/story-post/story-post.page';
 import { ActionListPage } from './action-list/action-list.page';
+import { EditableTextPage } from './editable-text/editable-text.page';
 
 @NgModule({
   imports: [
@@ -19,14 +20,19 @@ import { ActionListPage } from './action-list/action-list.page';
     CategoryParentComponent,
     CategoryChildComponent,
     StoryPostPage,
-    ActionListPage
+    ActionListPage,
+    EditableTextPage
   ],
   declarations: [
     ProfilePage,
     CategoryParentComponent,
     CategoryChildComponent,
     StoryPostPage,
-    ActionListPage
+    ActionListPage,
+    EditableTextPage
+  ],
+  exports: [
+    EditableTextPage
   ]
 })
 export class UiModule { }

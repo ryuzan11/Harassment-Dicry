@@ -26,7 +26,7 @@ export class TimelinePage implements OnInit {
   stories: Story[];
   storyIds: string[] = [];
 
-  @ViewChild(IonContent, { static: true})
+  @ViewChild(IonContent, {static: true})
   content: IonContent;
 
   constructor(

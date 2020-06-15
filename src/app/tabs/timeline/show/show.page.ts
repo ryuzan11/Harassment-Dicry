@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, } from '@angular/core';
 import { StoryService } from 'src/app/shared/api/story.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Story, Answer } from 'src/app/shared/models/story';
@@ -15,6 +15,7 @@ import { FirestoreService } from 'src/app/shared/api/firestore.service';
   styleUrls: ['./show.page.scss'],
 })
 export class ShowPage implements OnInit, OnDestroy {
+
   uid: string;
   answer = '';
   answers: Answer[];
@@ -68,5 +69,9 @@ export class ShowPage implements OnInit, OnDestroy {
       this.answerService.addAnswer(this.storyId, this.user, this.answer, this.story.story);
       this.answer = '';
     });
+  }
+
+  update(event: Event) {
+    console.log(event);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Router, RouterEvent } from '@angular/router';
-import { IonTabs, NavController, IonRouterOutlet } from '@ionic/angular';
+import { IonTabs } from '@ionic/angular';
 
 @Component({
   selector: 'app-tabs',
@@ -9,7 +9,8 @@ import { IonTabs, NavController, IonRouterOutlet } from '@ionic/angular';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage implements OnInit {
-  @ViewChild('myTabs', {static: false}) myTabs: IonTabs;
+  @ViewChild('myTabs', {static: false})
+  myTabs: IonTabs;
 
   pages = [
     {
