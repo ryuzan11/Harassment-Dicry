@@ -33,4 +33,12 @@ export class AnswerService {
     });
   }
 
+  updateAnswer(sid: string, aid: string, value: string) {
+    const updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+    this.af.doc<Story>('story/' + sid).collection<Answer>('answers').doc(aid).update({
+      answer: value, updated_at: updatedAt
+    }).catch(error => {
+      console.error(error);
+      });
+  }
 }

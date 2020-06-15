@@ -28,4 +28,5 @@ export interface Answer {
   story: string;
   user: User;
   created_at: firebase.firestore.FieldValue;
+  updated_at?: firebase.firestore.FieldValue;
 }

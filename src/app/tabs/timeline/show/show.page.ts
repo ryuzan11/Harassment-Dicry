@@ -71,7 +71,7 @@ export class ShowPage implements OnInit, OnDestroy {
     });
   }
 
-  update(event: Event) {
-    console.log(event);
+  update(event: string, aid: string) {
+    this.answerService.updateAnswer(this.storyId, aid, event);
   }
 }
