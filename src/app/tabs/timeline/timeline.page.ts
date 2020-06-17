@@ -71,6 +71,10 @@ export class TimelinePage implements OnInit {
     this.storyService.passStory = story;
   }
 
+  checkDeadline(deadline: number): boolean {
+    return new Date(deadline) < new Date() ? true : false;
+  }
+
   trackByFn(index, item) {
     return item.storyId;
   }

@@ -11,6 +11,9 @@ export class EditableTextPage implements OnInit {
   @Input()
   value: string;
 
+  @Input()
+  editDisabled = false;
+
   @Output()
   changeValue = new EventEmitter<string>();
 
@@ -23,11 +26,13 @@ export class EditableTextPage implements OnInit {
 
   @HostListener('click')
   onFocus() {
-    this.originalValue = this.value;
-    this.isEditMode = true;
-    setTimeout(() => {
-      this.textArea.setFocus();
-    }, 1);
+    if (!this.editDisabled) {
+      this.originalValue = this.value;
+      this.isEditMode = true;
+      setTimeout(() => {
+        this.textArea.setFocus();
+      }, 1);
+    }
   }
 
   constructor(

@@ -1,4 +1,4 @@
-<ion-item class="pointer" *ngIf="!isEditMode"><span [innerHTML]="value"></span><ion-icon name="pencil-outline"></ion-icon></ion-item>
+<ion-item [class.pointer]="!editDisabled" *ngIf="!isEditMode"><span [innerHTML]="value"></span><ion-icon name="pencil-outline" *ngIf="!editDisabled"></ion-icon></ion-item>
 <ion-item *ngIf="isEditMode">
   <ion-textarea #textArea name="value" auto-grow="true" inputmode="text" [(ngModel)]="value" (ionBlur)="onChange()"></ion-textarea>
 </ion-item>

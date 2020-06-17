@@ -37,9 +37,9 @@
   <ion-list *ngIf="(story.type === '相談' || '解決済み') && (answers)">
     <ion-item *ngFor="let a of answers">
       {{a.user.displayName}}
-      <ls-editable-text #answer [(value)]="a.answer" (changeValue)="update($event, a.answerId)"></ls-editable-text>
+      <ls-editable-text #answer [(value)]="a.answer" [editDisabled]="checkDeadline(story.deadline)" (changeValue)="update($event, a.answerId)"></ls-editable-text>
       <div class="action-list">
-        <ion-button stopPropagation *ngIf="a.user.uid===uid" color="medium" fill="clear" (click)="openDeleteAlert(storyId, a.answerId)">
+        <ion-button stopPropagation *ngIf="a.user.uid===uid && !checkDeadline(story.deadline)" color="medium" fill="clear" (click)="openDeleteAlert(storyId, a.answerId)">
           <ion-icon name="trash-outline"></ion-icon>
         </ion-button>
       </div>

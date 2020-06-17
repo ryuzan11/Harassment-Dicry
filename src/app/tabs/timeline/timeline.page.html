@@ -16,7 +16,7 @@
           style=
           "background-color: var(--ion-color-light-tint); border-radius: 12px;"
           [class.ion-margin-end]="true">
-          <ion-chip outline color="warning" *ngIf="s.type === '相談'"><ion-label>相談中</ion-label></ion-chip>
+          <ion-chip outline [color]="checkDeadline(s.deadline) ? 'success' : 'warning'" *ngIf="s.type !== '閲覧のみ'"><ion-label>{{checkDeadline(s.deadline) ? '解決済み' : '相談中'}}</ion-label></ion-chip>
           <div class="ion-text-nowrap"><strong>{{s.user.displayName}}</strong></div>
           {{s.story}}
           <div class="action-list">

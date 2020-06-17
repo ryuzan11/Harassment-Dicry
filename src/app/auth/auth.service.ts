@@ -19,7 +19,7 @@ export class AuthService {
     return firebase.auth().currentUser.uid;
   }
 
-  authSignUp(login: {email: string, password: string}): Promise<boolean> {
+  async authSignUp(login: {email: string, password: string}): Promise<boolean> {
     return firebase.auth()
       .createUserWithEmailAndPassword(login.email, login.password)
       .then(() => this.navController.navigateForward('/'))
@@ -29,7 +29,7 @@ export class AuthService {
       });
   }
 
-  authSignIn(login: {email: string, password: string}): Promise<boolean> {
+  async authSignIn(login: {email: string, password: string}): Promise<boolean> {
     return firebase.auth()
       .signInWithEmailAndPassword(login.email, login.password)
       .then(() => this.navController.navigateForward('/'))
@@ -39,7 +39,7 @@ export class AuthService {
       });
   }
 
-  authSignOut(): Promise<boolean> {
+  async authSignOut(): Promise<boolean> {
     return firebase.auth()
       .signOut()
       .then(() => this.navController.navigateForward('/auth/signin'))
