@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { UiModule } from '../shared/ui/ui.module';
 import { DirectiveModule } from '../shared/directive/directive.module';
+import { PipeModule } from './pipe/pipe.module';
+
 
 
 @NgModule({
@@ -16,7 +18,8 @@ import { DirectiveModule } from '../shared/directive/directive.module';
   ],
   exports: [
     UiModule,
+    PipeModule,
     DirectiveModule
-  ],
+  ]
 })
 export class SharedModule { }

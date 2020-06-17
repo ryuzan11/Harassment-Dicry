@@ -17,15 +17,21 @@
     {{story.category}}
     {{story.harassment}}
   </ion-item>
-  <ng-container *ngIf="story.type === '相談'">
+  <ng-container *ngIf="story.type === '相談' && !checkDeadline(story.deadline); else deadline">
+    <ion-item>
+      回答期日:{{story.deadline | date: 'yyyy-MM-dd HH:mm'}}
+    </ion-item>
+    <ion-item button>
+      ベストアンサーを決める
+    </ion-item>
     <form #f="ngForm">
       <ion-item>
         <ion-label position="stacked">回答受付中</ion-label>
-        <ion-textarea name="answer" [(ngModel)]="answer" rows="7" placeholder="回答を記入" maxlength="500" minlength="1" [disabled]="story.user.uid === uid" required></ion-textarea>
+        <ion-textarea name="answer" [(ngModel)]="answer" rows="7" placeholder="回答を記入" maxlength="500" minlength="1" [disabled]="story.user.uid===uid" required></ion-textarea>
       </ion-item>
     </form>
     <div class="position-flex-center">
-      <ion-button (click)="postAnswer()" [disabled]="!f.form.valid || story.user.uid === uid">回答を送る</ion-button>
+      <ion-button (click)="postAnswer()" [disabled]="!f.form.valid || story.user.uid===uid">回答を送る</ion-button>
     </div>
   </ng-container>
   <ion-list *ngIf="(story.type === '相談' || '解決済み') && (answers)">
@@ -33,16 +39,20 @@
       {{a.user.displayName}}
       <ls-editable-text #answer [(value)]="a.answer" (changeValue)="update($event, a.answerId)"></ls-editable-text>
       <div class="action-list">
-        <!-- <ion-button stopPropagation *ngIf="a.user.uid === uid" color="medium" fill="clear" (click)="openStoryEdit(s, s.storyId)">
-          <ion-icon name="pencil-outline"></ion-icon>
-        </ion-button> -->
-        <ion-button stopPropagation *ngIf="a.user.uid === uid" color="medium" fill="clear" (click)="openDeleteAlert(storyId, a.answerId)">
+        <ion-button stopPropagation *ngIf="a.user.uid===uid" color="medium" fill="clear" (click)="openDeleteAlert(storyId, a.answerId)">
           <ion-icon name="trash-outline"></ion-icon>
         </ion-button>
       </div>
     </ion-item>
   </ion-list>
 </ion-content>
+
+<ng-template #deadline>
+  <ion-item>
+    回答は終了しました。
+  </ion-item>
+</ng-template>
+
 
 <ng-template #loading>
   <ion-content>

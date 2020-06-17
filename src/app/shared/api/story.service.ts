@@ -39,7 +39,8 @@ export class StoryService {
   }
 
   addStory(story: Story) {
-    story.deadline = new Date().setDate(new Date().getDate() + 7);
+    // story.deadline = new Date().setDate(new Date().getDate() + 7);
+    story.deadline = new Date().setMinutes(new Date().getMinutes() + 3);
     story.created_at = firebase.firestore.FieldValue.serverTimestamp();
     return this.storyCollection.add(story);
   }
