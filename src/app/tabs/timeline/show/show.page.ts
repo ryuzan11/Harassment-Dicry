@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, } from '@angular/core';
 import { StoryService } from 'src/app/shared/api/story.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Story, Answer } from 'src/app/shared/models/story';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController, ToastController } from '@ionic/angular';
 import { AnswerService } from 'src/app/shared/api/answer.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/shared/models/i-user';
@@ -30,7 +30,9 @@ export class ShowPage implements OnInit, OnDestroy {
     private answerService: AnswerService,
     private firestoreService: FirestoreService,
     private route: ActivatedRoute,
-    public navCtrl: NavController
+    private navCtrl: NavController,
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
@@ -73,5 +75,36 @@ export class ShowPage implements OnInit, OnDestroy {
 
   update(event: string, aid: string) {
     this.answerService.updateAnswer(this.storyId, aid, event);
+  }
+
+  async openDeleteAlert(sid: string, aid: string) {
+    const alert = await this.alertCtrl.create({
+      header: '削除してよろしいですか？',
+      message: '削除すると復元できなくなります。',
+      buttons: [
+        {
+          text: 'キャンセル',
+          role: 'cansel',
+          cssClass: 'secondary'
+        }, {
+          text: '削除',
+          cssClass: 'danger',
+          handler: () => {
+            this.answerService.deleteAnswer(sid, aid).then(result => {
+              this.presentToast(result);
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async presentToast(text: string) {
+    const toast = await this.toastCtrl.create({
+      message: text,
+      duration: 2000
+    });
+    toast.present();
   }
 }

@@ -23,10 +23,10 @@
             <ion-button stopPropagation color="medium" fill="clear" (click)="searchList(s.storyId) ? deleteListStory(s.storyId) : openListAction(s.storyId)">
               <ion-icon [class.add-list]="searchList(s.storyId)" name="bookmark"></ion-icon>{{s.listCount}}
             </ion-button>
-            <ion-button stopPropagation *ngIf="uid === s.user.uid" color="medium" fill="clear" (click)="openStoryEdit(s, s.storyId)">
+            <ion-button stopPropagation *ngIf="uid === s.user.uid" color="medium" fill="clear" (click)="openEditModal(s, s.storyId)">
               <ion-icon name="pencil-outline"></ion-icon>
             </ion-button>
-            <ion-button stopPropagation *ngIf="uid === s.user.uid" color="medium" fill="clear" (click)="openStoryDelete(s.storyId)">
+            <ion-button stopPropagation *ngIf="uid === s.user.uid" color="medium" fill="clear" (click)="openDeleteAlert(s.storyId)">
               <ion-icon name="trash-outline"></ion-icon>
             </ion-button>
           </div>

@@ -122,7 +122,7 @@ export class TimelinePage implements OnInit {
     modal.onWillDismiss().then(() => this.content.scrollToTop(100));
   }
 
-  async openStoryEdit(story: Story, id: string) {
+  async openEditModal(story: Story, id: string) {
     const modal = await this.modalCtrl.create({
       component: StoryPostPage,
       backdropDismiss: false,
@@ -136,7 +136,7 @@ export class TimelinePage implements OnInit {
     modal.onWillDismiss().then(() => this.content.scrollToTop(100));
   }
 
-  async openStoryDelete(id: string) {
+  async openDeleteAlert(id: string) {
     const alert = await this.alertCtrl.create({
       header: '削除してよろしいですか？',
       message: '削除すると復元できなくなります。',

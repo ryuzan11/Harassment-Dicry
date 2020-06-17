@@ -41,4 +41,12 @@ export class AnswerService {
       console.error(error);
       });
   }
+
+  async deleteAnswer(sid: string, aid: string): Promise<string> {
+    return this.af.doc<Story>('story/' + sid).collection<Answer>('answers').doc(aid).delete().then(() => {
+      return '削除しました';
+    }).catch((error: string) => {
+      return error;
+    });
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, HostListener, Output } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, HostListener, Output } from '@angular/core';
 import { AlertController, IonTextarea } from '@ionic/angular';
 import { EventEmitter } from '@angular/core';
 
@@ -12,7 +12,7 @@ export class EditableTextPage implements OnInit {
   value: string;
 
   @Output()
-  changeValue = new EventEmitter();
+  changeValue = new EventEmitter<string>();
 
   originalValue: string;
   isEditMode = false;

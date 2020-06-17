@@ -49,7 +49,7 @@ export class StoryService {
     return this.storyCollection.doc(id).update(story);
   }
 
-  deleteStory(id: string): Promise<any> {
+  async deleteStory(id: string): Promise<any> {
     return this.storyCollection.doc(id).delete().then(() => {
       return '削除しました';
     }).catch((error) => {
