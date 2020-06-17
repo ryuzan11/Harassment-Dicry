@@ -64,6 +64,10 @@ export class ShowPage implements OnInit, OnDestroy {
     this.navCtrl.navigateBack('main/timeline');
   }
 
+  checkDeadline(deadline: number): boolean {
+    return new Date(deadline) < new Date() ? true : false;
+  }
+
   postAnswer() {
     this.firestoreService.userInit(this.uid).then(user => {
       const {profile, ...other} = user;
