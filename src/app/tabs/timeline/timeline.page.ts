@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController, IonContent, AlertController, ToastController, ActionSheetController } from '@ionic/angular';
-import { Observable } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { FirestoreService } from '../../shared/api/firestore.service';
 import { StoryService } from '../../shared/api/story.service';
 import { ProfilePage } from 'src/app/shared/ui/profile/profile.page';
-import { IUser, User } from '../../shared/models/i-user';
+import { IUser } from '../../shared/models/i-user';
 import { Story } from '../../shared/models/story';
 import { StoryPostPage } from 'src/app/shared/ui/story-post/story-post.page';
 import { Router } from '@angular/router';
@@ -25,6 +24,7 @@ export class TimelinePage implements OnInit {
   lists: List[] = [];
   stories: Story[];
   storyIds: string[] = [];
+  page = false;
 
   @ViewChild(IonContent, {static: true})
   content: IonContent;
@@ -51,11 +51,12 @@ export class TimelinePage implements OnInit {
     //   await modal.present();
     //   modal.onDidDismiss().then(()  => this.ionViewWillEnter());
     // }
-    this.storyService.initStory().subscribe(data => {
-      this.stories = data;
-    });
     this.listService.getLists(this.uid).subscribe(data => {
       this.lists = data;
+    });
+    this.storyService.initStory().subscribe(data => {
+      this.stories = data;
+      this.page = true;
     });
   }
 
