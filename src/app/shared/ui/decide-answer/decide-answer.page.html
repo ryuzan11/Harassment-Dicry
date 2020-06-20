@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>ベストアンサー</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item button *ngFor="let a of answers" (click)="openConfirmAlert(a)">
+    {{a.user.displayName}}
+    {{a.answer}}
+  </ion-item>
+</ion-content>

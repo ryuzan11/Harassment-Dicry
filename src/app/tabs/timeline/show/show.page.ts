@@ -2,11 +2,12 @@ import { Component, OnInit, OnDestroy, } from '@angular/core';
 import { StoryService } from 'src/app/shared/api/story.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Story, Answer } from 'src/app/shared/models/story';
-import { NavController, AlertController, ToastController } from '@ionic/angular';
+import { NavController, AlertController, ToastController, ModalController } from '@ionic/angular';
 import { AnswerService } from 'src/app/shared/api/answer.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/shared/models/i-user';
 import { FirestoreService } from 'src/app/shared/api/firestore.service';
+import { DecideAnswerPage } from '../../../shared/ui/decide-answer/decide-answer.page';
 
 
 @Component({
@@ -15,7 +16,6 @@ import { FirestoreService } from 'src/app/shared/api/firestore.service';
   styleUrls: ['./show.page.scss'],
 })
 export class ShowPage implements OnInit, OnDestroy {
-
   uid: string;
   answer = '';
   answers: Answer[];
@@ -32,7 +32,8 @@ export class ShowPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private navCtrl: NavController,
     private alertCtrl: AlertController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
@@ -110,5 +111,16 @@ export class ShowPage implements OnInit, OnDestroy {
       duration: 2000
     });
     toast.present();
+  }
+
+  async openDecideModal() {
+    const modal = await this.modalCtrl.create({
+      component: DecideAnswerPage,
+      componentProps: {
+        answers: this.answers,
+        sid: this.storyId
+      }
+    });
+    return await modal.present();
   }
 }

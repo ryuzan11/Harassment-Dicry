@@ -17,11 +17,11 @@
     {{story.category}}
     {{story.harassment}}
   </ion-item>
-  <ng-container *ngIf="story.type === '相談' && !checkDeadline(story.deadline); else deadline">
+  <ng-container *ngIf="story.type === '相談' && !checkDeadline(story.deadline) && !story.bestAnswer; else deadline">
     <ion-item>
       回答期日:{{story.deadline | date: 'yyyy-MM-dd HH:mm'}}
     </ion-item>
-    <ion-item button>
+    <ion-item button *ngIf="story.user.uid===uid" (click)="openDecideModal()">
       ベストアンサーを決める
     </ion-item>
     <form #f="ngForm">
@@ -34,16 +34,22 @@
       <ion-button (click)="postAnswer()" [disabled]="!f.form.valid || story.user.uid===uid">回答を送る</ion-button>
     </div>
   </ng-container>
+  <ion-item *ngIf="story.bestAnswer">
+    {{story.bestAnswer.answerUser.displayName}}
+    {{story.bestAnswer.answer}}
+  </ion-item>
   <ion-list *ngIf="(story.type === '相談' || '解決済み') && (answers)">
-    <ion-item *ngFor="let a of answers">
-      {{a.user.displayName}}
-      <ls-editable-text #answer [(value)]="a.answer" [editDisabled]="checkDeadline(story.deadline)" (changeValue)="update($event, a.answerId)"></ls-editable-text>
-      <div class="action-list">
-        <ion-button stopPropagation *ngIf="a.user.uid===uid && !checkDeadline(story.deadline)" color="medium" fill="clear" (click)="openDeleteAlert(storyId, a.answerId)">
-          <ion-icon name="trash-outline"></ion-icon>
-        </ion-button>
-      </div>
-    </ion-item>
+    <ng-container *ngFor="let a of answers">
+      <ion-item *ngIf="!(story.bestAnswer && story.bestAnswer.answerId===a.answerId)">
+        {{a.user.displayName}}
+        <ls-editable-text #answer [(value)]="a.answer" [editDisabled]="(a.user.uid!==uid || checkDeadline(story.deadline) || story.bestAnswer)" (changeValue)="update($event, a.answerId)"></ls-editable-text>
+        <div class="action-list">
+          <ion-button stopPropagation *ngIf="a.user.uid===uid && !checkDeadline(story.deadline) && !story.bestAnswer" color="medium" fill="clear" (click)="openDeleteAlert(storyId, a.answerId)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-item>
+    </ng-container>
   </ion-list>
 </ion-content>
 

@@ -37,18 +37,18 @@ export class ListService {
   }
 
   setList(uid: string, sid: string, listId: string) {
-    const story = this.af.firestore.doc('story/' + sid);
+    const sRef = this.af.firestore.doc('story/' + sid);
     this.af.firestore.doc('users/' + uid).collection('listStories').doc(listId).update({
       children: firebase.firestore.FieldValue.arrayUnion({
         storyId: sid,
-        storyRef: story,
+        storyRef: sRef,
         created_at: firebase.firestore.Timestamp.now()
       })
     });
   }
 
   deleteListStory(uid: string, lInfo: {[key: string]: string | ListStory}) {
-    firebase.firestore().doc('users/' + uid).collection('listStories').doc(lInfo.listId as string).update({
+    firebase.firestore().doc('users/' + uid).collection('listStories').doc(lInfo.listId as string).update({ // this.af.firestore
       children: firebase.firestore.FieldValue.arrayRemove(lInfo.storyInfo)
     });
   }

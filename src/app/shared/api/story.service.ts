@@ -3,7 +3,8 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Story } from '../models/story';
+import { Story, BestAnswer } from '../models/story';
+import { User } from '../models/i-user';
 
 
 @Injectable({
@@ -40,7 +41,7 @@ export class StoryService {
 
   addStory(story: Story) {
     // story.deadline = new Date().setDate(new Date().getDate() + 7);
-    story.deadline = new Date().setMinutes(new Date().getMinutes() + 3);
+    story.deadline = new Date().setMinutes(new Date().getMinutes() + 5);
     story.created_at = firebase.firestore.FieldValue.serverTimestamp();
     return this.storyCollection.add(story);
   }
@@ -48,6 +49,12 @@ export class StoryService {
   updateStory(story: Story, id: string): Promise<void> {
     story.updated_at = firebase.firestore.FieldValue.serverTimestamp();
     return this.storyCollection.doc(id).update(story);
+  }
+
+  updateDecideAnswer(sid: string, a: {answerId: string, answer: string, answerUser: User}): Promise<void> {
+    const aRef = this.af.firestore.doc('story/' + sid).collection('answers').doc(a.answerId);
+    const answer: BestAnswer = Object.assign(a, {created_at: firebase.firestore.FieldValue.serverTimestamp(), answerRef: aRef});
+    return this.storyCollection.doc<Story>(sid).update({bestAnswer: answer});
   }
 
   async deleteStory(id: string): Promise<any> {

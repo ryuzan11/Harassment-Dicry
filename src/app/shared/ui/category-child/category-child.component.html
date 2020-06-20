@@ -16,11 +16,13 @@
 
 <ion-content  fullscreen>
   <ion-list>
-    <ion-item button *ngFor="let c of (dictionaryNav ?  dictionaries : stories)" (click)="navigateShow(dictionaryNav? c.harassmentId : c.storyId)">
-      <ion-icon name="arrow-forward" slot="end"></ion-icon>
-      <ion-label>
-        {{dictionaryNav ? c.name : c.story.story}}
-      </ion-label>
-    </ion-item>
+    <ng-container *ngFor="let c of (dictionaryNav ?  dictionaries : stories)">
+      <ion-item button *ngIf="dictionaryNav ? true : c.story ? true : false;" (click)="navigateShow(dictionaryNav ? c.harassmentId : c.storyId)">
+        <ion-icon name="arrow-forward" slot="end"></ion-icon>
+        <ion-label>
+          {{dictionaryNav ? c.name : c.story.story}}
+        </ion-label>
+      </ion-item>
+    </ng-container>
   </ion-list>
 </ion-content>

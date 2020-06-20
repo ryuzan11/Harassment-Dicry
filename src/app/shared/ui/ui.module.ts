@@ -8,6 +8,7 @@ import { CategoryChildComponent } from './category-child/category-child.componen
 import { StoryPostPage } from '../ui/story-post/story-post.page';
 import { ActionListPage } from './action-list/action-list.page';
 import { EditableTextPage } from './editable-text/editable-text.page';
+import { DecideAnswerPage } from './decide-answer/decide-answer.page';
 
 @NgModule({
   imports: [
@@ -16,20 +17,22 @@ import { EditableTextPage } from './editable-text/editable-text.page';
     IonicModule,
   ],
   entryComponents: [
-    ProfilePage,
+    ActionListPage,
     CategoryParentComponent,
     CategoryChildComponent,
+    DecideAnswerPage,
+    EditableTextPage,
+    ProfilePage,
     StoryPostPage,
-    ActionListPage,
-    EditableTextPage
   ],
   declarations: [
-    ProfilePage,
+    ActionListPage,
     CategoryParentComponent,
     CategoryChildComponent,
+    DecideAnswerPage,
+    EditableTextPage,
+    ProfilePage,
     StoryPostPage,
-    ActionListPage,
-    EditableTextPage
   ],
   exports: [
     EditableTextPage
