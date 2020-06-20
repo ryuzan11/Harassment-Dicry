@@ -25,6 +25,8 @@ export class TimelinePage implements OnInit {
   stories: Story[];
   storyIds: string[] = [];
   page = false;
+  segment = '一覧';
+  categories = ['一覧', '上下関係', '性・恋愛', '身体', '心'];
 
   @ViewChild(IonContent, {static: true})
   content: IonContent;

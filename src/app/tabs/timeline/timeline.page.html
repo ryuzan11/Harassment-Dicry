@@ -4,33 +4,44 @@
       タイムライン
     </ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment value="一覧" [(ngModel)]="segment">
+      <ion-segment-button *ngFor="let category of categories" [value]="category">
+        <ion-label>
+          {{category}}
+        </ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="page; else loading">
   <ion-list class="ion-padding-top">
-    <ion-item button lines="none" *ngFor="let s of stories; trackBy: trackByFn" (click)="setPassInfo(s)" [routerLink]="s.storyId" routerDirection="forward">
-      <ion-avatar slot="start">
-        <ion-img [src]="s.user.photoDataUrl"></ion-img>
-      </ion-avatar>
-        <ion-label class="ion-padding ion-text-wrap" 
-          style="background-color: var(--ion-color-light-tint); border-radius: 12px;"
-          [class.ion-margin-end]="true">
-          <ion-chip outline [color]="(checkDeadline(s.deadline) || s.bestAnswer) ? 'success' : 'warning'" *ngIf="s.type !== '閲覧のみ'"><ion-label>{{(checkDeadline(s.deadline) || s.bestAnswer) ? '解決済み' : '相談中'}}</ion-label></ion-chip>
-          <div class="ion-text-nowrap"><strong>{{s.user.displayName}}</strong></div>
-          {{s.story}}
-          <div class="action-list">
-            <ion-button stopPropagation color="medium" fill="clear" (click)="searchList(s.storyId) ? deleteListStory(s.storyId) : openListAction(s.storyId)" [disabled]="uid===s.user.uid">
-              <ion-icon [class.add-list]="searchList(s.storyId)" name="bookmark"></ion-icon>{{s.listCount}}
-            </ion-button>
-            <ion-button stopPropagation *ngIf="uid===s.user.uid" color="medium" fill="clear" (click)="openEditModal(s, s.storyId)">
-              <ion-icon name="pencil-outline"></ion-icon>
-            </ion-button>
-            <ion-button stopPropagation *ngIf="uid===s.user.uid" color="medium" fill="clear" (click)="openDeleteAlert(s.storyId)">
-              <ion-icon name="trash-outline"></ion-icon>
-            </ion-button>
-          </div>
-        </ion-label>
-    </ion-item>
+    <ng-container *ngFor="let s of stories; trackBy: trackByFn">
+      <ion-item button *ngIf="segment==='一覧' || segment===s.category" lines="none" (click)="setPassInfo(s)" [routerLink]="s.storyId" routerDirection="forward">
+        <ion-avatar slot="start">
+          <ion-img [src]="s.user.photoDataUrl"></ion-img>
+        </ion-avatar>
+          <ion-label class="ion-padding ion-text-wrap" 
+            style="background-color: var(--ion-color-light-tint); border-radius: 12px;"
+            [class.ion-margin-end]="true">
+            <ion-chip outline [color]="(checkDeadline(s.deadline) || s.bestAnswer) ? 'success' : 'warning'" *ngIf="s.type !== '閲覧のみ'"><ion-label>{{(checkDeadline(s.deadline) || s.bestAnswer) ? '解決済み' : '相談中'}}</ion-label></ion-chip>
+            <div class="ion-text-nowrap"><strong>{{s.user.displayName}}</strong></div>
+            {{s.story}}
+            <div class="action-list">
+              <ion-button stopPropagation color="medium" fill="clear" (click)="searchList(s.storyId) ? deleteListStory(s.storyId) : openListAction(s.storyId)" [disabled]="uid===s.user.uid">
+                <ion-icon [class.add-list]="searchList(s.storyId)" name="bookmark"></ion-icon>{{s.listCount}}
+              </ion-button>
+              <ion-button stopPropagation *ngIf="uid===s.user.uid" color="medium" fill="clear" (click)="openEditModal(s, s.storyId)">
+                <ion-icon name="pencil-outline"></ion-icon>
+              </ion-button>
+              <ion-button stopPropagation *ngIf="uid===s.user.uid" color="medium" fill="clear" (click)="openDeleteAlert(s.storyId)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-label>
+      </ion-item>
+    </ng-container>
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
