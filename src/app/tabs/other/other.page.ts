@@ -11,6 +11,8 @@ import { ProfilePage } from '../../shared/ui/profile/profile.page';
   styleUrls: ['./other.page.scss'],
 })
 export class OtherPage implements OnInit {
+  segment = 'My投稿';
+  categories = ['My投稿', '回答'];
 
   constructor(
     public modalController: ModalController,

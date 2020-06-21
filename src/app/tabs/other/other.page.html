@@ -5,11 +5,20 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- <firebase-ui></firebase-ui> -->
   <div class="ion-text-center ion-padding">
     <ion-avatar style="display: inline-block;">
       <!-- <img [src]="photo || user.photoDataUrl || '/assets/shapes.svg'"> -->
     </ion-avatar>
+    <ion-item button (click)="openProfile()">プロフィール設定</ion-item>
   </div>
-  <ion-button (click)="openProfile()">eeeeeeeee</ion-button>
-  <ion-button (click)="localNotification()"></ion-button>
+  <ion-toolbar>
+    <ion-segment value="一覧" [(ngModel)]="segment">
+      <ion-segment-button *ngFor="let category of categories" [value]="category">
+        <ion-label>
+          {{category}}
+        </ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-content>
