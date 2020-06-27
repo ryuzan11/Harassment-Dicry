@@ -6,7 +6,7 @@ import { NavController, AlertController, ToastController, ModalController } from
 import { AnswerService } from 'src/app/shared/api/answer.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/shared/models/i-user';
-import { FirestoreService } from 'src/app/shared/api/firestore.service';
+import { UserService } from 'src/app/shared/api/user.service';
 import { DecideAnswerPage } from '../../../shared/ui/decide-answer/decide-answer.page';
 
 
@@ -25,10 +25,9 @@ export class ShowPage implements OnInit, OnDestroy {
   page = false;
 
   constructor(
-    private auth: AuthService,
     private storyService: StoryService,
     private answerService: AnswerService,
-    private firestoreService: FirestoreService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private navCtrl: NavController,
     private alertCtrl: AlertController,
@@ -45,11 +44,11 @@ export class ShowPage implements OnInit, OnDestroy {
       this.answers = a;
     });
     if (this.story) {
-      this.user = this.firestoreService.passUser;
+      this.user = this.userService.passUser;
       this.uid = this.user.uid;
       this.page = true;
     } else {
-    this.uid = this.auth.getUserId();
+    this.uid = this.userService.user.uid;
     this.storyService.getStory(this.storyId).subscribe(s => {
       this.story = s.data();
       this.page = true;
@@ -70,7 +69,7 @@ export class ShowPage implements OnInit, OnDestroy {
   }
 
   postAnswer() {
-    this.firestoreService.userInit(this.uid).then(user => {
+    this.userService.userInit(this.uid).then(user => {
       const {profile, ...other} = user;
       this.user = {uid: this.uid, ...other};
       this.answerService.addAnswer(this.storyId, this.user, this.answer, this.story.story);

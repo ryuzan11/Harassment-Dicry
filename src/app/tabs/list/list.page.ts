@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
 import { ListService } from 'src/app/shared/api/list.service';
 import { CategoryParentComponent } from '../../shared/ui/category-parent/category-parent.component';
 import { NavList } from 'src/app/shared/models/nav-list';
+import { UserService } from 'src/app/shared/api/user.service';
 
 @Component({
   selector: 'app-list',
@@ -19,12 +19,12 @@ export class ListPage implements OnInit {
   navHome: any = CategoryParentComponent;
 
   constructor(
-    private auth: AuthService,
+    private userService: UserService,
     private listService: ListService,
   ) { }
 
   ngOnInit() {
-    this.uid = this.auth.getUserId();
+    this.uid = this.userService.user.uid;
     this.listService.getLists(this.uid).subscribe(lists => {
       this.params.lists = lists;
       this.page = true;

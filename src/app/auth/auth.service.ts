@@ -15,10 +15,6 @@ export class AuthService {
     public alertController: AlertController
   ) { }
 
-  getUserId(): string {
-    return firebase.auth().currentUser.uid;
-  }
-
   async authSignUp(login: {email: string, password: string}): Promise<boolean> {
     return firebase.auth()
       .createUserWithEmailAndPassword(login.email, login.password)
@@ -42,7 +38,7 @@ export class AuthService {
   async authSignOut(): Promise<boolean> {
     return firebase.auth()
       .signOut()
-      .then(() => this.navController.navigateForward('/auth/signin'))
+      .then(() => this.navController.navigateForward('/home'))
       .catch(error => {
         throw error;
       });

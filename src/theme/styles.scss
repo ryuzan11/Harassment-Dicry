@@ -55,5 +55,6 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
 @import "./variables.scss";
 @import "./base/base.scss";
+@import "~firebaseui-ja/dist/firebaseui.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

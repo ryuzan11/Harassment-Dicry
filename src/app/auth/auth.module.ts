@@ -5,12 +5,14 @@ import { IonicModule } from '@ionic/angular';
 import { AuthRoutingModule } from './auth-routing.module';
 import { SignupPage } from './signup/signup.page';
 import { SigninPage } from './signin/signin.page';
+import { FirebaseUiPage } from './firebase-ui/firebase-ui.page';
 
 
 @NgModule({
   declarations: [
     SigninPage,
-    SignupPage
+    SignupPage,
+    FirebaseUiPage
   ],
   imports: [
     AuthRoutingModule,

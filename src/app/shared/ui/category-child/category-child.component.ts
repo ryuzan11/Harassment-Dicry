@@ -3,10 +3,10 @@ import { NavParams, NavController, ModalController, ActionSheetController, Toast
 import { HarassmentsService } from '../../service/harassments.service';
 import { ListStory } from '../../models/list-story';
 import { Story } from '../../models/story';
-import { AuthService } from 'src/app/auth/auth.service';
 import { ActionListPage } from '../action-list/action-list.page';
 import { ListService } from '../../api/list.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../api/user.service';
 
 
 @Component({
@@ -31,7 +31,7 @@ export class CategoryChildComponent implements OnInit {
 
   constructor(
     private navParams: NavParams,
-    private auth: AuthService,
+    private userService: UserService,
     public harassmentsService: HarassmentsService,
     private navCtrl: NavController,
     private actionCtrl: ActionSheetController,
@@ -42,7 +42,7 @@ export class CategoryChildComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uid = this.auth.getUserId();
+    this.uid = this.userService.user.uid;
     this.dictionaryNav = (this.navParams.data.children && this.navParams.data.children[0].name) ? true : false;
     if (this.dictionaryNav) {
       this.dictionaries = this.navParams.data.children;

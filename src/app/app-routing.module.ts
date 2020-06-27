@@ -3,10 +3,16 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AngularFireAuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
 
 
-const redirectUnauthorized = () => redirectUnauthorizedTo(['auth/signin']);
-const redirectLoggedIn = () => redirectLoggedInTo(['/']);
+const redirectUnauthorized = () => redirectUnauthorizedTo(['/home']);
+const redirectLoggedIn = () => redirectLoggedInTo(['/main/timeline']);
 
 const routes: Routes = [
+  {
+    path: 'home',
+    loadChildren: () => import('./lp/lp.module').then(m => m.LpPageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectLoggedIn }
+  },
   {
     path: 'auth',
     loadChildren: () =>
@@ -24,6 +30,7 @@ const routes: Routes = [
     path: '**',
     redirectTo: '',
   }
+
 ];
 @NgModule({
   imports: [

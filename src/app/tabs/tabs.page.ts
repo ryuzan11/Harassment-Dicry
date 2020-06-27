@@ -60,8 +60,4 @@ export class TabsPage implements OnInit {
     }
   }
 
-  logOut(): void {
-    this.auth.authSignOut();
-  }
-
 }

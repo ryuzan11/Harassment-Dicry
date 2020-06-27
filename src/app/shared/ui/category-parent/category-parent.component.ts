@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NavParams, ModalController, ToastController } from '@ionic/angular';
 import { CategoryChildComponent } from '../category-child/category-child.component';
 import { ActionListPage } from '../action-list/action-list.page';
-import { AuthService } from 'src/app/auth/auth.service';
 import { ListStory } from '../../models/list-story';
 import { ListService } from '../../api/list.service';
+import { UserService } from '../../api/user.service';
 
 @Component({
   selector: 'ls-category-parent',
@@ -19,14 +19,14 @@ export class CategoryParentComponent implements OnInit {
 
   constructor(
     private navParams: NavParams,
-    private auth: AuthService,
+    private userService: UserService,
     private listService: ListService,
     private modalCtrl: ModalController,
     private toastCtrl: ToastController
     ) { }
 
   ngOnInit() {
-    this.uid = this.auth.getUserId();
+    this.uid = this.userService.user.uid;
     this.params = this.navParams.data;
   }
 

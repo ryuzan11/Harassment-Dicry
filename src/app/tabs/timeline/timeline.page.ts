@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ModalController, IonContent, AlertController, ToastController, ActionSheetController } from '@ionic/angular';
-import { AuthService } from '../../auth/auth.service';
-import { FirestoreService } from '../../shared/api/firestore.service';
+import { UserService } from '../../shared/api/user.service';
 import { StoryService } from '../../shared/api/story.service';
 import { ProfilePage } from 'src/app/shared/ui/profile/profile.page';
 import { IUser } from '../../shared/models/i-user';
@@ -11,6 +10,7 @@ import { Router } from '@angular/router';
 import { ListService } from 'src/app/shared/api/list.service';
 import { List } from 'src/app/shared/models/list';
 import { ListStory } from 'src/app/shared/models/list-story';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -18,7 +18,7 @@ import { ListStory } from 'src/app/shared/models/list-story';
   templateUrl: 'timeline.page.html',
   styleUrls: ['timeline.page.scss']
 })
-export class TimelinePage implements OnInit {
+export class TimelinePage implements OnInit, OnDestroy {
   uid: string;
   user: IUser;
   lists: List[] = [];
@@ -27,6 +27,7 @@ export class TimelinePage implements OnInit {
   page = false;
   segment = '一覧';
   categories = ['一覧', '上下関係', '性・恋愛', '身体', '心'];
+  private subscriptions = new Subscription();
 
   @ViewChild(IonContent, {static: true})
   content: IonContent;
@@ -36,16 +37,15 @@ export class TimelinePage implements OnInit {
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
     private actionCtrl: ActionSheetController,
-    private auth: AuthService,
     private storyService: StoryService,
-    private firestore: FirestoreService,
+    private userService: UserService,
     private listService: ListService,
     public router: Router
   ) {}
 
   async ngOnInit() {
-    this.uid = this.auth.getUserId();
-    this.user = await this.firestore.userInit(this.uid);
+    this.uid = this.userService.user.uid;
+    this.user = await this.userService.userInit(this.uid);
     // if (!this.iUser) {
     //   const modal = await this.modalCtrl.create({
     //     component: ProfilePage
@@ -53,23 +53,28 @@ export class TimelinePage implements OnInit {
     //   await modal.present();
     //   modal.onDidDismiss().then(()  => this.ionViewWillEnter());
     // }
-    this.listService.getLists(this.uid).subscribe(data => {
-      this.lists = data;
-    });
-    this.storyService.initStory().subscribe(data => {
-      this.stories = data;
-      this.page = true;
-    });
+    this.subscriptions.add(
+      this.listService.getLists(this.uid).subscribe(data => {
+        this.lists = data;
+    }));
+    this.subscriptions.add(this.storyService.initStory().subscribe(data => {
+        this.stories = data;
+        this.page = true;
+    }));
   }
 
   async ionViewWillEnter() {
-    this.user = await this.firestore.userInit(this.uid);
+    this.user = await this.userService.userInit(this.uid);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   setPassInfo(story: Story) {
     const {profile, ...other} = this.user;
-    this.firestore.passUser = {uid: this.uid, ...other};
-    // this.firestore.passUser = {uid: this.uid, ...this.user}; // 使えないのか
+    this.userService.passUser = {uid: this.uid, ...other};
+    // this.userService.passUser = {uid: this.uid, ...this.user}; // 使えないのか
     this.storyService.passStory = story;
   }
 
@@ -77,8 +82,8 @@ export class TimelinePage implements OnInit {
     return new Date(deadline) < new Date() ? true : false;
   }
 
-  trackByFn(index, item) {
-    return item.storyId;
+  trackByFn(index: number, item: Story & {storyId: string}) {
+    return item ? item.storyId : null;
   }
 
   actionDismiss(): void {

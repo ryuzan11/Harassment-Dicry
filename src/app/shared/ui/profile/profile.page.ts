@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Plugins, CameraResultType } from '@capacitor/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { AuthService } from '../../../auth/auth.service';
-import { FirestoreService} from '../../api/firestore.service';
+import { UserService} from '../../api/user.service';
 import { IUser } from '../../models/i-user';
 import { PrefecturesService } from '../../service/prefectures.service';
 import { Prefecture } from '../../models/prefecture';
@@ -32,7 +32,7 @@ export class ProfilePage implements OnInit {
     public modalController: ModalController,
     public alertController: AlertController,
     public auth: AuthService,
-    public firestore: FirestoreService,
+    private userService: UserService,
     public prefecturesService: PrefecturesService
   ) { }
 
@@ -44,8 +44,8 @@ export class ProfilePage implements OnInit {
   }
 
   async ionViewWillEnter() {
-    this.uid = this.auth.getUserId();
-    const user = await this.firestore.userInit(this.uid);
+    this.uid = this.userService.user.uid;
+    const user = await this.userService.userInit(this.uid);
     if (user) {
       this.user = user;
       this.nowDisplayName = user.displayName ? true : false;
@@ -56,7 +56,7 @@ export class ProfilePage implements OnInit {
     if (this.photo) {
       this.user.photoDataUrl = this.photo;
     }
-    await this.firestore.userSet(this.user);
+    await this.userService.userSet(this.user);
     this.modalController.dismiss();
   }
 
