@@ -4,7 +4,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Story, Answer } from 'src/app/shared/models/story';
 import { NavController, AlertController, ToastController, ModalController } from '@ionic/angular';
 import { AnswerService } from 'src/app/shared/api/answer.service';
-import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/shared/models/i-user';
 import { UserService } from 'src/app/shared/api/user.service';
 import { DecideAnswerPage } from '../../../shared/ui/decide-answer/decide-answer.page';
@@ -32,7 +31,7 @@ export class ShowPage implements OnInit, OnDestroy {
     private navCtrl: NavController,
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
   ) { }
 
   ngOnInit() {

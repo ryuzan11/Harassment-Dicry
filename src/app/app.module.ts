@@ -5,6 +5,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 import { environment } from '../environments/environment';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -27,13 +28,15 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireFunctionsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     StatusBar,
     SplashScreen,
     AngularFireAuthGuard,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: REGION, useValue: 'asia-northeast1' }
   ],
   bootstrap: [AppComponent]
 })

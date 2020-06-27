@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { ModalController, IonContent, AlertController, ToastController, ActionSheetController } from '@ionic/angular';
+import { ModalController, IonContent, AlertController, ToastController, ActionSheetController, LoadingController } from '@ionic/angular';
 import { UserService } from '../../shared/api/user.service';
 import { StoryService } from '../../shared/api/story.service';
 import { ProfilePage } from 'src/app/shared/ui/profile/profile.page';
@@ -36,6 +36,7 @@ export class TimelinePage implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController,
     private actionCtrl: ActionSheetController,
     private storyService: StoryService,
     private userService: UserService,
@@ -149,6 +150,10 @@ export class TimelinePage implements OnInit, OnDestroy {
   }
 
   async openDeleteAlert(id: string) {
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...'
+    });
+
     const alert = await this.alertCtrl.create({
       header: '削除してよろしいですか？',
       message: '削除すると復元できなくなります。',
@@ -161,8 +166,11 @@ export class TimelinePage implements OnInit, OnDestroy {
           text: '削除',
           cssClass: 'danger',
           handler: () => {
+            loading.present();
             this.storyService.deleteStory(id).then(result => {
-              this.presentToast(result);
+              loading.dismiss().then(() => this.presentToast('削除しました'));
+            }, err => {
+              console.error(err);
             });
           }
         }

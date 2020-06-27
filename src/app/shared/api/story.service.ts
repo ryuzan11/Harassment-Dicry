@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Story, BestAnswer } from '../models/story';
 import { User } from '../models/i-user';
+import { AngularFireFunctions } from '@angular/fire/functions';
+import { error } from 'protractor';
 
 
 @Injectable({
@@ -22,7 +24,8 @@ export class StoryService {
   }
 
   constructor(
-    public af: AngularFirestore,
+    private af: AngularFirestore,
+    private functions: AngularFireFunctions
   ) {
     this.storyCollection = this.af.collection<Story>('story', ref => ref.where('state', '==', 'public').orderBy('created_at', 'desc'));
   }
@@ -59,11 +62,13 @@ export class StoryService {
   }
 
   async deleteStory(id: string): Promise<any> {
-    return this.storyCollection.doc(id).delete().then(() => {
-      return '削除しました';
-    }).catch((error) => {
-      return error;
-    });
+    const deleteFn = this.functions.httpsCallable('recursiveDelete');
+    return deleteFn({ path: 'story/' + id }).toPromise(Promise);
+    // return this.storyCollection.doc(id).delete().then(() => {
+    //   return '削除しました';
+    // }).catch((error) => {
+    //   return error;
+    // });
   }
 
   upCount(storyId: string) {
