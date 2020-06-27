@@ -5,15 +5,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <firebase-ui></firebase-ui> -->
   <div class="ion-text-center ion-padding">
     <ion-avatar style="display: inline-block;">
       <!-- <img [src]="photo || user.photoDataUrl || '/assets/shapes.svg'"> -->
     </ion-avatar>
-    <ion-item button (click)="openProfile()">プロフィール設定</ion-item>
   </div>
   <ion-toolbar>
-    <ion-segment value="一覧" [(ngModel)]="segment">
+    <ion-segment [(ngModel)]="segment">
       <ion-segment-button *ngFor="let category of categories" [value]="category">
         <ion-label>
           {{category}}
@@ -21,4 +19,20 @@
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
+  <ion-list>
+    <ng-container *ngIf="segment!=='設定'; else setting">
+      <ion-item button *ngFor="let list of getList(segment)">
+        {{segment==='My投稿' ? list.story : list.answer}}
+      </ion-item>
+    </ng-container>
+  </ion-list>
 </ion-content>
+
+<ng-template #setting>
+  <ion-item button (click)="openProfile()">プロフィール設定</ion-item>
+  <ion-item button>アカウント設定</ion-item>
+  <ion-item button>利用規約</ion-item>
+  <ion-item button>プライバシーポリシー</ion-item>
+  <ion-item button>退会手続き</ion-item>
+  <ion-item button (click)="logOut()"><ion-icon name="log-out" slot="start"></ion-icon><ion-label>ログアウト</ion-label></ion-item>
+</ng-template>

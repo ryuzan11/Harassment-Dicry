@@ -27,16 +27,17 @@ export class StoryService {
     this.storyCollection = this.af.collection<Story>('story', ref => ref.where('state', '==', 'public').orderBy('created_at', 'desc'));
   }
 
-  storyRef(): AngularFirestoreDocument<Story[]> {
-    return this.storyCollection.doc();
-  }
-
   initStory(): Observable<Story[]> {
     return this.storyCollection.valueChanges({idField: 'storyId'});
   }
 
   getStory(id: string): Observable<any> {
-    return this.af.collection<Story>('story', ref => ref.where('state', '==', 'public')).doc(id).get();
+    return this.storyCollection.doc(id).get();
+  }
+
+  getUserStories(uid: string): Observable<Story[]> {
+    return this.af.collection<Story>('story', ref => ref.where('user.uid', '==', uid))
+      .valueChanges({idField: 'storyId'});
   }
 
   addStory(story: Story) {

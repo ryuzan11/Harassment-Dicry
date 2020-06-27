@@ -20,6 +20,10 @@ export class AnswerService {
       .valueChanges({idField: 'answerId'});
   }
 
+  getUserAnswers(uid: string): Observable<Answer[]> {
+    return this.af.collectionGroup<Answer>('answers', ref => ref.where('user.uid', '==', uid).orderBy('created_at', 'desc')).valueChanges();
+  }
+
   addAnswer(sid: string, addUser: User, addAnswer: string, addStory: string) {
     const answer: Answer = {
       answer: addAnswer,
