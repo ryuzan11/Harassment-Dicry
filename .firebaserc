@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "ionic-harassment": {
+      "hosting": {
+        "app": [
+          "ionic-harassment"
+        ]
+      }
+    }
+  }
+}
