@@ -12,7 +12,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: './timeline/timeline.module#TimelinePageModule'
+            loadChildren: () => import('./timeline/timeline.module').then(m => m.TimelinePageModule)
           }
         ]
       },
@@ -21,7 +21,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-        loadChildren: './dictionary/dictionary.module#DictionaryPageModule'
+        loadChildren: () => import('./dictionary/dictionary.module').then(m => m.DictionaryPageModule)
       }
     ]
       },
@@ -30,7 +30,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-        loadChildren: './quiz/quiz.module#QuizPageModule'
+        loadChildren: () => import('./quiz/quiz.module').then(m => m.QuizPageModule)
       }
     ]
       },
@@ -39,7 +39,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-        loadChildren: './list/list.module#ListPageModule'
+        loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
       }
     ]
       },
@@ -48,7 +48,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-        loadChildren: './other/other.module#OtherPageModule'
+        loadChildren: () => import('./other/other.module').then(m => m.OtherPageModule)
       }
     ]
       },

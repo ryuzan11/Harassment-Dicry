@@ -21,7 +21,7 @@ export class EditableTextPage implements OnInit {
   isEditMode = false;
   textAreaElement: HTMLTextAreaElement;
 
-  @ViewChild('textArea', {static: false})
+  @ViewChild('textArea')
   textArea: IonTextarea;
 
   @HostListener('click')
