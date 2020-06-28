@@ -5,7 +5,6 @@ import { AuthService } from '../../../auth/auth.service';
 import { UserService} from '../../api/user.service';
 import { IUser } from '../../models/i-user';
 import { PrefecturesService } from '../../service/prefectures.service';
-import { Prefecture } from '../../models/prefecture';
 
 @Component({
   selector: 'app-profile',
@@ -18,11 +17,15 @@ export class ProfilePage implements OnInit {
     displayName: null,
     photoDataUrl: null,
     prefecture: null,
+    age: null,
     gender: null,
-    profile: null
+    profile: null,
+    report: null,
+    reportCount: 0
   };
   nowDisplayName = false;
   photo: string;
+  ages = ['20歳未満', '20~29歳', '30~39歳', '40~49歳', '50~59歳', '60~69歳', '70~79歳', '80歳以上'];
 
   get prefectures() {
     return this.prefecturesService.prefectures;

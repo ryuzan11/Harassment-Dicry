@@ -30,10 +30,6 @@
   <form #f="ngForm">
     <ion-list class="ion-padding">
       <ion-item>
-        <ion-label position="stacked">ユーザID</ion-label>
-        <ion-input type="text" [value]="uid" disabled></ion-input>
-      </ion-item>
-      <ion-item>
         <ion-label position="stacked"><span class="label required">必須</span>表示名</ion-label>
         <ion-input type="text" [(ngModel)]="user.displayName" name="displayName" disabled="{{nowDisplayName}}" required></ion-input>
       </ion-item>
@@ -41,6 +37,12 @@
         <ion-label>所在地(都道府県)<ion-button class="color-initial" size="small" fill="clear" (click)="openPrefectureHelp()"><ion-icon name="help-circle-outline"></ion-icon></ion-button></ion-label>
         <ion-select interface="popover" placeholder="未設定" [(ngModel)]="user.prefecture" name="prefecture">
           <ion-select-option *ngFor="let p of prefectures" [value]="p.name">{{p.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>年齢</ion-label>
+        <ion-select interface="popover" placeholder="未設定" [(ngModel)]="user.age" name="age" required>
+          <ion-select-option *ngFor="let a of ages" [value]="a">{{a}}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item>
