@@ -4,9 +4,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Story, Answer } from 'src/app/shared/models/story';
 import { NavController, AlertController, ToastController, ModalController } from '@ionic/angular';
 import { AnswerService } from 'src/app/shared/api/answer.service';
-import { User } from 'src/app/shared/models/i-user';
+import { User, Report, IUser } from 'src/app/shared/models/i-user';
 import { UserService } from 'src/app/shared/api/user.service';
 import { DecideAnswerPage } from '../../../shared/ui/decide-answer/decide-answer.page';
+import { ReportModalPage } from 'src/app/shared/ui/report-modal/report-modal.page';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class ShowPage implements OnInit, OnDestroy {
   answer = '';
   answers: Answer[];
   user: User;
+  iUser: IUser;
   storyId: string;
   story: Story;
   page = false;
@@ -47,11 +49,14 @@ export class ShowPage implements OnInit, OnDestroy {
       this.uid = this.user.uid;
       this.page = true;
     } else {
-    this.uid = this.userService.user.uid;
-    this.storyService.getStory(this.storyId).subscribe(s => {
-      this.story = s.data();
-      this.page = true;
-    });
+      this.uid = this.userService.user.uid;
+      this.userService.userInit(this.uid).then(data => {
+        this.iUser = data;
+      });
+      this.storyService.getStory(this.storyId).subscribe(s => {
+        this.story = s.data();
+        this.page = true;
+      });
     }
   }
 
@@ -65,6 +70,11 @@ export class ShowPage implements OnInit, OnDestroy {
 
   checkDeadline(deadline: number): boolean {
     return new Date(deadline) < new Date() ? true : false;
+  }
+
+  checkReport(aid: string): boolean | any {
+    const callback = (ele: Report) => ele.reportId === aid;
+    return (this.iUser.report && this.iUser.report !== []) ? this.iUser.report.some(callback) : false;
   }
 
   postAnswer() {
@@ -120,5 +130,18 @@ export class ShowPage implements OnInit, OnDestroy {
       }
     });
     return await modal.present();
+  }
+
+  async openReportModal(uid: string, aid: string) {
+    if (uid === this.uid) { return false; }
+    const modal = await this.modalCtrl.create({
+      component: ReportModalPage,
+      componentProps: {
+        id: aid,
+        sid: this.storyId,
+        type: 'answer'
+      }
+    });
+    await modal.present();
   }
 }

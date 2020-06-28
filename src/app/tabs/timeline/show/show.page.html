@@ -49,6 +49,9 @@
           </ion-button>
         </div>
       </ion-item>
+      <ion-button stopPropagation *ngIf="uid!==a.user.uid" slot="end" [color]="checkReport(a.answerId) ? 'danger' : 'medium'" fill="clear" (click)="openReportModal(a.user.uid, a.answerId)" [disabled]="checkReport(a.answerId)">
+        <ion-icon name="flag"></ion-icon>
+      </ion-button>
     </ng-container>
   </ion-list>
 </ion-content>
