@@ -30,6 +30,7 @@ export class AnswerService {
       storyId: sid,
       story: addStory,
       user: addUser,
+      reportCount: 0,
       created_at: firebase.firestore.FieldValue.serverTimestamp()
     };
     this.af.doc<Story>('story/' + sid).collection<Answer>('answers').add(answer).catch(error => {
@@ -38,9 +39,9 @@ export class AnswerService {
   }
 
   updateAnswer(sid: string, aid: string, value: string) {
-    const updatedAt = firebase.firestore.FieldValue.serverTimestamp();
     this.af.doc<Story>('story/' + sid).collection<Answer>('answers').doc(aid).update({
-      answer: value, updated_at: updatedAt
+      answer: value,
+      updated_at: firebase.firestore.FieldValue.serverTimestamp()
     }).catch(error => {
       console.error(error);
       });
