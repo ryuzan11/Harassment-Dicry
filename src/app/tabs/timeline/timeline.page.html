@@ -25,7 +25,12 @@
           <ion-label class="ion-padding ion-text-wrap" 
             style="background-color: var(--ion-color-light-tint); border-radius: 12px;"
             [class.ion-margin-end]="true">
-            <ion-chip outline [color]="(checkDeadline(s.deadline) || s.bestAnswer) ? 'success' : 'warning'" *ngIf="s.type !== '閲覧のみ'"><ion-label>{{(checkDeadline(s.deadline) || s.bestAnswer) ? '解決済み' : '相談中'}}</ion-label></ion-chip>
+            <ion-chip outline [color]="(checkDeadline(s.deadline) || s.bestAnswer) ? 'success' : 'warning'" *ngIf="s.type !== '閲覧のみ'">
+              <ion-label>{{(checkDeadline(s.deadline) || s.bestAnswer) ? '解決済み' : '相談中'}}</ion-label>
+            </ion-chip>
+            <ion-button stopPropagation *ngIf="uid!==s.user.uid" [color]="checkReport(s.storyId) ? 'danger' : 'medium'" fill="clear" (click)="openReportModal(s.user.uid, s.storyId)" [disabled]="checkReport(s.storyId)">
+              <ion-icon name="flag"></ion-icon>
+            </ion-button>
             <div class="ion-text-nowrap"><strong>{{s.user.displayName}}</strong></div>
             {{s.story}}
             <div class="action-list">

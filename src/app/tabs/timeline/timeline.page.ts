@@ -3,7 +3,7 @@ import { ModalController, IonContent, AlertController, ToastController, ActionSh
 import { UserService } from '../../shared/api/user.service';
 import { StoryService } from '../../shared/api/story.service';
 import { ProfilePage } from 'src/app/shared/ui/profile/profile.page';
-import { IUser } from '../../shared/models/i-user';
+import { IUser, Report } from '../../shared/models/i-user';
 import { Story } from '../../shared/models/story';
 import { StoryPostPage } from 'src/app/shared/ui/story-post/story-post.page';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { ListService } from 'src/app/shared/api/list.service';
 import { List } from 'src/app/shared/models/list';
 import { ListStory } from 'src/app/shared/models/list-story';
 import { Subscription } from 'rxjs';
+import { ReportModalPage } from 'src/app/shared/ui/report-modal/report-modal.page';
 
 
 @Component({
@@ -83,6 +84,11 @@ export class TimelinePage implements OnInit, OnDestroy {
     return new Date(deadline) < new Date() ? true : false;
   }
 
+  checkReport(sid: string): boolean {
+    const callback = (ele: Report) => ele.reportId === sid;
+    return (this.user.report && this.user.report !== []) ? this.user.report.some(callback) : false;
+  }
+
   trackByFn(index: number, item: Story & {storyId: string}) {
     return item ? item.storyId : null;
   }
@@ -149,6 +155,18 @@ export class TimelinePage implements OnInit, OnDestroy {
     modal.onWillDismiss().then(() => this.content.scrollToTop(100));
   }
 
+  async openReportModal(uid: string, sid: string) {
+    if (uid === this.uid) { return false; }
+    const modal = await this.modalCtrl.create({
+      component: ReportModalPage,
+      componentProps: {
+        id: sid,
+        type: 'story'
+      }
+    });
+    await modal.present();
+  }
+
   async openDeleteAlert(id: string) {
     const loading = await this.loadingCtrl.create({
       message: 'Please wait...'
@@ -157,24 +175,22 @@ export class TimelinePage implements OnInit, OnDestroy {
     const alert = await this.alertCtrl.create({
       header: '削除してよろしいですか？',
       message: '削除すると復元できなくなります。',
-      buttons: [
-        {
-          text: 'キャンセル',
-          role: 'cansel',
-          cssClass: 'secondary'
-        }, {
-          text: '削除',
-          cssClass: 'danger',
-          handler: () => {
-            loading.present();
-            this.storyService.deleteStory(id).then(result => {
-              loading.dismiss().then(() => this.presentToast('削除しました'));
-            }, err => {
-              console.error(err);
-            });
-          }
+      buttons: [{
+        text: 'キャンセル',
+        role: 'cansel',
+        cssClass: 'secondary'
+      }, {
+        text: '削除',
+        cssClass: 'danger',
+        handler: () => {
+          loading.present();
+          this.storyService.deleteStory(id).then(() => {
+            loading.dismiss().then(() => this.presentToast('削除しました'));
+          }, err => {
+            console.error(err);
+          });
         }
-      ]
+      }]
     });
     await alert.present();
   }

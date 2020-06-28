@@ -22,6 +22,7 @@ export class StoryPostPage implements OnInit {
     prefecture: null,
     category: null,
     harassment: null,
+    reportCount: 0,
     user: {
       uid: null,
       displayName: null,

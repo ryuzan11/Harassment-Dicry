@@ -11,6 +11,7 @@ export interface Story {
   category: string;
   harassment: string;
   listCount?: number;
+  reportCount: number;
   bestAnswer?: BestAnswer;
   deadline?: number;
   created_at?: firebase.firestore.FieldValue;
@@ -24,6 +25,7 @@ export interface Answer {
   storyId: string;
   story: string;
   user: User;
+  reportCount: number;
   created_at: firebase.firestore.FieldValue;
   updated_at?: firebase.firestore.FieldValue;
 }
