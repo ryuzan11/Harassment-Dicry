@@ -9,6 +9,7 @@ import { StoryPostPage } from '../ui/story-post/story-post.page';
 import { ActionListPage } from './action-list/action-list.page';
 import { EditableTextPage } from './editable-text/editable-text.page';
 import { DecideAnswerPage } from './decide-answer/decide-answer.page';
+import { ReportModalPage } from './report-modal/report-modal.page';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { DecideAnswerPage } from './decide-answer/decide-answer.page';
     DecideAnswerPage,
     EditableTextPage,
     ProfilePage,
+    ReportModalPage,
     StoryPostPage,
   ],
   declarations: [
@@ -32,6 +34,7 @@ import { DecideAnswerPage } from './decide-answer/decide-answer.page';
     DecideAnswerPage,
     EditableTextPage,
     ProfilePage,
+    ReportModalPage,
     StoryPostPage,
   ],
   exports: [
