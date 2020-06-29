@@ -8,6 +8,7 @@ import { StoryService } from 'src/app/shared/api/story.service';
 import { Story, Answer } from 'src/app/shared/models/story';
 import { Subscription } from 'rxjs';
 import { AnswerService } from 'src/app/shared/api/answer.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class OtherPage implements OnInit, OnDestroy {
     private auth: AuthService,
     private userService: UserService,
     private storyService: StoryService,
-    private answerService: AnswerService
+    private answerService: AnswerService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -43,6 +45,10 @@ export class OtherPage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  navigateUser() {
+    this.router.navigateByUrl('/user/' + this.userService.user.uid);
   }
 
   getList(segment: string): Story[] | Answer[] {

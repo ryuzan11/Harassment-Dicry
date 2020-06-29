@@ -27,6 +27,10 @@ const routes: Routes = [
     data: { authGuardPipe: redirectUnauthorized }
   },
   {
+    path: 'user',
+    loadChildren: () => import('./user/user.module').then( m => m.UserPageModule)
+  },
+  {
     path: '**',
     redirectTo: '',
   }

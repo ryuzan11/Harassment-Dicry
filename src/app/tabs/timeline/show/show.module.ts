@@ -15,7 +15,7 @@ import { EditableTextPage } from 'src/app/shared/ui/editable-text/editable-text.
     FormsModule,
     IonicModule,
     SharedModule,
-    ShowPageRoutingModule
+    // ShowPageRoutingModule
   ],
   declarations: [
     ShowPage,
