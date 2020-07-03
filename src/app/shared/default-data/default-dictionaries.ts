@@ -3,6 +3,13 @@ import { Dictionaries } from '../models/dictionaries';
 export const DICTIONARIES: Dictionaries[] = [
   {
     name: 'ハラスメントとは?',
+    children: [
+      {id: '00', name: '定義'},
+      {id: '01', name: '歴史'},
+      {id: '02', name: '法律'},
+      {id: '03', name: '実態'},
+      {id: '04', name: '人間の尊厳'}
+    ]
   },
   {
     name: '関連団体',

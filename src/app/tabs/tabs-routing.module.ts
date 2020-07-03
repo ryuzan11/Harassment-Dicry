@@ -63,11 +63,7 @@ const routes: Routes = [
     path: '',
     redirectTo: '/main/timeline',
     pathMatch: 'full'
-  },  {
-    path: 'organization',
-    loadChildren: () => import('./dictionary/organization/organization.module').then( m => m.OrganizationPageModule)
   }
-
 ];
 
 @NgModule({

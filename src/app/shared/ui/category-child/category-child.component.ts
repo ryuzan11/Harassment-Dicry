@@ -44,8 +44,8 @@ export class CategoryChildComponent implements OnInit {
 
   ngOnInit() {
     this.uid = this.userService.uid;
-    if (this.navParams.data.name === 'ハラスメントとは?') {
-      this.type = 'ハラスメントとは?';
+    if (this.navParams.data.name === 'ハラスメントとは？') {
+      this.type = 'ハラスメントとは？';
     } else if (this.navParams.data.name === '関連団体') {
       this.type = '関連団体';
     } else if (this.navParams.data.children && this.navParams.data.children[0].name) {
@@ -54,9 +54,7 @@ export class CategoryChildComponent implements OnInit {
       this.type = 'リスト';
     }
 
-    if (this.type === '関連団体') {
-      this.datas = this.navParams.data.children;
-    } else if (this.type === 'ハラスメント') {
+    if (this.type === 'ハラスメント') {
       this.datas = this.navParams.data.children;
       this.datas.forEach(d => {
         this.harassments.forEach(h => {
@@ -74,11 +72,15 @@ export class CategoryChildComponent implements OnInit {
           this.datas.push({id: l.storyId, story: s.data() as Story});
         });
       });
+    } else {
+      this.datas = this.navParams.data.children;
     }
   }
 
   titleName(): string {
-    if (this.type === '関連団体') {
+    if (this.type === 'ハラスメントとは？') {
+      return 'ハラスメントとは？';
+    } else if (this.type === '関連団体') {
       return '関連団体';
     } else if (this.type === 'ハラスメント') {
       return 'ハラスメント';
@@ -88,7 +90,9 @@ export class CategoryChildComponent implements OnInit {
   }
 
   navigateShow(id: string) {
-    if (this.type === '関連団体') {
+    if (this.type === 'ハラスメントとは？') {
+      this.navCtrl.navigateForward('/main/dictionary/description/' + id);
+    } else if (this.type === '関連団体') {
       this.navCtrl.navigateForward('/main/dictionary/organization/' + id);
     } else if (this.type === 'ハラスメント') {
       this.navCtrl.navigateForward('/main/dictionary/harassment/' + id);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Organization } from 'src/app/shared/models/organization';
@@ -9,7 +9,7 @@ import { OrganizationsService } from 'src/app/shared/service/organizations.servi
   templateUrl: './organization.page.html',
   styleUrls: ['./organization.page.scss'],
 })
-export class OrganizationPage implements OnInit {
+export class OrganizationPage implements OnInit, OnDestroy {
   organizationId: string;
   organization: Organization[];
   private subscriptions = new Subscription();
@@ -24,6 +24,10 @@ export class OrganizationPage implements OnInit {
       this.organizationId = params.get('organizationId');
       this.organization = this.organizationService.getOrganization(this.organizationId);
     }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
 }
