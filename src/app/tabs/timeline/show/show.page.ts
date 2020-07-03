@@ -18,6 +18,7 @@ import { ReportModalPage } from 'src/app/shared/ui/report-modal/report-modal.pag
 export class ShowPage implements OnInit, OnDestroy {
   uid: string;
   answer = '';
+  deadlineAnswer: Answer;
   answers: Answer[];
   user: User;
   iUser: IUser;
@@ -47,14 +48,19 @@ export class ShowPage implements OnInit, OnDestroy {
     if (this.story) {
       this.user = this.userService.passUser;
       this.uid = this.user.uid;
-      this.page = true;
+      this.userService.userInit(this.uid).then(data => {
+        this.iUser = data;
+        this.getDeadlineAnswer();
+        this.page = true;
+      });
     } else {
-      this.uid = this.userService.user.uid;
+      this.uid = this.userService.uid;
       this.userService.userInit(this.uid).then(data => {
         this.iUser = data;
       });
       this.storyService.getStory(this.storyId).subscribe(s => {
         this.story = s.data();
+        this.getDeadlineAnswer();
         this.page = true;
       });
     }
@@ -75,6 +81,34 @@ export class ShowPage implements OnInit, OnDestroy {
   checkReport(aid: string): boolean | any {
     const callback = (ele: Report) => ele.reportId === aid;
     return (this.iUser.report && this.iUser.report !== []) ? this.iUser.report.some(callback) : false;
+  }
+
+  getDeadlineAnswer() {
+    if (!this.story.bestAnswer && this.checkDeadline(this.story.deadline)) {
+      for (let i = 0; i < 1; i++) {
+        this.deadlineAnswer = this.answers[0];
+      }
+    }
+  }
+
+  rebuildAnswers(): Answer[] {
+    if (!this.checkDeadline(this.story.deadline) && this.story.type === '相談') { return this.answers; }
+
+    const newAnswers: Answer[] = [];
+    if (!!this.story.bestAnswer) {
+      this.answers.forEach(a => {
+        if (a.answerId !== this.story.bestAnswer.answerId) {
+          newAnswers.push(a);
+        }
+      });
+    } else if (!this.story.bestAnswer && this.checkDeadline(this.story.deadline)) {
+      this.answers.forEach((a, i) => {
+        if (i !== 0) {
+          newAnswers.push(a);
+        }
+      });
+    }
+    return newAnswers;
   }
 
   postAnswer() {

@@ -47,7 +47,7 @@ export class ProfilePage implements OnInit {
   }
 
   async ionViewWillEnter() {
-    this.uid = this.userService.user.uid;
+    this.uid = this.userService.uid;
     const user = await this.userService.userInit(this.uid);
     if (user) {
       this.user = user;

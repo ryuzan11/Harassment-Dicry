@@ -24,7 +24,7 @@ export class ListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.uid = this.userService.user.uid;
+    this.uid = this.userService.uid;
     this.listService.getLists(this.uid).subscribe(lists => {
       this.params.lists = lists;
       this.page = true;

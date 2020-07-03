@@ -17,43 +17,53 @@
     {{story.category}}
     {{story.harassment}}
   </ion-item>
-  <ng-container *ngIf="story.type === '相談' && !checkDeadline(story.deadline) && !story.bestAnswer; else deadline">
-    <ion-item>
-      回答期日:{{story.deadline | date: 'yyyy-MM-dd HH:mm'}}
-    </ion-item>
-    <ion-item button *ngIf="story.user.uid===uid" (click)="openDecideModal()">
-      ベストアンサーを決める
-    </ion-item>
-    <form #f="ngForm">
+  <ng-container *ngIf="story.type!=='閲覧のみ'">  
+    <ng-container *ngIf="story.type==='相談' && !checkDeadline(story.deadline) && !story.bestAnswer; else deadline">
       <ion-item>
-        <ion-label position="stacked">回答受付中</ion-label>
-        <ion-textarea name="answer" [(ngModel)]="answer" rows="7" placeholder="回答を記入" maxlength="500" minlength="1" [disabled]="story.user.uid===uid" required></ion-textarea>
+        回答期日:{{story.deadline | date: 'yyyy-MM-dd HH:mm'}}
       </ion-item>
-    </form>
-    <div class="position-flex-center">
-      <ion-button (click)="postAnswer()" [disabled]="!f.form.valid || story.user.uid===uid">回答を送る</ion-button>
-    </div>
-  </ng-container>
-  <ion-item *ngIf="story.bestAnswer">
-    {{story.bestAnswer.answerUser.displayName}}
-    {{story.bestAnswer.answer}}
-  </ion-item>
-  <ion-list *ngIf="(story.type === '相談' || '解決済み') && (answers)">
-    <ng-container *ngFor="let a of answers">
-      <ion-item *ngIf="!(story.bestAnswer && story.bestAnswer.answerId===a.answerId)">
-        {{a.user.displayName}}
-        <ls-editable-text #answer [(value)]="a.answer" [editDisabled]="(a.user.uid!==uid || checkDeadline(story.deadline) || story.bestAnswer)" (changeValue)="update($event, a.answerId)"></ls-editable-text>
-        <div class="action-list">
-          <ion-button stopPropagation *ngIf="a.user.uid===uid && !checkDeadline(story.deadline) && !story.bestAnswer" color="medium" fill="clear" (click)="openDeleteAlert(storyId, a.answerId)">
-            <ion-icon name="trash-outline"></ion-icon>
-          </ion-button>
-        </div>
+      <ion-item button *ngIf="story.user.uid===uid" (click)="openDecideModal()">
+        ベストアンサーを決める
       </ion-item>
-      <ion-button stopPropagation *ngIf="uid!==a.user.uid" slot="end" [color]="checkReport(a.answerId) ? 'danger' : 'medium'" fill="clear" (click)="openReportModal(a.user.uid, a.answerId)" [disabled]="checkReport(a.answerId)">
-        <ion-icon name="flag"></ion-icon>
-      </ion-button>
+      <form #f="ngForm">
+        <ion-item>
+          <ion-label position="stacked">回答受付中</ion-label>
+          <ion-textarea name="answer" [(ngModel)]="answer" rows="7" placeholder="回答を記入" maxlength="500" minlength="1" [disabled]="story.user.uid===uid" required></ion-textarea>
+        </ion-item>
+      </form>
+      <div class="position-flex-center">
+        <ion-button (click)="postAnswer()" [disabled]="!f.form.valid || story.user.uid===uid">回答を送る</ion-button>
+      </div>
     </ng-container>
-  </ion-list>
+
+    <ng-container *ngIf="(story.type === '相談' || '解決済み') && answers && (answers.length!==0) ">
+      <ion-item *ngIf="!!story.bestAnswer">
+        {{story.bestAnswer.answerUser.displayName}}
+        {{story.bestAnswer.answer}}
+      </ion-item>
+      <ion-item *ngIf="!story.bestAnswer && checkDeadline(story.deadline) && deadlineAnswer">
+        {{deadlineAnswer.user.displayName}}
+        {{deadlineAnswer.answer}}
+      </ion-item>
+    
+      <ion-list *ngIf="answers && answers.length!==0">
+        <ng-container *ngFor="let a of rebuildAnswers()">
+          <ion-item>
+            {{a.user.displayName}}
+            <ls-editable-text #answer [(value)]="a.answer" [editDisabled]="(a.user.uid!==uid || checkDeadline(story.deadline) || story.bestAnswer)" (changeValue)="update($event, a.answerId)"></ls-editable-text>
+            <div class="action-list">
+              <ion-button stopPropagation *ngIf="a.user.uid===uid && !checkDeadline(story.deadline) && !story.bestAnswer" color="medium" fill="clear" (click)="openDeleteAlert(storyId, a.answerId)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-item>
+          <ion-button stopPropagation *ngIf="uid!==a.user.uid" slot="end" [color]="checkReport(a.answerId) ? 'danger' : 'medium'" fill="clear" (click)="openReportModal(a.user.uid, a.answerId)" [disabled]="checkReport(a.answerId)">
+            <ion-icon name="flag"></ion-icon>
+          </ion-button>
+        </ng-container>
+      </ion-list>
+    </ng-container>
+  </ng-container>
 </ion-content>
 
 <ng-template #deadline>
@@ -61,7 +71,6 @@
     回答は終了しました。
   </ion-item>
 </ng-template>
-
 
 <ng-template #loading>
   <ion-content>

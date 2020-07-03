@@ -15,7 +15,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="page; else loading">
+<ion-content *ngIf="page; else loading">
   <ion-list class="ion-padding-top">
     <ng-container *ngFor="let s of stories; trackBy: trackByFn">
       <ion-item button *ngIf="segment==='一覧' || segment===s.category" lines="none" (click)="setPassInfo(s)" [routerLink]="s.storyId" routerDirection="forward">
@@ -34,8 +34,8 @@
             <div class="ion-text-nowrap"><strong>{{s.user.displayName}}</strong></div>
             {{s.story}}
             <div class="action-list">
-              <ion-button stopPropagation color="medium" fill="clear" (click)="searchList(s.storyId) ? deleteListStory(s.storyId) : openListAction(s.storyId)" [disabled]="uid===s.user.uid">
-                <ion-icon [class.add-list]="searchList(s.storyId)" name="bookmark"></ion-icon>{{s.listCount}}
+              <ion-button stopPropagation color="medium" fill="clear" (click)="!!searchList(s.storyId) ? deleteListStory(s.storyId) : openListAction(s.storyId)" [disabled]="uid===s.user.uid">
+                <ion-icon [class.add-list]="!!searchList(s.storyId)" name="bookmark"></ion-icon>{{s.listCount}}
               </ion-button>
               <ion-button stopPropagation *ngIf="uid===s.user.uid" color="medium" fill="clear" (click)="openEditModal(s, s.storyId)">
                 <ion-icon name="pencil-outline"></ion-icon>

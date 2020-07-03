@@ -42,7 +42,7 @@ export class CategoryChildComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uid = this.userService.user.uid;
+    this.uid = this.userService.user().id;
     this.dictionaryNav = (this.navParams.data.children && this.navParams.data.children[0].name) ? true : false;
     if (this.dictionaryNav) {
       this.dictionaries = this.navParams.data.children;

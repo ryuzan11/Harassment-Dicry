@@ -11,7 +11,7 @@ export class ReportModalPage implements OnInit {
   reason = '';
   id: string;
   sid: string;
-  type: string;
+  type: 'story' | 'user' | 'answer';
 
   constructor(
     private modalCtrl: ModalController,
@@ -39,11 +39,12 @@ export class ReportModalPage implements OnInit {
         cssClass: 'danger',
         handler: () => {
           this.useService.setReport(this.id, this.type, this.reason, this.sid);
-          this.modalDismiss();
         }
       }]
     });
     await alert.present();
+
+    alert.onDidDismiss().then(() => this.modalDismiss());
   }
 
   modalDismiss(): void {

@@ -22,8 +22,8 @@ export interface User {
 
 export interface Report {
   reportId: string;
-  reportRef: DocumentReference;
+  reportRef?: DocumentReference;
   reason: string;
   type: 'story' | 'user' | 'answer';
-  created_at: firebase.firestore.FieldValue;
+  created_at?: firebase.firestore.FieldValue;
 }

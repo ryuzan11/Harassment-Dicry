@@ -26,7 +26,7 @@ export class CategoryParentComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.uid = this.userService.user.uid;
+    this.uid = this.userService.uid;
     this.params = this.navParams.data;
   }
 

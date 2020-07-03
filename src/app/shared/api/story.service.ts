@@ -6,8 +6,6 @@ import { Observable } from 'rxjs';
 import { Story, BestAnswer } from '../models/story';
 import { User } from '../models/i-user';
 import { AngularFireFunctions } from '@angular/fire/functions';
-import { error } from 'protractor';
-
 
 @Injectable({
   providedIn: 'root'
