@@ -2,7 +2,7 @@ import { Dictionaries } from '../models/dictionaries';
 
 export const DICTIONARIES: Dictionaries[] = [
   {
-    name: 'ハラスメントとは?',
+    name: 'ハラスメントとは？',
     children: [
       {id: '00', name: '定義'},
       {id: '01', name: '歴史'},
