@@ -20,7 +20,7 @@ export class ProfilePage implements OnInit {
     age: null,
     gender: null,
     profile: null,
-    report: null,
+    report: [],
     reportCount: 0
   };
   nowDisplayName = false;

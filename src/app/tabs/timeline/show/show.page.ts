@@ -8,6 +8,7 @@ import { User, Report, IUser } from 'src/app/shared/models/i-user';
 import { UserService } from 'src/app/shared/api/user.service';
 import { DecideAnswerPage } from '../../../shared/ui/decide-answer/decide-answer.page';
 import { ReportModalPage } from 'src/app/shared/ui/report-modal/report-modal.page';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -20,11 +21,11 @@ export class ShowPage implements OnInit, OnDestroy {
   answer = '';
   deadlineAnswer: Answer;
   answers: Answer[];
-  user: User;
-  iUser: IUser;
+  user: IUser;
   storyId: string;
   story: Story;
   page = false;
+  private subscriptions = new Subscription();
 
   constructor(
     private storyService: StoryService,
@@ -38,36 +39,37 @@ export class ShowPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.uid = this.userService.uid;
     this.story = this.storyService.passStory;
-    this.route.paramMap.subscribe((params: Params) => {
+    this.subscriptions.add(this.route.paramMap.subscribe((params: Params) => {
       this.storyId = params.get('storyId');
-    });
-    this.answerService.getAnswers(this.storyId).subscribe(a => {
-      this.answers = a;
-    });
-    if (this.story) {
-      this.user = this.userService.passUser;
-      this.uid = this.user.uid;
-      this.userService.userInit(this.uid).then(data => {
-        this.iUser = data;
-        this.getDeadlineAnswer();
-        this.page = true;
-      });
-    } else {
-      this.uid = this.userService.uid;
-      this.userService.userInit(this.uid).then(data => {
-        this.iUser = data;
-      });
-      this.storyService.getStory(this.storyId).subscribe(s => {
-        this.story = s.data();
-        this.getDeadlineAnswer();
-        this.page = true;
-      });
-    }
+      if (this.story) {
+        this.user = this.userService.user;
+        this.answerService.getAnswers(this.storyId).subscribe(a => {
+          this.answers = a;
+          this.getDeadlineAnswer();
+          this.page = true;
+        });
+      } else {
+        this.storyService.getStory(this.storyId).then(s => {
+          this.story = s.data();
+          this.userService.userInit(this.uid).then(data => {
+            this.user = data;
+            this.userService.reports = this.user.report;
+            this.answerService.getAnswers(this.storyId).subscribe(a => {
+              this.answers = a;
+              this.getDeadlineAnswer();
+              this.page = true;
+            });
+          });
+        });
+      }
+    }));
   }
 
   ngOnDestroy() {
     this.answer = '';
+    this.subscriptions.unsubscribe();
   }
 
   backwardTimeline() {
@@ -78,9 +80,9 @@ export class ShowPage implements OnInit, OnDestroy {
     return new Date(deadline) < new Date() ? true : false;
   }
 
-  checkReport(aid: string): boolean | any {
+  checkReport(aid: string): boolean {
     const callback = (ele: Report) => ele.reportId === aid;
-    return (this.iUser.report && this.iUser.report !== []) ? this.iUser.report.some(callback) : false;
+    return (this.userService.reports && this.userService.reports !== []) ? this.userService.reports.some(callback) : false;
   }
 
   getDeadlineAnswer() {
@@ -114,8 +116,8 @@ export class ShowPage implements OnInit, OnDestroy {
   postAnswer() {
     this.userService.userInit(this.uid).then(user => {
       const {profile, ...other} = user;
-      this.user = {uid: this.uid, ...other};
-      this.answerService.addAnswer(this.storyId, this.user, this.answer, this.story.story);
+      const storeUser: User = {uid: this.uid, ...other};
+      this.answerService.addAnswer(this.storyId, storeUser, this.answer, this.story.story);
       this.answer = '';
     });
   }

@@ -3,6 +3,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { Story, BestAnswer } from '../models/story';
 import { User } from '../models/i-user';
 import { AngularFireFunctions } from '@angular/fire/functions';
@@ -32,8 +33,10 @@ export class StoryService {
     return this.storyCollection.valueChanges({idField: 'storyId'});
   }
 
-  getStory(id: string): Observable<any> {
-    return this.storyCollection.doc(id).get();
+  getStory(id: string): Promise<any> {
+    return this.storyCollection.doc(id).get()
+      .pipe(first())
+      .toPromise(Promise);
   }
 
   getUserStories(uid: string): Observable<Story[]> {

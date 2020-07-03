@@ -34,11 +34,11 @@ export class OtherPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.add(
-      this.storyService.getUserStories(this.userService.user.uid).subscribe(story => {
+      this.storyService.getUserStories(this.userService.uid).subscribe(story => {
         this.stories = story;
     }));
     this.subscriptions.add(
-      this.answerService.getUserAnswers(this.userService.user.uid).subscribe(answer => {
+      this.answerService.getUserAnswers(this.userService.uid).subscribe(answer => {
         this.answers = answer;
     }));
   }
@@ -48,7 +48,7 @@ export class OtherPage implements OnInit, OnDestroy {
   }
 
   navigateUser() {
-    this.router.navigateByUrl('/user/' + this.userService.user.uid);
+    this.router.navigateByUrl('/user/' + this.userService.uid);
   }
 
   getList(segment: string): Story[] | Answer[] {
