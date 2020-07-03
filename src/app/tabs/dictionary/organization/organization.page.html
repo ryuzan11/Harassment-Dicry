@@ -1,9 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>organization</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>関連団体</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-item button *ngFor="let o of organization">
+    {{o.name}}
+  </ion-item>
 </ion-content>

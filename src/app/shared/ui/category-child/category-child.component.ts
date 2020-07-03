@@ -88,7 +88,6 @@ export class CategoryChildComponent implements OnInit {
   }
 
   navigateShow(id: string) {
-    console.log(id);
     if (this.type === '関連団体') {
       this.navCtrl.navigateForward('/main/dictionary/organization/' + id);
     } else if (this.type === 'ハラスメント') {

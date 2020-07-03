@@ -6,7 +6,13 @@ import { ORGANIZATIONS } from '../default-data/default-organization';
   providedIn: 'root'
 })
 export class OrganizationsService {
-  getOrganizations(): Organization[] {
+  get organizations(): Organization[] {
     return ORGANIZATIONS;
+  }
+
+  getOrganization(id: string): Organization[] {
+    return this.organizations.filter(ele => {
+      return ele.organizationId === id;
+    });
   }
 }

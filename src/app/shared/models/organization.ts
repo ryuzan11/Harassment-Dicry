@@ -1,5 +1,6 @@
 
 export interface Organization {
+  organizationId: string;
   name: string;
   service: string | null;
   code: string | null;
