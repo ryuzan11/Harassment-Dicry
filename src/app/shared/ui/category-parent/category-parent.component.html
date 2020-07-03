@@ -14,7 +14,7 @@
   </ion-item>
   <ion-list>
     <ng-container *ngFor="let list of params.lists">
-    <ion-nav-link *ngIf="storyCount(list.children) || (params.type === 'dic'); else notNav" [component]="nextPage" [componentProps]="{'children': list.children, 'listId': list.listId}" routerDirection="forward">
+    <ion-nav-link *ngIf="storyCount(list.children) || (params.type === 'dic'); else notNav" [component]="nextPage" [componentProps]="{'children': list.children, 'name': list.name, 'listId': list.listId}" routerDirection="forward">
       <ion-item button>
         <ion-label>
           {{list.name}}

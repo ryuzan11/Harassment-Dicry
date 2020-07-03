@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DictionaryPage } from './dictionary.page';
-import { ShowPage } from './show/show.page';
+import { HarassmentPage } from './harassment/harassment.page';
+import { OrganizationPage } from './organization/organization.page';
 
 const routes: Routes = [
   {
@@ -9,8 +10,12 @@ const routes: Routes = [
     component:  DictionaryPage
   },
   {
-    path: ':harassmentId',
-    component: ShowPage,
+    path: 'harassment/:harassmentId',
+    component: HarassmentPage,
+  },
+  {
+    path: 'organization/:harassmentId',
+    component: OrganizationPage,
   }
 ];
 

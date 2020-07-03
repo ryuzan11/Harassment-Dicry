@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { DictionaryPage } from './dictionary.page';
 import { SharedModule } from '../../shared/shared.module';
 import { DictionaryPageRoutingModule } from './dictionary-routing';
-import { ShowPage } from './show/show.page';
+import { HarassmentPage } from './harassment/harassment.page';
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { ShowPage } from './show/show.page';
   ],
   declarations: [
     DictionaryPage,
-    ShowPage
+    HarassmentPage
   ]
 })
 export class DictionaryPageModule {}

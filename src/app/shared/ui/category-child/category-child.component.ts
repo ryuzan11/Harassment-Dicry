@@ -17,13 +17,14 @@ import { UserService } from '../../api/user.service';
 export class CategoryChildComponent implements OnInit {
   uid: string;
   listId: string;
-  dictionaries: {
-    'name': string;
-    'harassmentId': string | undefined;
+  type: string;
+  datas: {
+    id: string | undefined;
+    name?: string;
+    story: Story;
   }[];
   listStories: ListStory[];
-  stories: {storyId: string, story: Story}[] = [];
-  dictionaryNav: boolean;
+  page = false;
 
   get harassments() {
     return this.harassmentsService.harassments;
@@ -42,32 +43,59 @@ export class CategoryChildComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uid = this.userService.user().id;
-    this.dictionaryNav = (this.navParams.data.children && this.navParams.data.children[0].name) ? true : false;
-    if (this.dictionaryNav) {
-      this.dictionaries = this.navParams.data.children;
-      this.dictionaries.forEach(c => {
+    this.uid = this.userService.uid;
+    if (this.navParams.data.name === 'ハラスメントとは?') {
+      this.type = 'ハラスメントとは?';
+    } else if (this.navParams.data.name === '関連団体') {
+      this.type = '関連団体';
+    } else if (this.navParams.data.children && this.navParams.data.children[0].name) {
+      this.type = 'ハラスメント';
+    } else {
+      this.type = 'リスト';
+    }
+
+    if (this.type === '関連団体') {
+      this.datas = this.navParams.data.children;
+    } else if (this.type === 'ハラスメント') {
+      this.datas = this.navParams.data.children;
+      this.datas.forEach(d => {
         this.harassments.forEach(h => {
-          if (c.name === h.name) {
-            c.harassmentId = h.id;
+          if (d.name === h.name) {
+            d.id = h.id;
           }
         });
       });
-    } else {
+    } else if (this.type === 'リスト') {
       this.listStories = this.navParams.data.children;
       this.listId = this.navParams.data.listId;
-      this.listStories.forEach(l => {
-        l.storyRef.get().then(s => {
-          this.stories.push({storyId: l.storyId, story: s.data() as Story});
+      this.datas = [];
+      this.listStories.forEach(async l => {
+        await l.storyRef.get().then(s => {
+          this.datas.push({id: l.storyId, story: s.data() as Story});
         });
       });
     }
   }
 
+  titleName(): string {
+    if (this.type === '関連団体') {
+      return '関連団体';
+    } else if (this.type === 'ハラスメント') {
+      return 'ハラスメント';
+    } else if (this.type === 'リスト') {
+      return 'リスト';
+    }
+  }
+
   navigateShow(id: string) {
-    this.dictionaryNav ?
-    this.navCtrl.navigateForward('/main/dictionary/' + id) :
-    this.navCtrl.navigateForward('/main/timeline/' + id);
+    console.log(id);
+    if (this.type === '関連団体') {
+      this.navCtrl.navigateForward('/main/dictionary/organization/' + id);
+    } else if (this.type === 'ハラスメント') {
+      this.navCtrl.navigateForward('/main/dictionary/harassment/' + id);
+    } else if (this.type === 'リスト') {
+      this.navCtrl.navigateForward('/main/timeline/' + id);
+    }
   }
 
   async presentActionSheet() {

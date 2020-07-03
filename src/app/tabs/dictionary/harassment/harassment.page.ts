@@ -4,11 +4,11 @@ import { HarassmentsService } from 'src/app/shared/service/harassments.service';
 import { Harassment } from 'src/app/shared/models/harassment';
 
 @Component({
-  selector: 'app-show',
-  templateUrl: './show.page.html',
-  styleUrls: ['./show.page.scss'],
+  selector: 'app-harassment',
+  templateUrl: './harassment.page.html',
+  styleUrls: ['./harassment.page.scss'],
 })
-export class ShowPage implements OnInit {
+export class HarassmentPage implements OnInit {
   harassmentId = '';
   harassment: Harassment;
 

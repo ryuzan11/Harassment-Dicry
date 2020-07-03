@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ShowPageRoutingModule } from './show-routing.module';
+import { OrganizationPageRoutingModule } from './organization-routing.module';
 
-import { ShowPage } from './show.page';
+import { OrganizationPage } from './organization.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ShowPageRoutingModule
+    OrganizationPageRoutingModule
   ],
-  declarations: [ShowPage]
+  declarations: [OrganizationPage]
 })
-export class ShowPageModule {}
+export class OrganizationPageModule {}

@@ -4,9 +4,9 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>
-      {{dictionaryNav ? 'ハラスメント' : 'リスト'}}
+      {{titleName()}}
     </ion-title>
-    <ion-buttons *ngIf="!dictionaryNav" slot="end">
+    <ion-buttons *ngIf="type==='リスト'" slot="end">
       <ion-button (click)="presentActionSheet()">
         <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
       </ion-button>
@@ -14,15 +14,38 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content  fullscreen>
+<ion-content>
   <ion-list>
-    <ng-container *ngFor="let c of (dictionaryNav ?  dictionaries : stories)">
-      <ion-item button *ngIf="dictionaryNav ? true : c.story ? true : false;" (click)="navigateShow(dictionaryNav ? c.harassmentId : c.storyId)">
+    <ng-container *ngFor="let d of datas">
+      <ion-item button (click)="navigateShow(d.id)">
         <ion-icon name="arrow-forward" slot="end"></ion-icon>
         <ion-label>
-          {{dictionaryNav ? c.name : c.story.story}}
+          {{type==='リスト' ? d.story.story : d.name}}
         </ion-label>
       </ion-item>
     </ng-container>
   </ion-list>
 </ion-content>
+
+<ng-template #loading>
+  <ion-content>  
+    <ion-list>
+      <ion-item *ngFor="let i of [1, 2, 3, 4, 5]">
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ng-template>

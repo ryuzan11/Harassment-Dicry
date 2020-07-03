@@ -7,13 +7,13 @@ export const DICTIONARIES: Dictionaries[] = [
   {
     name: '関連団体',
     children: [
-      {name: '厚生労働省'},
-      {name: '内閣府男女共同参画局'},
-      {name: '法務省'},
-      {name: '一般社団法人日本ハラスメント協会'},
-      {name: '一般財団法人日本ハラスメントカウンセラー協会'},
-      {name: '一般社団法人日本産業カウンセラー協会JAICO'},
-      {name: 'NPO NAAH'},
+      {id: '01', name: '厚生労働省'},
+      {id: '02', name: '内閣府男女共同参画局'},
+      {id: '03', name: '法務省'},
+      {id: '04', name: '一般社団法人日本ハラスメント協会'},
+      {id: '05', name: '一般財団法人日本ハラスメントカウンセラー協会'},
+      {id: '06', name: '一般社団法人日本産業カウンセラー協会JAICO'},
+      {id: '07', name: 'NPO NAAH'},
     ]
   },
   {
