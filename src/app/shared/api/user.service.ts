@@ -3,29 +3,53 @@ import { AngularFirestore, AngularFirestoreDocument, DocumentReference } from '@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { first } from 'rxjs/operators';
-import { IUser, User } from '../models/i-user';
+import { IUser, User, Report } from '../models/i-user';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  _uid: string;
+  _user: IUser;
+  _reports: Report[];
   _passUser: User;
   userDoc: AngularFirestoreDocument<IUser>;
 
-  get user() {
-    return firebase.auth().currentUser;
+  get uid(): string {
+    return this._uid;
+  }
+  set uid(userId: string) {
+    this._uid = userId;
   }
 
-  get passUser() {
-    return this._passUser;
+  get user(): IUser {
+    return this._user;
   }
-  set passUser(user: User) {
-  // set passUser(user: Partial<User>) { // 使えないのか
-    this._passUser = user;
+  set user(user: IUser) {
+    this._user = user;
   }
 
-  constructor(public af: AngularFirestore) { }
+  get reports(): Report[] {
+    return this._reports;
+  }
+  set reports(reports: Report[]) {
+    this._reports = reports;
+  }
+  set report(report: Report) {
+    this._reports.push(report);
+  }
+
+  constructor(public af: AngularFirestore) {
+    this.uid = this.getUserId();
+    this.userInit(this.uid).then(user => {
+      this.user = user;
+    });
+  }
+
+  getUserId() {
+    return firebase.auth().currentUser.uid;
+  }
 
   userInit(uid: string): Promise<IUser> {
     this.userDoc = this.af.doc<IUser>('users/' + uid);
@@ -38,7 +62,7 @@ export class UserService {
     return this.userDoc.set(user);
   }
 
-  setReport(id: string, reportType: string, reportReason: string, sid?: string | undefined) {
+  setReport(id: string, reportType: 'story' | 'user' | 'answer', reportReason: string, sid?: string | undefined) {
     let ref: DocumentReference;
     if (reportType === 'story') {
       ref = this.af.firestore.doc('story/' + id);
@@ -47,17 +71,22 @@ export class UserService {
     } else if (reportType === 'user') {
       ref = this.af.firestore.doc('users/' + id);
     }
-    this.af.firestore.doc('users/' + this.user.uid)
-      .update({
-        report: firebase.firestore.FieldValue.arrayUnion({
-          reportId: id,
-          reportRef: ref,
-          reason: reportReason,
-          type: reportType,
-          created_at: firebase.firestore.Timestamp.now()
-        })
-      })
-      .then(() => this.upCount(ref))
+
+    let report: Report;
+    report = {
+      reportId: id,
+      reportRef: ref,
+      reason: reportReason,
+      type: reportType,
+      created_at: firebase.firestore.Timestamp.now()
+    };
+
+    this.af.firestore.doc('users/' + this.uid)
+      .update({report: firebase.firestore.FieldValue.arrayUnion(report)})
+      .then(() => (
+        this.upCount(ref),
+        this.report = report
+      ))
       .catch(err => { console.error(err); }
     );
   }

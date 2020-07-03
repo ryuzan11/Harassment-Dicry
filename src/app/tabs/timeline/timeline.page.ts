@@ -46,8 +46,9 @@ export class TimelinePage implements OnInit, OnDestroy {
   ) {}
 
   async ngOnInit() {
-    this.uid = this.userService.user.uid;
+    this.uid = this.userService.uid;
     this.user = await this.userService.userInit(this.uid);
+    this.userService.reports = this.user.report;
     // if (!this.iUser) {
     //   const modal = await this.modalCtrl.create({
     //     component: ProfilePage
@@ -65,18 +66,16 @@ export class TimelinePage implements OnInit, OnDestroy {
     }));
   }
 
-  async ionViewWillEnter() {
-    this.user = await this.userService.userInit(this.uid);
-  }
+  // async ionViewWillEnter() {
+  //   this.user = await this.userService.userInit(this.uid);
+  // }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
   setPassInfo(story: Story) {
-    const {profile, ...other} = this.user;
-    this.userService.passUser = {uid: this.uid, ...other};
-    // this.userService.passUser = {uid: this.uid, ...this.user}; // 使えないのか
+    this.userService.user = this.user;
     this.storyService.passStory = story;
   }
 
@@ -86,7 +85,7 @@ export class TimelinePage implements OnInit, OnDestroy {
 
   checkReport(sid: string): boolean {
     const callback = (ele: Report) => ele.reportId === sid;
-    return (this.user.report && this.user.report !== []) ? this.user.report.some(callback) : false;
+    return (this.userService.reports && this.userService.reports !== []) ? this.userService.reports.some(callback) : false;
   }
 
   trackByFn(index: number, item: Story & {storyId: string}) {
@@ -116,7 +115,6 @@ export class TimelinePage implements OnInit, OnDestroy {
 
     const actionSheet = await this.actionCtrl.create({
       header: 'リスト一覧',
-      // backdropDismiss: false,
       buttons: actionBtns
     });
     await actionSheet.present();
@@ -138,7 +136,7 @@ export class TimelinePage implements OnInit, OnDestroy {
       }
     });
     await modal.present();
-    modal.onWillDismiss().then(() => this.content.scrollToTop(100));
+    // modal.onWillDismiss().then(() => this.content.scrollToTop(100));
   }
 
   async openEditModal(story: Story, id: string) {
@@ -152,7 +150,7 @@ export class TimelinePage implements OnInit, OnDestroy {
       }
     });
     await modal.present();
-    modal.onWillDismiss().then(() => this.content.scrollToTop(100));
+    // modal.onWillDismiss().then(() => this.content.scrollToTop(100));
   }
 
   async openReportModal(uid: string, sid: string) {
