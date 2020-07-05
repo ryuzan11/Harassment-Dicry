@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
-import { IUser } from '../shared/models/i-user';
-import { UserService } from '../shared/api/user.service';
+import { IUser } from '../../../shared/models/i-user';
+import { UserService } from '../../../shared/api/user.service';
 
 @Injectable({
   providedIn: 'root'

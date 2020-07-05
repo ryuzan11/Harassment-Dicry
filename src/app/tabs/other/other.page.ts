@@ -48,7 +48,7 @@ export class OtherPage implements OnInit, OnDestroy {
   }
 
   navigateUser() {
-    this.router.navigateByUrl('/user/' + this.userService.uid);
+    this.router.navigateByUrl('/main/other/user/' + this.userService.uid);
   }
 
   getList(segment: string): Story[] | Answer[] {

@@ -1,31 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OtherPage } from './other.page';
+import { UserPage } from './user/user.page';
+import { UserShowResolver } from './user/user-show.resolver';
 
 const routes: Routes = [
   { path: '',
     component: OtherPage,
   },
   {
-    path: 'timeline',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
-  {
-    path: 'category',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
-  {
-    path: 'quiz',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
-  {
-    path: 'other',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
+    path: 'user/:userId',
+    component: UserPage,
+    resolve: {
+      show: UserShowResolver
+    }
+  }
 ];
 
 @NgModule({

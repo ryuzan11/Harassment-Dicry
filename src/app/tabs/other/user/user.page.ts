@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { IUser } from '../shared/models/i-user';
+import { IUser } from '../../../shared/models/i-user';
 
 @Component({
   selector: 'app-user',
