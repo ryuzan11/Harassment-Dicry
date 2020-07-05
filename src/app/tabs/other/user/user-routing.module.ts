@@ -1,21 +1,21 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+// import { NgModule } from '@angular/core';
+// import { Routes, RouterModule } from '@angular/router';
 
-import { UserPage } from './user.page';
-import { UserShowResolver } from './user-show.resolver';
+// import { UserPage } from './user.page';
+// import { UserShowResolver } from './user-show.resolver';
 
-const routes: Routes = [
-  {
-    path: ':userId',
-    component: UserPage,
-    resolve: {
-      show: UserShowResolver
-    }
-  }
-];
+// const routes: Routes = [
+//   {
+//     path: ':userId',
+//     component: UserPage,
+//     resolve: {
+//       show: UserShowResolver
+//     }
+//   }
+// ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class UserPageRoutingModule {}
+// @NgModule({
+//   imports: [RouterModule.forChild(routes)],
+//   exports: [RouterModule],
+// })
+// export class UserPageRoutingModule {}
