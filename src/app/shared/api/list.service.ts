@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { List } from '../models/list';
 import { IUser } from '../models/i-user';
 import { ListStory } from '../models/list-story';
 import { StoryService } from './story.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -26,17 +27,24 @@ export class ListService {
       .valueChanges({idField: 'listId'});
   }
 
-  addList(uid: string, listName: string, listType: 'public' | 'private') {
+  addList(uid: string, listName: string, listType: 'public' | 'private'): Promise<DocumentReference> {
     this.list = {
       name: listName,
       type: listType,
       children: null,
       created_at: firebase.firestore.FieldValue.serverTimestamp()
     };
-    this.af.doc<IUser>('users/' + uid).collection<List>('listStories').add(this.list);
+    return this.af.doc<IUser>('users/' + uid).collection<List>('listStories').add(this.list);
   }
 
-  setList(uid: string, sid: string, listId: string) {
+  setList(uid: string, listName: string, lid: string): Promise<void> {
+    return this.af.doc<IUser>('users/' + uid).collection<List>('listStories').doc(lid).set({
+      name: listName,
+      update_at: firebase.firestore.FieldValue.serverTimestamp()
+    }, {merge: true});
+  }
+
+  updateList(uid: string, sid: string, listId: string) {
     const sRef = this.af.firestore.doc('story/' + sid);
     this.af.firestore.doc('users/' + uid).collection('listStories').doc(listId).update({
       children: firebase.firestore.FieldValue.arrayUnion({

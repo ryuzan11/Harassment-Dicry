@@ -7,4 +7,5 @@ export interface List {
   type: 'public' | 'private';
   children: ListStory[];
   created_at: firebase.firestore.FieldValue;
+  updated_at?: firebase.firestore.FieldValue;
 }

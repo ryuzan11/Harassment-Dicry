@@ -5,7 +5,7 @@
         <ion-icon name="close" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>リスト作成</ion-title>
+    <ion-title>{{typeAdd ? 'リスト作成' : 'リスト編集'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,7 +15,7 @@
       <ion-label position="stacked">リスト名</ion-label>
       <ion-input name="name" [(ngModel)]="name" required></ion-input>
     </ion-item>
-    <ion-item>
+    <!-- <ion-item>
       <ion-radio-group name="type" [(ngModel)]="type" required>
         <ion-list-header>
           <ion-label>閲覧可否</ion-label>
@@ -29,10 +29,10 @@
           <ion-radio slot="start" value="public"></ion-radio>
         </ion-item>
       </ion-radio-group>
-    </ion-item>
+    </ion-item> -->
 
     <div class="position-flex-center">
-      <ion-button type="submit" (click)="actionList(name, type)" [disabled]="!f.form.valid">作成</ion-button>
+      <ion-button type="submit" (click)="typeAdd ? createList() : editList()" [disabled]="!f.form.valid">{{typeAdd ? '作成' : '編集'}}</ion-button>
     </div>
   </form>
 </ion-content>

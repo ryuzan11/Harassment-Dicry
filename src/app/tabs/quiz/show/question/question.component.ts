@@ -25,7 +25,6 @@ export class QuestionComponent implements OnInit {
     public harassmentsService: HarassmentsService,
     public alertCtrl: AlertController,
     public navCtrl: NavController,
-    private eleRef: ElementRef
   ) { }
 
   ngOnInit() {
@@ -45,6 +44,7 @@ export class QuestionComponent implements OnInit {
       alertCtl = await this.alertCtrl.create({
         header: headerMessage,
         message: this.quiz.description,
+        backdropDismiss: false,
         buttons: [
           {
             text: this.quiz.harassments[0],
@@ -63,6 +63,7 @@ export class QuestionComponent implements OnInit {
       alertCtl = await this.alertCtrl.create({
         header: headerMessage,
         message: this.quiz.description,
+        backdropDismiss: false,
         buttons: [
           {
             text: this.quiz.harassments[0],

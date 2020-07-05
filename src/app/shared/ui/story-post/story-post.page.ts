@@ -16,7 +16,7 @@ export class StoryPostPage implements OnInit {
   navData: {[key: string]: any};
   editMode: boolean;
   postData: Story = {
-    type: null,
+    type: '閲覧のみ',
     state: 'public',
     story: null,
     prefecture: null,
@@ -28,6 +28,8 @@ export class StoryPostPage implements OnInit {
       displayName: null,
       photoDataUrl: null,
       gender: null,
+      age: null,
+      prefecture: null
     }
   };
 
@@ -51,14 +53,12 @@ export class StoryPostPage implements OnInit {
   ngOnInit() {
     this.navData = this.navParams.data;
     this.editMode = this.navParams.data.preStory ? true : false;
-    this.editMode ? this.postData = this.navParams.data.preStory :
-    this.postData.state = 'public';
-    this.postData.user = {
-      uid: this.navData.uid,
-      displayName: this.navData.user.displayName,
-      photoDataUrl: this.navData.user.photoDataUrl,
-      gender: this.navData.user.gender
-    };
+    if (this.editMode) {
+      this.postData = this.navParams.data.preStory;
+    } else {
+      const {profile, reportCount, report, ...other} = this.navData.user;
+      this.postData.user = {uid: this.navData.uid, ...other};
+    }
     if (this.postData.category !== null) { this.setHarassmentsFromName(this.postData.category); }
   }
 

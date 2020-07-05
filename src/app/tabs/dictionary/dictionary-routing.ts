@@ -11,17 +11,17 @@ const routes: Routes = [
     component:  DictionaryPage
   },
   {
-    path: 'harassment/:harassmentId',
-    component: HarassmentPage,
+    path: 'description/:descriptionId',
+    component: DescriptionPage,
   },
   {
     path: 'organization/:organizationId',
     component: OrganizationPage,
   },
   {
-    path: 'description/:descriptionId',
-    component: DescriptionPage,
-  }
+    path: 'harassment/:harassmentId',
+    component: HarassmentPage,
+  },
 ];
 
 @NgModule({

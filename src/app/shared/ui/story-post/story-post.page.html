@@ -26,6 +26,10 @@
         <ion-input type="text" [value]="postData.user.gender" disabled></ion-input>
       </ion-item>
       <ion-item>
+        <ion-label>年齢</ion-label>
+        <ion-input type="text" [value]="postData.user.age" disabled></ion-input>
+      </ion-item>
+      <ion-item>
         <ion-radio-group name="type" [(ngModel)]="postData.type" required>
           <ion-list-header>
             <ion-label>投稿モード</ion-label>
@@ -42,7 +46,7 @@
       </ion-item>
       <ion-item>
         <ion-label>都道府県</ion-label>
-        <ion-select interface="popover" placeholder="未設定" [(ngModel)]="postData.prefecture" name="prefecture" required>
+        <ion-select interface="popover" placeholder="未設定" [(ngModel)]="postData.user.prefecture" name="prefecture" required>
           <ion-select-option *ngFor="let p of prefectures" [value]="p.name">{{p.name}}</ion-select-option>
         </ion-select>
       </ion-item>

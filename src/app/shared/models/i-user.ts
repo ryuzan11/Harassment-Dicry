@@ -17,6 +17,8 @@ export interface User {
   uid: string;
   displayName: string;
   photoDataUrl: string;
+  age: string;
+  prefecture?: string;
   gender: '男性' | '女性' | 'その他' | '無回答';
 }
 

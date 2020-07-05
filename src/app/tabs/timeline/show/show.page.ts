@@ -115,7 +115,7 @@ export class ShowPage implements OnInit, OnDestroy {
 
   postAnswer() {
     this.userService.userInit(this.uid).then(user => {
-      const {profile, ...other} = user;
+      const {profile, reportCount, report, ...other} = user;
       const storeUser: User = {uid: this.uid, ...other};
       this.answerService.addAnswer(this.storyId, storeUser, this.answer, this.story.story);
       this.answer = '';

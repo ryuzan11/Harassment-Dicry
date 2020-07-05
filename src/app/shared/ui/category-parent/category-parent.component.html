@@ -25,7 +25,7 @@
     </ion-nav-link>
 
     <ng-template #notNav>
-        <ion-item (click)="presentToast(list.listId)">
+        <ion-item (click)="presentAlert(list.name, list.listId)">
           <ion-label>
             {{list.name}}
           </ion-label>

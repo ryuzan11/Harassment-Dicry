@@ -9,7 +9,9 @@ import { ListService } from '../../api/list.service';
 })
 export class ActionListPage implements OnInit {
   uid: string;
-  type: 'public' | 'private' = 'private';
+  listId: string;
+  type: 'private' = 'private';
+  typeAdd: boolean;
   name: '';
 
   constructor(
@@ -20,15 +22,31 @@ export class ActionListPage implements OnInit {
 
   ngOnInit() {
     this.uid = this.navParams.data.uid;
+    this.listId = this.navParams.data.listId;
+    this.typeAdd = this.navParams.data.modalType === 'add' ? true : false;
+    if (!this.typeAdd) { this.name = this.navParams.data.listName; }
   }
 
   modalDismiss(): void {
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss(this.name);
   }
 
-  actionList(name: string, type: 'public' | 'private') {
-    this.listService.addList(this.uid, name, type);
-    this.modalDismiss();
+  createList() {
+    this.listService.addList(this.uid, this.name, this.type).then(() => {
+      this.modalDismiss();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  }
+
+  editList() {
+    this.listService.setList(this.uid, this.name, this.listId).then(() => {
+      this.modalDismiss();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   }
 
 }

@@ -102,7 +102,7 @@ export class TimelinePage implements OnInit, OnDestroy {
       actionBtns.push({
         text: l.name,
         handler: () => {
-          this.listService.setList(this.uid, storyId, l.listId);
+          this.listService.updateList(this.uid, storyId, l.listId);
           this.storyService.upCount(storyId);
           this.actionDismiss();
         }

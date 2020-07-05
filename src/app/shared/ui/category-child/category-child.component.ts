@@ -18,6 +18,7 @@ export class CategoryChildComponent implements OnInit {
   uid: string;
   listId: string;
   type: string;
+  name: string;
   datas: {
     id: string | undefined;
     name?: string;
@@ -44,6 +45,7 @@ export class CategoryChildComponent implements OnInit {
 
   ngOnInit() {
     this.uid = this.userService.uid;
+    this.name = this.navParams.data.name;
     if (this.navParams.data.name === 'ハラスメントとは？') {
       this.type = 'ハラスメントとは？';
     } else if (this.navParams.data.name === '関連団体') {
@@ -85,7 +87,7 @@ export class CategoryChildComponent implements OnInit {
     } else if (this.type === 'ハラスメント') {
       return 'ハラスメント';
     } else if (this.type === 'リスト') {
-      return 'リスト';
+      return this.name;
     }
   }
 
@@ -105,21 +107,21 @@ export class CategoryChildComponent implements OnInit {
     const actionSheet = await this.actionCtrl.create({
       header: 'リスト編集',
       buttons: [{
-        text: '削除する',
+        text: 'リストを削除',
         role: 'destructive',
         handler: () => {
           this.listService.deleteList(this.uid, this.listId, this.listStories);
           this.navCtrl.back();
           this.router.navigateByUrl('/main/list'); // 何故かこれでmain/listでpopみたいなことが行われている
         }
-      }, {
+      },
+      {
         text: 'リスト名を編集',
         handler: () => {
           this.openEditList();
         }
-      }, {
-        text: '公開制限を変更する'
-      }, {
+      },
+      {
         text: 'キャンセル',
         role: 'cancel',
       }]
@@ -135,8 +137,13 @@ export class CategoryChildComponent implements OnInit {
       cssClass: 'action-list-modal',
       componentProps: {
         uid: this.uid,
-        type: 'edit'
+        listName: this.name,
+        listId: this.listId,
+        modalType: 'edit'
       }
+    });
+    modal.onDidDismiss().then((data) => {
+      this.name = data.data;
     });
     await modal.present();
   }

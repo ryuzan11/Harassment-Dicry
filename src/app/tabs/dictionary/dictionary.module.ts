@@ -6,6 +6,8 @@ import { DictionaryPage } from './dictionary.page';
 import { SharedModule } from '../../shared/shared.module';
 import { DictionaryPageRoutingModule } from './dictionary-routing';
 import { HarassmentPage } from './harassment/harassment.page';
+import { OrganizationPage } from './organization/organization.page';
+import { DescriptionPage } from './description/description.page';
 
 @NgModule({
   imports: [
@@ -17,6 +19,8 @@ import { HarassmentPage } from './harassment/harassment.page';
   ],
   declarations: [
     DictionaryPage,
+    DescriptionPage,
+    OrganizationPage,
     HarassmentPage
   ]
 })
