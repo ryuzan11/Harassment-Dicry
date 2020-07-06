@@ -14,14 +14,6 @@ const routes: Routes = [
     resolve: {
       show: UserShowResolver
     }
-  },
-  {
-    path: 'term',
-    loadChildren: () => import('./term/term.module').then( m => m.TermPageModule)
-  },
-  {
-    path: 'policy',
-    loadChildren: () => import('./policy/policy.module').then( m => m.PolicyPageModule)
   }
 ];
 

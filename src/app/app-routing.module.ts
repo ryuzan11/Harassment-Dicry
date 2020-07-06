@@ -9,9 +9,7 @@ const redirectLoggedIn = () => redirectLoggedInTo(['/main/timeline']);
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./lp/lp.module').then(m => m.LpPageModule),
-    canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectLoggedIn }
+    loadChildren: () => import('./lp/lp.module').then(m => m.LpPageModule)
   },
   {
     path: 'auth',

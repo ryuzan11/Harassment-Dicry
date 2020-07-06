@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { LpPageRoutingModule } from './lp-routing.module';
 
 import { LpPage } from './lp.page';
+import { PolicyPage } from './policy/policy.page';
+import { TermPage } from './term/term.page';
 
 @NgModule({
   imports: [
@@ -15,6 +17,10 @@ import { LpPage } from './lp.page';
     IonicModule,
     LpPageRoutingModule
   ],
-  declarations: [LpPage]
+  declarations: [
+    LpPage,
+    PolicyPage,
+    TermPage
+  ]
 })
 export class LpPageModule {}
