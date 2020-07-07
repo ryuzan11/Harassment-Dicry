@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { NavParams, ModalController, AlertController, IonSelect } from '@ionic/angular';
 import { StoryService } from '../../api/story.service';
 import { PrefecturesService } from '../../service/prefectures.service';
 import { CategoriesService } from '../../service/categories.service';
@@ -11,7 +11,7 @@ import { HarassmentsService } from '../../service/harassments.service';
   templateUrl: './story-post.page.html',
   styleUrls: ['./story-post.page.scss'],
 })
-export class StoryPostPage implements OnInit {
+export class StoryPostPage implements OnInit, AfterViewInit {
   harassments: string[];
   navData: {[key: string]: any};
   editMode: boolean;
@@ -33,6 +33,9 @@ export class StoryPostPage implements OnInit {
     }
   };
 
+  // @ViewChild('ionSelect', {read: IonSelect, static: false})
+  // private ionSelect?: IonSelect;
+
   get prefectures() {
     return this.prefecturesService.prefectures;
   }
@@ -43,11 +46,13 @@ export class StoryPostPage implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
+    private alertCtrl: AlertController,
     private navParams: NavParams,
     public storyService: StoryService,
     public categoriesService: CategoriesService,
     public harassmentsService: HarassmentsService,
-    public prefecturesService: PrefecturesService
+    public prefecturesService: PrefecturesService,
+    // private el: ElementRef
   ) { }
 
   ngOnInit() {
@@ -61,6 +66,12 @@ export class StoryPostPage implements OnInit {
     }
     if (this.postData.category !== null) { this.setHarassmentsFromName(this.postData.category); }
   }
+
+  // ngAfterView() {
+  //   if (this.el.nativeElement.querySelector('.custom-options')) {
+  //     this.ionSelect.interfaceOptions = {cssClass: 'my-custom-interface'};
+  //   }
+  // }
 
   setHarassmentsFromName(name: string) {
     this.harassments = this.harassmentsService.getHarassmentsFromCategoryName(name);
@@ -82,6 +93,21 @@ export class StoryPostPage implements OnInit {
     const sid = this.navParams.data.storyId;
     this.editMode ? this.storyService.updateStory(this.postData, sid) : this.storyService.addStory(this.postData);
     this.modalCtrl.dismiss();
+  }
+
+  async openAlertHarassments() {
+    if (this.harassments) { return; }
+    const alert = await this.alertCtrl.create({
+      // header: '所在地について',
+      message: 'カテゴリーを選択してください。',
+      buttons: [
+        {
+          text: '閉じる',
+          role: 'cancel'
+        }
+      ]
+    });
+    await alert.present();
   }
 
 }

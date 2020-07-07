@@ -32,8 +32,8 @@ export class ProfilePage implements OnInit {
   }
 
   constructor(
-    public modalController: ModalController,
-    public alertController: AlertController,
+    public modalCtrl: ModalController,
+    public alertCtrl: AlertController,
     public auth: AuthService,
     private userService: UserService,
     public prefecturesService: PrefecturesService
@@ -43,7 +43,7 @@ export class ProfilePage implements OnInit {
   }
 
   modalDismiss(): void {
-    this.modalController.dismiss();
+    this.modalCtrl.dismiss();
   }
 
   async ionViewWillEnter() {
@@ -60,7 +60,7 @@ export class ProfilePage implements OnInit {
       this.user.photoDataUrl = this.photo;
     }
     await this.userService.userSet(this.user);
-    this.modalController.dismiss();
+    this.modalCtrl.dismiss();
   }
 
   async takePicture(): Promise<void> {
@@ -72,9 +72,15 @@ export class ProfilePage implements OnInit {
   }
 
   async openPrefectureHelp() {
-    const alert = await this.alertController.create({
+    const alert = await this.alertCtrl.create({
       header: '所在地について',
       message: '投稿する際に必要な「発生場所」項目にこれが初期設定として自動で入力されます',
+      buttons: [
+        {
+          text: '閉じる',
+          role: 'cancel'
+        }
+      ]
     });
     await alert.present();
   }
