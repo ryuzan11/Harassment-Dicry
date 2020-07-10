@@ -39,9 +39,9 @@ export class QuestionComponent implements OnInit {
 
   async presentAnswer(answer: string) {
     const headerMessage = (answer === this.quiz.correct) ? '正解' : '残念';
-    let alertCtl: HTMLIonAlertElement;
+    let alertCtrl: HTMLIonAlertElement;
     if (this.index !== (this.idsCount - 1)) {
-      alertCtl = await this.alertCtrl.create({
+      alertCtrl = await this.alertCtrl.create({
         header: headerMessage,
         message: this.quiz.description,
         backdropDismiss: false,
@@ -60,7 +60,7 @@ export class QuestionComponent implements OnInit {
         ]
       });
     } else if (this.index === (this.idsCount - 1)) {
-      alertCtl = await this.alertCtrl.create({
+      alertCtrl = await this.alertCtrl.create({
         header: headerMessage,
         message: this.quiz.description,
         backdropDismiss: false,
@@ -79,7 +79,7 @@ export class QuestionComponent implements OnInit {
         ]
       });
     }
-    await alertCtl.present();
+    await alertCtrl.present();
   }
 
   nextQuiz() {

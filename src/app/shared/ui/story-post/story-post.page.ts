@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NavParams, ModalController, AlertController, IonSelect } from '@ionic/angular';
 import { StoryService } from '../../api/story.service';
 import { PrefecturesService } from '../../service/prefectures.service';
@@ -11,7 +11,7 @@ import { HarassmentsService } from '../../service/harassments.service';
   templateUrl: './story-post.page.html',
   styleUrls: ['./story-post.page.scss'],
 })
-export class StoryPostPage implements OnInit, AfterViewInit {
+export class StoryPostPage implements OnInit {
   harassments: string[];
   navData: {[key: string]: any};
   editMode: boolean;

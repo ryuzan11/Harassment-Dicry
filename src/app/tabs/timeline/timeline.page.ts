@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { ModalController, IonContent, AlertController, ToastController, ActionSheetController, LoadingController } from '@ionic/angular';
+import { ModalController, IonContent, AlertController, ToastController, ActionSheetController, LoadingController, IonInfiniteScroll } from '@ionic/angular';
 import { UserService } from '../../shared/api/user.service';
 import { StoryService } from '../../shared/api/story.service';
 import { ProfilePage } from 'src/app/shared/ui/profile/profile.page';
@@ -8,10 +8,12 @@ import { Story } from '../../shared/models/story';
 import { StoryPostPage } from 'src/app/shared/ui/story-post/story-post.page';
 import { Router } from '@angular/router';
 import { ListService } from 'src/app/shared/api/list.service';
+import { TimelineService } from './timeline.service';
 import { List } from 'src/app/shared/models/list';
 import { ListStory } from 'src/app/shared/models/list-story';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { ReportModalPage } from 'src/app/shared/ui/report-modal/report-modal.page';
+import { filter, take } from 'rxjs/operators';
 
 
 @Component({
@@ -23,15 +25,21 @@ export class TimelinePage implements OnInit, OnDestroy {
   uid: string;
   user: IUser;
   lists: List[] = [];
+  stories$: Observable<Story[]>;
   stories: Story[];
+  storyCount = 0;
   storyIds: string[] = [];
   page = false;
   segment = '一覧';
   categories = ['一覧', '上下関係', '性・恋愛', '身体', '心'];
+  private lastPageReachedSub: Subscription;
   private subscriptions = new Subscription();
 
   @ViewChild(IonContent, {static: true})
   content: IonContent;
+
+  @ViewChild(IonInfiniteScroll, {static: false})
+  infiniteScroll: IonInfiniteScroll;
 
   constructor(
     private modalCtrl: ModalController,
@@ -42,6 +50,7 @@ export class TimelinePage implements OnInit, OnDestroy {
     private storyService: StoryService,
     private userService: UserService,
     private listService: ListService,
+    private timelineService: TimelineService,
     public router: Router
   ) {}
 
@@ -60,10 +69,47 @@ export class TimelinePage implements OnInit, OnDestroy {
       this.listService.getLists(this.uid).subscribe(data => {
         this.lists = data;
     }));
-    this.subscriptions.add(this.storyService.initStory().subscribe(data => {
-        this.stories = data;
-        this.page = true;
-    }));
+
+    this.stories$ = this.timelineService.watchStories();
+    this.lastPageReachedSub = this.timelineService.watchLaxtPageReached().subscribe((reached: boolean) => {
+      if ((reached && this.infiniteScroll)) {
+        this.infiniteScroll.disabled = true;
+      }
+    });
+    this.timelineService.watchStories().pipe(filter(f => !f), take(1)).subscribe((_stories: Story[]) => {
+      this.timelineService.find();
+      this.page = true;
+    });
+  }
+
+  loadData(event: any) {
+    setTimeout(async () => {
+      this.timelineService.find();
+      this.stories$.subscribe(data => {
+        if (data.length >= 8 ) {
+          this.storyCount = data.length;
+          // this.infiniteScroll.disabled = true;
+        }
+      });
+      event.target.complete();
+    }, 500);
+  }
+
+  async alertThirty(event: any) {
+    const alert = await this.alertCtrl.create({
+      header: '',
+      message: '課金してください',
+      buttons: [
+        {
+          text: 'キャンセル',
+          role: 'cansel',
+          handler: () => {
+            event.target.complete();
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   // async ionViewWillEnter() {
@@ -72,6 +118,9 @@ export class TimelinePage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    if (this.lastPageReachedSub) {
+      this.lastPageReachedSub.unsubscribe();
+    }
   }
 
   setPassInfo(story: Story) {

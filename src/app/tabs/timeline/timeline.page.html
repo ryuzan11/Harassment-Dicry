@@ -17,7 +17,7 @@
 
 <ion-content *ngIf="page; else loading">
   <ion-list class="ion-padding-top">
-    <ng-container *ngFor="let s of stories; trackBy: trackByFn">
+    <ng-container *ngFor="let s of (stories$ | async); trackBy: trackByFn">
       <ion-item button *ngIf="segment==='一覧' || segment===s.category" lines="none" (click)="setPassInfo(s)" [routerLink]="s.storyId" routerDirection="forward">
         <ion-avatar slot="start">
           <ion-img [src]="s.user.photoDataUrl"></ion-img>
@@ -48,6 +48,23 @@
       </ion-item>
     </ng-container>
   </ion-list>
+
+  <ng-container *ngIf="storyCount < 8; else overThirty">
+    <ion-infinite-scroll (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-container>
+  <ng-template #overThirty>
+    <ion-infinite-scroll (ionInfinite)="alertThirty($event)">
+      <ion-infinite-scroll-content 
+        loadingSpinner="undefined">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-template>
+  
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="openStoryPost()">

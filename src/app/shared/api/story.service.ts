@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { Story, BestAnswer } from '../models/story';
@@ -27,6 +27,21 @@ export class StoryService {
     private functions: AngularFireFunctions
   ) {
     this.storyCollection = this.af.collection<Story>('story', ref => ref.where('state', '==', 'public').orderBy('created_at', 'desc'));
+  }
+
+  getCollectionQuery(nextQueryAfter: QueryDocumentSnapshot<Story>): AngularFirestoreCollection<Story> {
+    if (nextQueryAfter) {
+      return this.af.collection<Story>('story', ref =>
+        ref.where('state', '==', 'public')
+          .orderBy('created_at', 'desc')
+          .startAfter(nextQueryAfter)
+          .limit(4));
+    } else {
+      return this.af.collection<Story>('story', ref =>
+      ref.where('state', '==', 'public')
+        .orderBy('created_at', 'desc')
+        .limit(4));
+    }
   }
 
   initStory(): Observable<Story[]> {
