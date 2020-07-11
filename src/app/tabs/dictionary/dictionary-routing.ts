@@ -11,7 +11,7 @@ const routes: Routes = [
     component:  DictionaryPage
   },
   {
-    path: 'description/:descriptionId',
+    path: 'description',
     component: DescriptionPage,
   },
   {

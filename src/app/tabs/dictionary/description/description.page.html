@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-item button>
-    {{description.title}}
+  <ion-item *ngFor="let d of descriptionService.descriptions">
+    {{d.title}}
   </ion-item>
 </ion-content>

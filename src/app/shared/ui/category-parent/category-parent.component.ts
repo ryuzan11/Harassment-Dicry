@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController, AlertController } from '@ionic/angular';
+import { NavParams, ModalController, AlertController, NavController } from '@ionic/angular';
 import { CategoryChildComponent } from '../category-child/category-child.component';
 import { ActionListPage } from '../action-list/action-list.page';
 import { ListStory } from '../../models/list-story';
@@ -22,7 +22,8 @@ export class CategoryParentComponent implements OnInit {
     private userService: UserService,
     private listService: ListService,
     private modalCtrl: ModalController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private navCtrl: NavController
     ) { }
 
   ngOnInit() {
@@ -65,6 +66,20 @@ export class CategoryParentComponent implements OnInit {
       ]
     });
     alert.present();
+  }
+
+  listSwitch(list: any): string {
+    if (list.name === 'ハラスメントとは？') {
+      return 'description';
+    } else if (this.storyCount(list.children) === undefined) {
+      return 'noList';
+    } else {
+      return 'normal';
+    }
+  }
+
+  navigateShow() {
+    this.navCtrl.navigateForward('/main/dictionary/description');
   }
 
 }

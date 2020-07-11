@@ -48,14 +48,14 @@ export class TimelineService {
       this.unsubscribe();
       this.pagenationSub = collection.get().subscribe(async (first) => {
         this.nextQueryAfter = first.docs[first.docs.length - 1] as QueryDocumentSnapshot<Story>;
-        await this.query(collection);
+        await this.storyQuery(collection);
       });
     } catch (err) {
       console.error(err);
     }
   }
 
-  private query(collection: AngularFirestoreCollection<Story>): Promise<void> {
+  private storyQuery(collection: AngularFirestoreCollection<Story>): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       try {
         this.findSub = collection
@@ -66,7 +66,7 @@ export class TimelineService {
               return (a as Story & {storyId: string});
               // return a.payload.doc.data();
             });
-          })).subscribe(async (stories: Story[]) => {
+          })).subscribe(async (stories: (Story & {storyId: string} )[]) => {
             await this.addStories(stories);
             resolve();
           });
@@ -76,7 +76,7 @@ export class TimelineService {
     });
   }
 
-  private addStories(stories: Story[]): Promise<void> {
+  private addStories(stories: (Story & {storyId: string} )[]): Promise<void> {
     return new Promise<void>((resolve) => {
       if (!stories || stories.length <= 0) {
         this.lastPageReached.next(true);
@@ -85,9 +85,11 @@ export class TimelineService {
       }
 
       this.storiesSubject.asObservable()
-        .pipe(take(1)).subscribe((currentStories: Story[]) => {
-          this.storiesSubject.next(currentStories !== undefined ?
-            [...currentStories, ...stories] : [...stories]);
+        .pipe(take(1)).subscribe((currentStories: (Story & {storyId: string} )[]) => {
+          if (!(currentStories && currentStories[5] && currentStories[5].storyId === stories[0].storyId)) {
+            this.storiesSubject.next(currentStories !== undefined ?
+              [...currentStories, ...stories] : [...stories]);
+          }
           resolve();
         });
     });

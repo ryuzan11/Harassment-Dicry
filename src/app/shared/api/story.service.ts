@@ -35,12 +35,12 @@ export class StoryService {
         ref.where('state', '==', 'public')
           .orderBy('created_at', 'desc')
           .startAfter(nextQueryAfter)
-          .limit(4));
+          .limit(5));
     } else {
       return this.af.collection<Story>('story', ref =>
       ref.where('state', '==', 'public')
         .orderBy('created_at', 'desc')
-        .limit(4));
+        .limit(5));
     }
   }
 

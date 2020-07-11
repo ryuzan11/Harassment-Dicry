@@ -82,11 +82,22 @@ export class TimelinePage implements OnInit, OnDestroy {
     });
   }
 
+    // async ionViewWillEnter() {
+  //   this.user = await this.userService.userInit(this.uid);
+  // }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+    if (this.lastPageReachedSub) {
+      this.lastPageReachedSub.unsubscribe();
+    }
+  }
+
   loadData(event: any) {
     setTimeout(async () => {
       this.timelineService.find();
       this.stories$.subscribe(data => {
-        if (data.length >= 8 ) {
+        if (data.length >= 10 ) {
           this.storyCount = data.length;
         }
       });
@@ -109,17 +120,6 @@ export class TimelinePage implements OnInit, OnDestroy {
       ]
     });
     await alert.present();
-  }
-
-  // async ionViewWillEnter() {
-  //   this.user = await this.userService.userInit(this.uid);
-  // }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-    if (this.lastPageReachedSub) {
-      this.lastPageReachedSub.unsubscribe();
-    }
   }
 
   setPassInfo(story: Story) {
