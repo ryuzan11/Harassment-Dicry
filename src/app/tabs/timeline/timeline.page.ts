@@ -88,7 +88,6 @@ export class TimelinePage implements OnInit, OnDestroy {
       this.stories$.subscribe(data => {
         if (data.length >= 8 ) {
           this.storyCount = data.length;
-          // this.infiniteScroll.disabled = true;
         }
       });
       event.target.complete();
