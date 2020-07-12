@@ -3,12 +3,114 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>説明</ion-title>
+    <ion-title>ハラスメントとは？</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item *ngFor="let d of descriptionService.descriptions">
-    {{d.title}}
-  </ion-item>
+  <div class="main">
+    <div class="inner">
+      <section>
+        <dl>
+          <dt><h2>定義</h2></dt>
+          <dd>
+            <p>ハラスメント（Harassment）は、動詞Harassの名詞で「悩ますこと、いやがらせ、悩み(のたね)」という意味があります。日本では、相手の意に反する行為によって相手に不快な感情を抱かせる嫌がらせで、行為者がどう思っているかは関係なく、相手が不快な感情を抱けばハラスメントになります。</p>
+            <div>
+              <p>（※日本の人事部<a href="https://jinjibu.jp/keyword/detl/1035/">https://jinjibu.jp/keyword/detl/1035/</a>）</p>
+            </div>
+          </dd>
+        </dl>
+      </section>
+      <section>
+        <dl>
+          <dt><h2>歴史</h2></dt>
+          <dd *ngFor="let h of descriptionsService.histories">
+              <h4>{{h.ad}}</h4>
+              <ul>
+                <li *ngFor="let e of h.event">{{e}}</li>
+              </ul>
+          </dd>
+        </dl>
+      </section>
+      <section>
+        <dl>
+          <dt><h2>法律</h2></dt>
+          <dd>
+            <table border="1">
+              <ng-container *ngFor="let l of descriptionsService.lows">
+                <tr *ngFor="let title of object.keys(l.details); index as i">
+                  <th class="low-abb" *ngIf="i===0" rowspan="4">{{l.abb}}</th>
+                  <td class="low-title">{{title}}</td>
+                  <td class="low-content">{{l.details[title]}}</td>
+                </tr>
+              </ng-container>
+            </table>
+          </dd>
+        </dl>
+      </section>
+      <section>
+        <dl>
+          <dt><h2>実態</h2></dt>
+          <dd>
+            <p>厚生労働省の公表によると、総合労働相談件数は11年連続で100万件を超え、ハラスメントは現代の日本社会でも大きな社会問題になっています。</p>
+            <figure>
+              <img [src]="imagePath + 'consul_num.png'" alt="個別労働紛争解決制度の施行状況_相談件数の遷移">
+              <figcaption>
+                「平成30年度個別労働紛争解決制度の施行状況」（厚生労働省）
+                <a href="https://www.mhlw.go.jp/stf/houdou/0000213219_00001.html">https://www.mhlw.go.jp/stf/houdou/0000213219_00001.html</a>
+              </figcaption>
+            </figure>
+
+            <p>その中でも、民事上の個別労働紛争相談件数における「いじめ・嫌がらせ」「自己都合退職」の相談件数は、10年前に比べて大きく増加しています。</p>
+            <figure>
+              <img [src]="imagePath + 'consul_content.png'" alt="個別労働紛争解決制度の施行状況_民事上の個別労働紛争｜主な相談内容別の件数推移（10年間）">
+              <figcaption>
+                「平成30年度個別労働紛争解決制度の施行状況」（厚生労働省）
+                <a href="https://www.mhlw.go.jp/stf/houdou/0000213219_00001.html">https://www.mhlw.go.jp/stf/houdou/0000213219_00001.html</a>
+              </figcaption>
+            </figure>
+
+            <p>一方で、「平成28年度　職場のパワーハラスメントに関する実態調査報告書」によると、企業調査の「パワーハラスメントの予防・解決のための取組の実施状況」と従業員調査の「勤務先のパワーハラスメントの予防・解決のための取組の実施状況」は、平成24年度に比べて増加していますが、「勤務先のパワーハラスメントの予防・解決のための取組の実施状況」の「ほとんど取り組んでいない」と「全く取り組んでいない」の回答比率は過半数を超えています。</p>
+            <figure>
+              <img [src]="imagePath + 'company_status.png'" alt="パワーハラスメントの予防・解決のための取組の実施状況">
+              <figcaption>
+                「平成28年度　厚生労働省委託事業　職場のパワーハラスメントに関する実態調査報告書」（厚生労働省）
+                <a href="https://www.mhlw.go.jp/file/06-Seisakujouhou-11200000-Roudoukijunkyoku/0000165751.pdf">https://www.mhlw.go.jp/file/06-Seisakujouhou-11200000-Roudoukijunkyoku/0000165751.pdf</a>
+              </figcaption>
+            </figure>
+            <figure>
+              <img [src]="imagePath + 'to_company_status.png'" alt="勤務先のパワーハラスメントの予防・解決のための取組の実施状況（従業員規模別）">
+              <figcaption>
+                「平成28年度　厚生労働省委託事業　職場のパワーハラスメントに関する実態調査報告書」（厚生労働省）
+                <a href="https://www.mhlw.go.jp/file/06-Seisakujouhou-11200000-Roudoukijunkyoku/0000165751.pdf">https://www.mhlw.go.jp/file/06-Seisakujouhou-11200000-Roudoukijunkyoku/0000165751.pdf</a>
+              </figcaption>
+            </figure>
+
+            <p>また、「仕事の世界におけるハラスメントに関する実態調査2019」では、職場でハラスメントを受けたことがある人の半数近くが「誰にも相談しなかった」と回答し、その回答の理由のうち過半数以上が「相談しても無駄だと思ったから」という調査結果も出ています。</p>
+            <figure>
+              <img [src]="imagePath + 'adviser.png'" alt="職場でハラスメントを受けたときに相談した相手">
+              <figcaption>
+                「仕事の世界におけるハラスメントに関する実態調査2019」（日本労働組合総連合会）
+                <a href="https://www.jtuc-rengo.or.jp/info/chousa/data/20190528.pdf">https://www.jtuc-rengo.or.jp/info/chousa/data/20190528.pdf</a>
+              </figcaption>
+            </figure>
+
+            <p>では、海外のハラスメント事情や世界から見た日本はどうなのでしょうか。</p>
+            <p>日本で初めてハラスメントに関する法律が規定されたのは1997年ですが、ヨーロッパでは1990年初期からハラスメントに関する法律が規定され始めました。</p>
+            <p>最新の「世界ジェンダー・ギャップ報告書（Global Gender Gap Report）2020」では、日本は121位となっており、G7の中で最下位となっています。</p>
+            <p>そして、2017年には#MeToo運動が世界中に広がり、2019年には国際労働機関（ILO）で「職場での暴力やハラスメントを全面的に禁止する」初の国際条約が採択されました。</p>
+            <p>ハラスメントに関する法制度面の取り組みは欧州諸国が進んでいるが、その他の国ではまだまだ進んでいるとは言えず、ここ数年でようやく世界的にハラスメントの取り組みが進められるようになってきたと考えられます。</p>
+            <div>
+              <p>（※Global Gender Gap Report 2020 | 世界経済フォーラム<a href="https://jp.weforum.org/reports/gender-gap-2020-report-100-years-pay-equality">https://jp.weforum.org/reports/gender-gap-2020-report-100-years-pay-equality</a>）</p>
+            </div>
+            <div>
+              <p>（※ハラスメント禁止条約、初の国際ルール、ILO総会　（写真=AP）　:日本経済新聞<a href="https://www.nikkei.com/article/DGXMZO46361440Q9A620C1EA1000/">https://www.nikkei.com/article/DGXMZO46361440Q9A620C1EA1000/</a>）</p>
+            </div>
+
+            <p>2020年6月には日本で「パワハラ防止法」が施行され、日本でもこれからさらにハラスメントに関する取り組みが進められるでしょう。</p>
+          </dd>
+        </dl>
+      </section>
+    </div>
+  </div>
 </ion-content>

@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Description } from '../models/description';
-import { DESCRIPTIONS } from '../default-data/default-descriptions';
+import { History, Low } from '../models/description';
+import { HISTORY, LOW } from '../default-data/default-descriptions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DescriptionsService {
-  get descriptions(): Description[] {
-    return DESCRIPTIONS;
+  get histories(): History[] {
+    return HISTORY;
   }
 
-  getDescription(id: string): Description {
-    return this.descriptions.find(ele => ele.id === id);
+  get lows(): Low[] {
+    return LOW;
   }
+
+  // getDescription(id: string): Description {
+  //   return this.descriptions.find(ele => ele.id === id);
+  // }
 }

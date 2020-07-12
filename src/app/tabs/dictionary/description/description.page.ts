@@ -8,9 +8,11 @@ import { DescriptionsService } from 'src/app/shared/service/descriptions.service
   styleUrls: ['./description.page.scss'],
 })
 export class DescriptionPage implements OnInit {
+  object = Object;
+  imagePath = '../../../../assets/images/';
 
   constructor(
-    private descriptionService: DescriptionsService
+    public descriptionsService: DescriptionsService
   ) { }
 
   ngOnInit() {
