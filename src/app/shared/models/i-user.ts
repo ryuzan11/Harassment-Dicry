@@ -11,6 +11,7 @@ export interface IUser {
   report: Report[];
   reportCount: number;
   updated_at?: firebase.firestore.FieldValue;
+  userDeletedAt?: firebase.firestore.FieldValue;
 }
 
 export interface User {
@@ -20,6 +21,7 @@ export interface User {
   age: string;
   prefecture?: string;
   gender: '男性' | '女性' | 'その他' | '無回答';
+  userDeletedAt?: firebase.firestore.FieldValue;
 }
 
 export interface Report {

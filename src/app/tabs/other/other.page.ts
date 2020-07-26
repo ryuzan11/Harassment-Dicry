@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController, LoadingController, ToastController } from '@ionic/angular';
+import * as firebase from 'firebase';
 import { Plugins } from '@capacitor/core';
 import { AuthService } from '../../auth/auth.service';
 import { UserService } from '../../shared/api/user.service';
@@ -25,6 +26,9 @@ export class OtherPage implements OnInit, OnDestroy {
 
   constructor(
     private modalCtrl: ModalController,
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController,
     private auth: AuthService,
     private userService: UserService,
     private storyService: StoryService,
@@ -65,6 +69,53 @@ export class OtherPage implements OnInit, OnDestroy {
       backdropDismiss: false
     });
     return await modal.present();
+  }
+
+  async openUserDelete() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...'
+    });
+
+    const alert = await this.alertCtrl.create({
+      header: '本当にアカウントを削除しますか？',
+      message: '投稿した内容がある場合は、ユーザ名を「削除したユーザ」として今後も表示されます。今後、表示させたく場合は、投稿した内容を削除してからアカウントを削除してください。',
+      buttons: [{
+        text: 'キャンセル',
+        role: 'cansel',
+        cssClass: 'secondary'
+      }, {
+        text: '削除する',
+        cssClass: 'danger',
+        handler: async () => {
+          loading.present();
+          this.storyService.addUserDelete(this.userService.uid);
+          this.userService.deleteUser(this.userService.uid).then(() => {
+            // const user = firebase.auth().currentUser;
+            // const credential = firebase.auth.EmailAuthProvider.credential(
+            //     user.email,
+            //     userProvidedPassword
+            // );
+            // user.reauthenticateWithCredential(credential);
+            this.userService.currentUser.delete().then(() => {
+              loading.dismiss().then(() => {
+                this.router.navigateByUrl('/home');
+                this.presentToast('削除しました');
+              });
+            })
+            .catch(err => { console.error(err); });
+          });
+        }
+      }]
+    });
+    await alert.present();
+  }
+
+  async presentToast(text: string) {
+    const toast = await this.toastCtrl.create({
+      message: text,
+      duration: 2000
+    });
+    toast.present();
   }
 
   logOut(): void {

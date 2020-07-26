@@ -59,6 +59,22 @@ export class StoryService {
       .valueChanges({idField: 'storyId'});
   }
 
+  addUserDelete(uid: string) {
+    this.af.collection<Story>('story', ref => ref.where('user.uid', '==', uid)).get().subscribe(snapshot => {
+      snapshot.docs.forEach(async res => {
+        await res.ref.update({userDeletedAt: firebase.firestore.FieldValue.serverTimestamp()});
+      });
+    }, err => {
+      console.error(err);
+    }, () => {
+      this.af.collectionGroup('answers', ref => ref.where('user.uid', '==', uid)).get().subscribe(snapshot => {
+        snapshot.docs.forEach(async res => {
+          await res.ref.update({userDeletedAt: firebase.firestore.FieldValue.serverTimestamp()});
+        });
+      }, err => { console.error(err); });
+    });
+  }
+
   addStory(story: Story) {
     // story.deadline = new Date().setDate(new Date().getDate() + 7);
     story.deadline = new Date().setMinutes(new Date().getMinutes() + 5);

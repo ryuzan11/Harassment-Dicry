@@ -4,13 +4,14 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { first } from 'rxjs/operators';
 import { IUser, User, Report } from '../models/i-user';
-
+import { AngularFireFunctions } from '@angular/fire/functions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   _uid: string;
+  _currentUser: firebase.User;
   _user: IUser;
   _reports: Report[];
   _passUser: User;
@@ -21,6 +22,13 @@ export class UserService {
   }
   set uid(userId: string) {
     this._uid = userId;
+  }
+
+  get currentUser(): firebase.User {
+    return this._currentUser;
+  }
+  set currentUser(currentUser: firebase.User) {
+    this._currentUser = currentUser;
   }
 
   get user(): IUser {
@@ -40,15 +48,19 @@ export class UserService {
     this._reports.push(report);
   }
 
-  constructor(public af: AngularFirestore) {
-    this.uid = this.getUserId();
+  constructor(
+    private af: AngularFirestore,
+    private functions: AngularFireFunctions
+  ) {
+    this.currentUser = this.getCurrentUser();
+    this.uid = this.getCurrentUser().uid;
     this.userInit(this.uid).then(user => {
       this.user = user;
     });
   }
 
-  getUserId() {
-    return firebase.auth().currentUser.uid;
+  getCurrentUser(): firebase.User {
+    return firebase.auth().currentUser;
   }
 
   userInit(uid: string): Promise<IUser> {
@@ -96,5 +108,10 @@ export class UserService {
       reportCount: firebase.firestore.FieldValue.increment(1),
       updated_at: firebase.firestore.FieldValue.serverTimestamp()
     });
+  }
+
+  async deleteUser(id: string): Promise<any> {
+    const deleteFn = this.functions.httpsCallable('recursiveDelete');
+    return await deleteFn({ path: 'users/' + id }).toPromise(Promise);
   }
 }

@@ -57,14 +57,14 @@ export class TimelinePage implements OnInit, OnDestroy {
   async ngOnInit() {
     this.uid = this.userService.uid;
     this.user = await this.userService.userInit(this.uid);
-    this.userService.reports = this.user.report;
-    // if (!this.iUser) {
-    //   const modal = await this.modalCtrl.create({
-    //     component: ProfilePage
-    //   });
-    //   await modal.present();
-    //   modal.onDidDismiss().then(()  => this.ionViewWillEnter());
-    // }
+    if (!this.user) {
+      const modal = await this.modalCtrl.create({
+        component: ProfilePage
+      });
+      await modal.present();
+      modal.onDidDismiss().then(()  => this.ionViewWillEnter());
+    }
+    this.userService.reports = (this.user && this.user.report) ? this.user.report : null;
     this.subscriptions.add(
       this.listService.getLists(this.uid).subscribe(data => {
         this.lists = data;
@@ -82,9 +82,9 @@ export class TimelinePage implements OnInit, OnDestroy {
     });
   }
 
-    // async ionViewWillEnter() {
-  //   this.user = await this.userService.userInit(this.uid);
-  // }
+  async ionViewWillEnter() {
+    this.user = await this.userService.userInit(this.uid);
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
@@ -173,7 +173,32 @@ export class TimelinePage implements OnInit, OnDestroy {
     this.storyService.downCount(storyId);
   }
 
+  async alertProfile() {
+    const alert = await this.alertCtrl.create({
+      message: 'プロフィールの登録が必要です。',
+      buttons: [{
+        text: 'キャンセル',
+        role: 'cancel',
+        cssClass: 'secondary'
+      }, {
+        text: 'プロフィール登録画面',
+        handler: async () => {
+          const profileModal = await this.modalCtrl.create({
+            component: ProfilePage
+          });
+          await profileModal.present();
+          profileModal.onDidDismiss().then(()  => this.ionViewWillEnter());
+        }
+      }]
+    });
+    await alert.present();
+  }
+
   async openStoryPost() {
+    if (!this.user) {
+      this.alertProfile();
+      return;
+    }
     const modal = await this.modalCtrl.create({
       component: StoryPostPage,
       backdropDismiss: false,

@@ -34,6 +34,6 @@
   <ion-item button>アカウント設定</ion-item>
   <ion-item button routerLink="/home/term">利用規約</ion-item>
   <ion-item button routerLink="/home/policy">プライバシーポリシー</ion-item>
-  <ion-item button>退会手続き</ion-item>
+  <ion-item button (click)="openUserDelete()">退会手続き</ion-item>
   <ion-item button (click)="logOut()"><ion-icon name="log-out" slot="start"></ion-icon><ion-label>ログアウト</ion-label></ion-item>
 </ng-template>
